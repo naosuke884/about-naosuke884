@@ -25,6 +25,9 @@
 		"vite": "^7"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.9"
+		"@astrojs/check": "^0.9.8",
+		"@biomejs/biome": "^2.4.9",
+		"lefthook": "^2.1.4",
+		"typescript": "^5.9.3"
 	}
 }

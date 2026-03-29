@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: biome check
+      run: npx biome check .
+
+    - name: astro check
+      run: npx astro check

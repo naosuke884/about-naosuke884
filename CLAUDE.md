@@ -25,3 +25,8 @@ about-me — 自己紹介サイト。
 - **フレームワーク**: Astro 6
 - **デプロイ先**: Cloudflare Pages（@astrojs/cloudflare）
 - **言語**: TypeScript
+
+## コード方針
+
+- コンポーネントは複数箇所で再利用する必要が出てから `src/components/` に切り出す。それまではページ内にコロケーションして可読性を優先する
+- `src/styles/` には `global.css` のみ置く。スタイリングはTailwindのユーティリティクラスとAstroのスコープド `<style>` で完結させる
