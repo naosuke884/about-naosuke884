@@ -23,3 +23,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .wrangler/
+
+# local docs
+docs/notes/
+
+# claude commands
+.claude/commands/
