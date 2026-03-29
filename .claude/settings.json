@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/scripts/dev-server.sh",
+            "timeout": 10,
+            "statusMessage": "Starting Astro dev server in background..."
+          }
+        ]
+      }
+    ]
+  }
+}
