@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+@theme {
+	--color-accent: light-dark(#486289, #89aed0);
+	--color-base: light-dark(#f8f7f4, #151520);
+	--color-on-base: light-dark(#2d2d2d, #ededf0);
+}
+
+html {
+	color-scheme: light dark;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: var(--color-base);
+	color: var(--color-on-base);
+}
