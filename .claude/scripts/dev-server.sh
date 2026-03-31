@@ -1,5 +1,7 @@
 #!/bin/bash
 # Start Astro dev server in background and log output
+# NOTE: npm run build を実行するとdevサーバーが停止する。
+#       ビルド後は必ずこのスクリプトを再実行してdevサーバーを起動すること。
 LOG_FILE="/tmp/astro-dev-server.log"
 PID_FILE="/tmp/astro-dev-server.pid"
 

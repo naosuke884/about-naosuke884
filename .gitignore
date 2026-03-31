@@ -24,8 +24,5 @@ pnpm-debug.log*
 .idea/
 .wrangler/
 
-# local docs
-docs/notes/
-
-# claude commands
-.claude/commands/
+# claude code local data
+.claude/projects/
