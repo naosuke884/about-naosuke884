@@ -1,0 +1,17 @@
+---
+interface Props {
+	href: string;
+	label: string;
+}
+
+const { href, label } = Astro.props;
+---
+
+<a
+	href={href}
+	data-nav-dot={href}
+	class="group flex items-center gap-2"
+>
+	<span class="hidden group-hover:block text-xs text-on-base/70">{label}</span>
+	<span class="block w-3 h-3 rounded-full border border-on-base/30 group-data-[active]:bg-accent group-data-[active]:border-accent hover:bg-accent hover:border-accent transition-colors"></span>
+</a>
