@@ -1,0 +1,54 @@
+---
+const works = [
+	{
+		title: "about-me",
+		description: "自己紹介サイト。Astro + Cloudflare Pagesで構築。",
+		tags: ["Astro", "TypeScript", "Cloudflare Pages"],
+		github: "https://github.com/naosuke884/about-me",
+	},
+	{
+		title: "task-tracker",
+		description: "シンプルなタスク管理CLI。Goで書いたローカルファースト設計。",
+		tags: ["Go", "CLI", "SQLite"],
+		github: "https://github.com/naosuke884/task-tracker",
+	},
+	{
+		title: "api-gateway",
+		description: "マイクロサービス向けのAPIゲートウェイ。認証・レートリミット機能付き。",
+		tags: ["Go", "Docker", "Redis"],
+		github: "https://github.com/naosuke884/api-gateway",
+	},
+];
+---
+
+<section id="works" class="py-24 px-6">
+	<div class="max-w-3xl mx-auto">
+		<h2 class="text-2xl font-bold text-center mb-12">Works</h2>
+
+		<div class="grid gap-6">
+			{works.map((work) => (
+				<div class="border border-on-base/10 rounded-lg p-6">
+					<div class="flex items-center justify-between mb-2">
+						<h3 class="text-lg font-semibold">{work.title}</h3>
+						<a
+							href={work.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-on-base/50 hover:text-accent transition-colors"
+						>
+							GitHub →
+						</a>
+					</div>
+					<p class="text-on-base/70 mb-4">{work.description}</p>
+					<div class="flex flex-wrap gap-2">
+						{work.tags.map((tag) => (
+							<span class="px-2 py-0.5 rounded text-xs border border-accent/30 text-accent">
+								{tag}
+							</span>
+						))}
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
