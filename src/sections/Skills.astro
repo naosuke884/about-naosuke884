@@ -9,12 +9,13 @@ const langColors: Record<string, string> = {
 		"border-blue-600/30 text-blue-600 bg-blue-600/10 dark:border-blue-400/30 dark:text-blue-400 dark:bg-blue-400/10",
 	Python:
 		"border-green-600/30 text-green-600 bg-green-600/10 dark:border-green-400/30 dark:text-green-400 dark:bg-green-400/10",
+	PHP: "border-purple-600/30 text-purple-600 bg-purple-600/10 dark:border-purple-400/30 dark:text-purple-400 dark:bg-purple-400/10",
 };
 
 const frameworkLang: Record<string, string> = {
-	Echo: "Go",
 	Astro: "TypeScript",
 	React: "TypeScript",
+	Laravel: "PHP",
 };
 
 type Category = {
@@ -25,27 +26,23 @@ type Category = {
 const categories: Category[] = [
 	{
 		name: "言語",
-		items: ["Go", "TypeScript", "Python"].map((name) => ({
+		items: ["Go", "TypeScript", "Python", "PHP"].map((name) => ({
 			name,
 			colorClass: langColors[name],
 		})),
 	},
 	{
 		name: "フレームワーク",
-		items: ["Astro", "Echo", "React"].map((name) => ({
+		items: ["Astro", "React", "Laravel"].map((name) => ({
 			name,
 			colorClass: langColors[frameworkLang[name]],
 		})),
 	},
 	{
 		name: "インフラ",
-		items: [
-			"Docker",
-			"Redis",
-			"SQLite",
-			"Cloudflare Pages",
-			"GitHub Actions",
-		].map((name) => ({ name })),
+		items: ["Docker", "Cloudflare Pages", "GitHub Actions"].map((name) => ({
+			name,
+		})),
 	},
 ];
 
