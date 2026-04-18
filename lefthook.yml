@@ -3,6 +3,7 @@ pre-commit:
   jobs:
     - name: biome check
       run: npx biome check --fix .
+      stage_fixed: true
 
     - name: astro check
       run: npx astro check
