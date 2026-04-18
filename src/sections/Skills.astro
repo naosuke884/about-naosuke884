@@ -1,0 +1,97 @@
+---
+import { loadDefaultJapaneseParser } from "budoux";
+
+const parser = loadDefaultJapaneseParser();
+
+const langColors: Record<string, string> = {
+	Go: "border-cyan-600/30 text-cyan-600 bg-cyan-600/10 dark:border-cyan-400/30 dark:text-cyan-400 dark:bg-cyan-400/10",
+	TypeScript: "border-blue-600/30 text-blue-600 bg-blue-600/10 dark:border-blue-400/30 dark:text-blue-400 dark:bg-blue-400/10",
+	Python: "border-green-600/30 text-green-600 bg-green-600/10 dark:border-green-400/30 dark:text-green-400 dark:bg-green-400/10",
+};
+
+const frameworkLang: Record<string, string> = {
+	Echo: "Go",
+	Astro: "TypeScript",
+	React: "TypeScript",
+};
+
+type Category = {
+	name: string;
+	items: { name: string; colorClass?: string }[];
+};
+
+const categories: Category[] = [
+	{
+		name: "言語",
+		items: ["Go", "TypeScript", "Python"].map((name) => ({
+			name,
+			colorClass: langColors[name],
+		})),
+	},
+	{
+		name: "フレームワーク",
+		items: ["Astro", "Echo", "React"].map((name) => ({
+			name,
+			colorClass: langColors[frameworkLang[name]],
+		})),
+	},
+	{
+		name: "インフラ",
+		items: ["Docker", "Redis", "SQLite", "Cloudflare Pages", "GitHub Actions"].map(
+			(name) => ({ name }),
+		),
+	},
+];
+
+const books = [
+	{
+		title: "ドメイン駆動設計入門",
+		cover: "/books/domain-driven-design-intro.jpg",
+	},
+	{
+		title: "良いコード悪いコードで学ぶ設計入門",
+		cover: "/books/good-code-bad-code.jpg",
+	},
+	{
+		title: "実用Go言語",
+		cover: "/books/practical-go.jpg",
+	},
+];
+---
+
+<section id="skills" class="py-24 px-6">
+	<div class="max-w-3xl mx-auto">
+		<h2 class="text-2xl font-bold text-center mb-12">Skills</h2>
+
+		<div class="grid gap-10">
+			{categories.map((category) => (
+				<div>
+					<h3 class="text-lg font-semibold mb-4">{category.name}</h3>
+					<div class="flex flex-wrap gap-2">
+						{category.items.map((item) => (
+							<span class={`px-3 py-1 rounded-full text-sm border ${item.colorClass ?? "border-accent/30 text-accent"}`}>
+								{item.name}
+							</span>
+						))}
+					</div>
+				</div>
+			))}
+
+			<div>
+				<h3 class="text-lg font-semibold mb-4">読んだ書籍</h3>
+				<div class="flex flex-wrap gap-6">
+					{books.map((book) => (
+						<div class="w-32">
+							<img
+								src={book.cover}
+								alt={book.title}
+								class="w-32 h-44 object-cover rounded border border-on-base/10"
+							/>
+							<p class="text-xs text-on-base/70 mt-2 text-center" set:html={parser.translateHTMLString(book.title)} />
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
