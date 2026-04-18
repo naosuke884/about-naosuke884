@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Footer from "./Footer.astro";
 import NavDot from "./NavDot.astro";
 
 interface Props {
@@ -21,6 +22,8 @@ const { title } = Astro.props;
 		<div class="pr-12 md:pr-24">
 			<slot />
 		</div>
+
+		<Footer />
 
 		<nav
 			class="fixed right-6 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50"
