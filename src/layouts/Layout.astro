@@ -33,46 +33,9 @@ const { title } = Astro.props;
 			<NavDot href="#skills" />
 		</nav>
 
-		<!-- スクロール位置に応じてNavDotのアクティブ状態を切り替える -->
-		<script>
-			const sections = document.querySelectorAll<HTMLElement>("section[id]");
-			const navDots =
-				document.querySelectorAll<HTMLAnchorElement>("[data-nav-dot]");
-			const activeIds = new Set<string>();
+		<script src="./nav-dot-scroll.ts"></script>
 
-			function updateActiveDot() {
-				let activeId: string | null = null;
-				for (const section of sections) {
-					if (activeIds.has(section.id)) {
-						activeId = section.id;
-					}
-				}
-				for (const dot of navDots) {
-					if (dot.dataset.navDot === `#${activeId}`) {
-						dot.dataset.active = "";
-					} else {
-						delete dot.dataset.active;
-					}
-				}
-			}
-
-			const observer = new IntersectionObserver(
-				(entries) => {
-					for (const entry of entries) {
-						if (entry.isIntersecting) {
-							activeIds.add(entry.target.id);
-						} else {
-							activeIds.delete(entry.target.id);
-						}
-					}
-					updateActiveDot();
-				},
-				{ rootMargin: "0px 0px -50% 0px" },
-			);
-
-			for (const section of sections) {
-				observer.observe(section);
-			}
-		</script>
+		<canvas id="ripple-canvas" class="fixed inset-0 w-full h-full pointer-events-none -z-10"></canvas>
+		<script src="./cursor-ripple.ts"></script>
 	</body>
 </html>
