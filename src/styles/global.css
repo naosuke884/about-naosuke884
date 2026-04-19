@@ -16,6 +16,12 @@ section {
 	scroll-snap-align: start;
 }
 
+@media (pointer: coarse) {
+	html {
+		scroll-snap-type: none;
+	}
+}
+
 body {
 	background-color: var(--color-base);
 	color: var(--color-on-base);
