@@ -50,14 +50,17 @@ const books = [
 	{
 		title: "ドメイン駆動設計入門",
 		cover: "/books/domain-driven-design-intro.jpg",
+		url: "https://www.shoeisha.co.jp/book/detail/9784798150727",
 	},
 	{
 		title: "良いコード悪いコードで学ぶ設計入門",
 		cover: "/books/good-code-bad-code.jpg",
+		url: "https://gihyo.jp/book/2022/978-4-297-12783-1",
 	},
 	{
 		title: "実用Go言語",
 		cover: "/books/practical-go.jpg",
+		url: "https://www.oreilly.co.jp/books/9784873119694/",
 	},
 ];
 ---
@@ -84,14 +87,19 @@ const books = [
 				<h3 class="text-lg font-semibold mb-4">読んだ書籍</h3>
 				<div class="flex flex-wrap gap-6">
 					{books.map((book) => (
-						<div class="w-32">
+						<a
+							href={book.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="w-32 group"
+						>
 							<img
 								src={book.cover}
 								alt={book.title}
-								class="w-32 h-44 object-cover rounded border border-on-base/10"
+								class="w-32 h-44 object-cover rounded border border-on-base/10 transition-opacity group-hover:opacity-80"
 							/>
-							<p class="text-xs text-on-base/70 mt-2 text-center" set:html={parser.translateHTMLString(book.title)} />
-						</div>
+							<p class="text-xs text-on-base/70 mt-2 text-center group-hover:text-on-base" set:html={parser.translateHTMLString(book.title)} />
+						</a>
 					))}
 				</div>
 			</div>
