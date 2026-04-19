@@ -1,5 +1,5 @@
 ---
-const badges = ["💪 筋トレ", "🏠 インドア", "🔍 趣味募集中"];
+const badges = ["💪 筋トレ", "🏠 インドア"];
 ---
 
 <section id="about" class="min-h-screen flex items-center justify-center px-6">
@@ -15,16 +15,18 @@ const badges = ["💪 筋トレ", "🏠 インドア", "🔍 趣味募集中"];
 		<h1 class="text-3xl font-bold mb-4">Hayashi Naoki</h1>
 
 		<p class="text-lg text-on-base/70 mb-8 leading-relaxed tracking-wide pl-4">
-			Webエンジニアです。<br />
+			Webエンジニア（2026年〜）です。<br />
 			にわか卒業を目指してます。
 		</p>
 
 		<div class="flex flex-wrap justify-center gap-2">
-			{badges.map((badge) => (
-				<span class="px-3 py-1 rounded-full text-sm border border-accent/30 text-accent">
-					{badge}
-				</span>
-			))}
+			{
+				badges.map((badge) => (
+					<span class="px-3 py-1 rounded-full text-sm border border-accent/30 text-accent">
+						{badge}
+					</span>
+				))
+			}
 		</div>
 	</div>
 </section>
