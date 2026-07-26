@@ -2,7 +2,7 @@
 const badges = ["💪 筋トレ", "🏠 インドア"];
 ---
 
-<section id="about" class="min-h-screen flex items-center justify-center px-6">
+<section id="about" class="min-h-screen flex items-center justify-center px-12 md:px-24">
 	<div class="max-w-2xl text-center">
 		<div class="mb-6">
 			<img
@@ -33,10 +33,6 @@ const badges = ["💪 筋トレ", "🏠 インドア"];
 
 <style>
 	section {
-		background: radial-gradient(
-			80% 60% at 50% 40%,
-			color-mix(in oklab, var(--color-brand) 18%, transparent),
-			transparent
-		);
+		background: color-mix(in oklab, var(--color-brand) 18%, transparent);
 	}
 </style>
