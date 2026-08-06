@@ -1,4 +1,6 @@
 ---
+import Tag from "../components/Tag.astro";
+
 const works = [
 	{
 		title: "about-me",
@@ -29,11 +31,7 @@ const works = [
 					</div>
 					<p class="text-on-base/70 mb-4">{work.description}</p>
 					<div class="flex flex-wrap gap-2">
-						{work.tags.map((tag) => (
-							<span class="px-2 py-0.5 rounded text-xs border border-accent/30 text-accent">
-								{tag}
-							</span>
-						))}
+						{work.tags.map((tag) => <Tag>{tag}</Tag>)}
 					</div>
 				</div>
 			))}

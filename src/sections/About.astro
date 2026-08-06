@@ -1,4 +1,6 @@
 ---
+import Tag from "../components/Tag.astro";
+
 const badges = ["💪 筋トレ", "🏠 インドア"];
 ---
 
@@ -20,13 +22,7 @@ const badges = ["💪 筋トレ", "🏠 インドア"];
 		</p>
 
 		<div class="flex flex-wrap justify-center gap-2">
-			{
-				badges.map((badge) => (
-					<span class="px-3 py-1 rounded-full text-sm border border-accent/30 text-accent">
-						{badge}
-					</span>
-				))
-			}
+			{badges.map((badge) => <Tag>{badge}</Tag>)}
 		</div>
 	</div>
 </section>
