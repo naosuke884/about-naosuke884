@@ -32,13 +32,13 @@ const books = [
 		<div class="grid gap-10">
 			<div>
 				<h3 class="text-lg font-semibold mb-4">読んだ書籍</h3>
-				<div class="flex flex-wrap gap-6">
+				<div class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4">
 					{books.map((book) => (
 						<a
 							href={book.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="w-32 group"
+							class="w-32 shrink-0 snap-start group"
 						>
 							<img
 								src={book.cover}
