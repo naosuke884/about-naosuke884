@@ -10,17 +10,7 @@
 html {
 	color-scheme: light dark;
 	scroll-behavior: smooth;
-	scroll-snap-type: y proximity;
-}
-
-section {
-	scroll-snap-align: start;
-}
-
-@media (pointer: coarse) {
-	html {
-		scroll-snap-type: none;
-	}
+	scroll-padding-top: 3.5rem;
 }
 
 body {
