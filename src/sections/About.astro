@@ -4,24 +4,24 @@ import Tag from "../components/Tag.astro";
 const badges = ["💪 筋トレ", "🏠 インドア"];
 ---
 
-<section id="about" class="min-h-screen flex items-center justify-center px-12 md:px-24">
-	<div class="max-w-2xl text-center">
+<section id="about" class="min-h-screen flex items-center px-12 md:px-24">
+	<div class="max-w-3xl mx-auto w-full">
 		<div class="mb-6">
 			<img
 				src="/my-icon.png"
 				alt="naosuke884のアイコン"
-				class="w-28 h-28 rounded-full mx-auto"
+				class="w-28 h-28 rounded-full"
 			/>
 		</div>
 
 		<h1 class="text-3xl font-bold mb-4">Hayashi Naoki</h1>
 
-		<p class="text-lg text-on-base/70 mb-8 leading-relaxed tracking-wide pl-4">
+		<p class="text-lg text-on-base/70 mb-8 leading-relaxed tracking-wide">
 			Webエンジニア（2026年〜）です。<br />
 			にわか卒業を目指してます。
 		</p>
 
-		<div class="flex flex-wrap justify-center gap-2">
+		<div class="flex flex-wrap gap-2">
 			{badges.map((badge) => <Tag>{badge}</Tag>)}
 		</div>
 	</div>
