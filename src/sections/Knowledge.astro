@@ -3,49 +3,6 @@ import { loadDefaultJapaneseParser } from "budoux";
 
 const parser = loadDefaultJapaneseParser();
 
-const langColors: Record<string, string> = {
-	Go: "border-cyan-600/30 text-cyan-600 bg-cyan-600/10 dark:border-cyan-400/30 dark:text-cyan-400 dark:bg-cyan-400/10",
-	TypeScript:
-		"border-blue-600/30 text-blue-600 bg-blue-600/10 dark:border-blue-400/30 dark:text-blue-400 dark:bg-blue-400/10",
-	Python:
-		"border-green-600/30 text-green-600 bg-green-600/10 dark:border-green-400/30 dark:text-green-400 dark:bg-green-400/10",
-	PHP: "border-purple-600/30 text-purple-600 bg-purple-600/10 dark:border-purple-400/30 dark:text-purple-400 dark:bg-purple-400/10",
-};
-
-const frameworkLang: Record<string, string> = {
-	Astro: "TypeScript",
-	React: "TypeScript",
-	Laravel: "PHP",
-};
-
-type Category = {
-	name: string;
-	items: { name: string; colorClass?: string }[];
-};
-
-const categories: Category[] = [
-	{
-		name: "言語",
-		items: ["Go", "TypeScript", "Python", "PHP"].map((name) => ({
-			name,
-			colorClass: langColors[name],
-		})),
-	},
-	{
-		name: "フレームワーク",
-		items: ["Astro", "React", "Laravel"].map((name) => ({
-			name,
-			colorClass: langColors[frameworkLang[name]],
-		})),
-	},
-	{
-		name: "インフラ",
-		items: ["Docker", "Cloudflare", "GitHub Actions"].map((name) => ({
-			name,
-		})),
-	},
-];
-
 const books = [
 	{
 		title: "ドメイン駆動設計入門",
@@ -75,19 +32,6 @@ const books = [
 		<h2 class="text-2xl font-bold text-center mb-12">Knowledge</h2>
 
 		<div class="grid gap-10">
-			{categories.map((category) => (
-				<div>
-					<h3 class="text-lg font-semibold mb-4">{category.name}</h3>
-					<div class="flex flex-wrap gap-2">
-						{category.items.map((item) => (
-							<span class={`px-3 py-1 rounded-full text-sm border ${item.colorClass ?? "border-accent/30 text-accent"}`}>
-								{item.name}
-							</span>
-						))}
-					</div>
-				</div>
-			))}
-
 			<div>
 				<h3 class="text-lg font-semibold mb-4">読んだ書籍</h3>
 				<div class="flex flex-wrap gap-6">
