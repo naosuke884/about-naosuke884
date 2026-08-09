@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Footer from "./Footer.astro";
+import Header from "./Header.astro";
 
 interface Props {
 	title: string;
@@ -19,23 +20,7 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<header
-			class="sticky top-0 z-50 bg-base/80 backdrop-blur border-b border-on-base/10"
-		>
-			<div class="max-w-3xl mx-auto flex items-center justify-between px-6 py-3">
-				<a href="#about" aria-label="トップへ戻る" class="block">
-					<span
-						class="block w-6 h-6 rounded-full bg-brand hover:opacity-80 transition-opacity"
-					></span>
-				</a>
-				<nav class="flex gap-4 md:gap-6 text-sm">
-					<a href="#works" class="hover:text-accent transition-colors">制作物</a>
-					<a href="#knowledge" class="hover:text-accent transition-colors">
-						読んだ書籍
-					</a>
-				</nav>
-			</div>
-		</header>
+		<Header />
 
 		<slot />
 

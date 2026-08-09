@@ -1,40 +1,38 @@
 ---
+import Section from "../components/Section.astro";
 import Tag from "../components/Tag.astro";
 
 const works = [
 	{
 		title: "about-me",
 		description: "自己紹介サイト。Astro + Cloudflare Pagesで構築。",
-		tags: ["Astro", "TypeScript", "Cloudflare Pages"],
+		tags: ["Astro", "TypeScript", "Cloudflare"],
 		github: "https://github.com/naosuke884/about-naosuke884",
 	},
 ];
 ---
 
-<section id="works" class="py-24 px-12 md:px-24">
-	<div class="max-w-3xl mx-auto">
-		<h2 class="text-lg font-semibold mb-4">制作物</h2>
-
-		<div class="grid gap-6">
-			{works.map((work) => (
-				<div class="border border-on-base/10 rounded-lg p-6">
-					<div class="flex items-center justify-between mb-2">
-						<h3 class="text-lg font-semibold">{work.title}</h3>
-						<a
-							href={work.github}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="text-on-base/50 hover:text-accent transition-colors"
-						>
-							GitHub →
-						</a>
-					</div>
-					<p class="text-on-base/70 mb-4">{work.description}</p>
-					<div class="flex flex-wrap gap-2">
-						{work.tags.map((tag) => <Tag>{tag}</Tag>)}
-					</div>
+<Section id="works" title="制作物">
+	<div class="grid gap-6">
+		{works.map((work) => (
+			<div class="border border-base-content/10 rounded-lg p-6">
+				<div class="flex items-center justify-between mb-2">
+					<h3 class="text-subheading">{work.title}</h3>
+					<a
+						href={work.github}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={`${work.title}のGitHubリポジトリ`}
+						class="text-base-content/50 hover:text-primary transition-colors"
+					>
+						GitHub →
+					</a>
 				</div>
-			))}
-		</div>
+				<p class="text-base-content/70 mb-4">{work.description}</p>
+				<div class="flex flex-wrap gap-2">
+					{work.tags.map((tag) => <Tag>{tag}</Tag>)}
+				</div>
+			</div>
+		))}
 	</div>
-</section>
+</Section>
