@@ -4,30 +4,26 @@ import Tag from "../components/Tag.astro";
 const badges = ["💪 筋トレ", "🏠 インドア"];
 ---
 
-<section id="about" class="min-h-screen flex items-center px-12 md:px-24">
+<section id="about" class="min-h-dvh bg-primary/18 flex items-center px-12 md:px-24">
 	<div class="max-w-3xl mx-auto w-full">
 		<div class="mb-6">
 			<img
 				src="/my-icon.png"
 				alt="naosuke884のアイコン"
+				width="112"
+				height="112"
 				class="w-28 h-28 rounded-full"
 			/>
 		</div>
 
-		<h1 class="text-3xl font-bold mb-4">Hayashi Naoki</h1>
+		<h1 class="text-display mb-4">Hayashi Naoki</h1>
 
 		<div class="flex flex-wrap gap-2 mb-8">
 			{badges.map((badge) => <Tag>{badge}</Tag>)}
 		</div>
 
-		<p class="text-base text-on-base/70 leading-relaxed tracking-wide">
+		<p class="text-base-content/70">
 			Webエンジニアです。にわか卒業を目指してます。
 		</p>
 	</div>
 </section>
-
-<style>
-	section {
-		background: color-mix(in oklab, var(--color-brand) 18%, transparent);
-	}
-</style>

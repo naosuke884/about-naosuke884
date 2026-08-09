@@ -1,19 +1,78 @@
 @import "tailwindcss";
 
+@plugin "daisyui" {
+	themes: false;
+}
+
+@plugin "daisyui/theme" {
+	name: "light";
+	default: true;
+	color-scheme: light;
+	--color-primary: #486289;
+	--color-primary-content: #f8f7f4;
+	--color-base-100: #f8f7f4;
+	--color-base-200: #eceae4;
+	--color-base-300: #dfdcd3;
+	--color-base-content: #2d2d2d;
+}
+
+@plugin "daisyui/theme" {
+	name: "dark";
+	prefersdark: true;
+	color-scheme: dark;
+	--color-primary: #89aed0;
+	--color-primary-content: #151520;
+	--color-base-100: #151520;
+	--color-base-200: #1d1d2b;
+	--color-base-300: #252536;
+	--color-base-content: #ededf0;
+}
+
 @theme {
-	--color-brand: light-dark(#486289, #89aed0);
-	--color-accent: var(--color-brand);
-	--color-base: light-dark(#f8f7f4, #151520);
-	--color-on-base: light-dark(#2d2d2d, #ededf0);
+	--spacing-header: 3.5rem;
+
+	/* system-uiはWindowsで游ゴシックUIに化けるため、明示的なスタックで回避 */
+	--font-sans:
+		"Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+		"Noto Sans JP", "Noto Sans CJK JP", "BIZ UDPGothic", Meiryo, sans-serif;
+
+	/* タイポグラフィは役割ベースのトークンのみ使う(text-display等) */
+	--text-display: 2.5rem;
+	--text-display--line-height: 1.3;
+	--text-display--letter-spacing: 0.01em;
+	--text-display--font-weight: 700;
+
+	--text-heading: 1.5rem;
+	--text-heading--line-height: 1.4;
+	--text-heading--letter-spacing: 0.01em;
+	--text-heading--font-weight: 600;
+
+	--text-subheading: 1.25rem;
+	--text-subheading--line-height: 1.5;
+	--text-subheading--letter-spacing: 0.01em;
+	--text-subheading--font-weight: 600;
+
+	--text-body: 1rem;
+	--text-body--line-height: 1.8;
+	--text-body--letter-spacing: 0.02em;
+
+	--text-small: 0.875rem;
+	--text-small--line-height: 1.6;
+	--text-small--letter-spacing: 0.02em;
 }
 
 html {
-	color-scheme: light dark;
-	scroll-behavior: smooth;
-	scroll-padding-top: 3.5rem;
+	scroll-padding-top: var(--spacing-header);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
 }
 
 body {
-	background-color: var(--color-base);
-	color: var(--color-on-base);
+	font-size: var(--text-body);
+	line-height: var(--text-body--line-height);
+	letter-spacing: var(--text-body--letter-spacing);
 }
