@@ -15,22 +15,24 @@ const works = [
 <Section id="works" title="制作物">
 	<div class="grid gap-6">
 		{works.map((work) => (
-			<div class="border border-base-content/10 rounded-lg p-6">
-				<div class="flex items-center justify-between mb-2">
-					<h3 class="text-subheading">{work.title}</h3>
-					<a
-						href={work.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label={`${work.title}のGitHubリポジトリ`}
-						class="text-base-content/50 hover:text-primary transition-colors"
-					>
-						GitHub →
-					</a>
-				</div>
-				<p class="text-base-content/70 mb-4">{work.description}</p>
-				<div class="flex flex-wrap gap-2">
-					{work.tags.map((tag) => <Tag>{tag}</Tag>)}
+			<div class="card card-border border-base-content/10">
+				<div class="card-body">
+					<div class="flex items-center justify-between">
+						<h3 class="card-title text-subheading">{work.title}</h3>
+						<a
+							href={work.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={`${work.title}のGitHubリポジトリ`}
+							class="link link-hover text-base-content/50 hover:text-primary transition-colors"
+						>
+							GitHub →
+						</a>
+					</div>
+					<p class="text-base-content/70">{work.description}</p>
+					<div class="card-actions">
+						{work.tags.map((tag) => <Tag>{tag}</Tag>)}
+					</div>
 				</div>
 			</div>
 		))}

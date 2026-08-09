@@ -26,13 +26,13 @@ const books = [
 ---
 
 <Section id="books" title="読んだ書籍">
-	<div class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4">
+	<div class="carousel carousel-start gap-6 pb-4 w-full">
 		{books.map((book) => (
 			<a
 				href={book.url}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="w-32 shrink-0 snap-start group"
+				class="carousel-item w-32 group"
 			>
 				<img
 					src={book.cover}
