@@ -12,6 +12,18 @@
 					}
 				]
 			}
+		],
+		"Stop": [
+			{
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash .claude/scripts/check-dev-log.sh",
+						"timeout": 10,
+						"statusMessage": "Checking dev server log for errors..."
+					}
+				]
+			}
 		]
 	}
 }
