@@ -1,0 +1,21 @@
+{
+	// Tailwind CSS v4の独自ディレクティブ（@theme, @utility など）を
+	// vscode-css-language-serverが「Unknown at rule」と警告するのを抑制し、
+	// CSSファイルでもTailwind LSの補完・ホバーを有効にする
+	"languages": {
+		"CSS": {
+			"language_servers": ["tailwindcss-language-server", "..."]
+		}
+	},
+	"lsp": {
+		"vscode-css-language-server": {
+			"settings": {
+				"css": {
+					"lint": {
+						"unknownAtRules": "ignore"
+					}
+				}
+			}
+		}
+	}
+}
