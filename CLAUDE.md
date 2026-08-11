@@ -30,3 +30,4 @@ about-me — 自己紹介サイト。
 
 - コンポーネントは複数箇所で再利用する必要が出てから `src/components/` に切り出す。それまではページ内にコロケーションして可読性を優先する
 - `src/styles/` には `global.css` のみ置く。スタイリングはTailwindのユーティリティクラスとAstroのスコープド `<style>` で完結させる
+- UIはdaisyUIのコンポーネントクラス（avatar, badge, card, menu など）を積極的に使う。素のTailwindだけで同等のUIを組むのは、daisyUIに該当コンポーネントがない場合のみ
