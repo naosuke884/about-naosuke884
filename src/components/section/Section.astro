@@ -1,0 +1,50 @@
+---
+import CheckIcon from "./check.svg";
+import LinkIcon from "./link.svg";
+
+interface Props {
+	id: string;
+	title: string;
+	divider?: boolean;
+}
+
+const { id, title, divider = false } = Astro.props;
+---
+
+<section
+	id={id}
+	class:list={[
+		"py-24 px-12 md:px-24",
+		divider && "border-t-2 border-dashed border-base-content/20",
+	]}
+>
+	<div class="max-w-3xl mx-auto">
+		<div class="mb-8 flex items-center justify-between">
+			<div class="flex items-center gap-2">
+				<h2 class="text-heading flex items-center gap-3">
+					<span class="w-1 self-stretch rounded-full bg-primary" aria-hidden="true"
+					></span>
+					{title}
+				</h2>
+				<div class="tooltip" data-tip="リンクをコピー">
+					<button
+						type="button"
+						class="btn btn-ghost btn-xs btn-circle swap swap-rotate text-base-content/40 hover:text-base-content"
+						data-copy-link={id}
+						aria-label={`${title}セクションへのリンクをコピー`}
+					>
+						<LinkIcon class="swap-off size-4" aria-hidden="true" />
+						<CheckIcon class="swap-on size-4" aria-hidden="true" />
+					</button>
+				</div>
+			</div>
+			<slot name="heading-extra" />
+		</div>
+		<slot />
+	</div>
+</section>
+
+<script>
+	import { setupCopySectionLinks } from "./copy-link";
+	setupCopySectionLinks();
+</script>
