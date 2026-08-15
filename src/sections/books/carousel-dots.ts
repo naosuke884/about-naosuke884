@@ -23,5 +23,16 @@ export function setupBooksCarouselDots(): void {
 	};
 	update();
 	carousel.addEventListener("scroll", update, { passive: true });
-	window.addEventListener("resize", update, { passive: true });
+	// モバイルのURLバー開閉は高さだけのresizeを連続発火させるため、
+	// 幅が変わったときのみ再計算する(強制リフローによるスクロールのカクつき対策)
+	let lastWidth = window.innerWidth;
+	window.addEventListener(
+		"resize",
+		() => {
+			if (window.innerWidth === lastWidth) return;
+			lastWidth = window.innerWidth;
+			update();
+		},
+		{ passive: true },
+	);
 }
