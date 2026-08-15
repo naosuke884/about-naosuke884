@@ -9,6 +9,7 @@
 	default: true;
 	color-scheme: light;
 	--color-primary: #486289;
+	/* primary-contentはbase-100と同値にする(primary上では背景色を反転して使う) */
 	--color-primary-content: #f8f7f4;
 	--color-base-100: #f8f7f4;
 	--color-base-200: #eceae4;
@@ -21,6 +22,7 @@
 	prefersdark: true;
 	color-scheme: dark;
 	--color-primary: #89aed0;
+	/* primary-contentはbase-100と同値にする(primary上では背景色を反転して使う) */
 	--color-primary-content: #151520;
 	--color-base-100: #151520;
 	--color-base-200: #1d1d2b;
@@ -74,8 +76,25 @@ html {
 	}
 }
 
-body {
-	font-size: var(--text-body);
-	line-height: var(--text-body--line-height);
-	letter-spacing: var(--text-body--letter-spacing);
+/* テキストのトーンは2段のみ: 見出し=base-contentフル、本文・補足=70% */
+/* baseレイヤーに置き、ユーティリティクラスで上書きできるようにする(primary背景上など) */
+@layer base {
+	body {
+		font-size: var(--text-body);
+		line-height: var(--text-body--line-height);
+		letter-spacing: var(--text-body--letter-spacing);
+		@apply text-base-content/70;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		color: var(--color-base-content);
+	}
+}
+
+/* daisyUIのchat-bubbleはbase-contentを直接指定するため、本文トーンを継承させる */
+.chat-bubble {
+	color: inherit;
 }
