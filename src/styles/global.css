@@ -91,6 +91,13 @@ html {
 	h3,
 	h4 {
 		color: var(--color-base-content);
+		text-wrap: balance;
+	}
+
+	/* モバイルのダブルタップズーム遅延をなくす */
+	a,
+	button {
+		touch-action: manipulation;
 	}
 }
 

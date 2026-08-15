@@ -6,12 +6,15 @@ export function setupBooksCarouselDots(): void {
 	const dots = Array.from(dotsWrap.children) as HTMLElement[];
 	const items = Array.from(carousel.children) as HTMLElement[];
 	const update = () => {
+		// 読み取りを先に済ませてから書き込む(交互に行うと強制リフローが起きる)
 		const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-		dotsWrap.classList.toggle("invisible", maxScroll <= 8);
 		const step =
 			items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : 1;
-		let active = Math.round(carousel.scrollLeft / step);
-		if (carousel.scrollLeft >= maxScroll - 8) active = dots.length - 1;
+		const scrollLeft = carousel.scrollLeft;
+
+		dotsWrap.classList.toggle("invisible", maxScroll <= 8);
+		let active = Math.round(scrollLeft / step);
+		if (scrollLeft >= maxScroll - 8) active = dots.length - 1;
 		active = Math.max(0, Math.min(dots.length - 1, active));
 		for (const [i, dot] of dots.entries()) {
 			dot.classList.toggle("bg-base-content", i === active);
