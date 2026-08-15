@@ -1,13 +1,10 @@
 ---
 import Section from "../components/section/Section.astro";
-import Tag from "../components/Tag.astro";
 
 const works = [
 	{
-		title: "about-me",
-		description: "自己紹介サイト。Astro + Cloudflare Pagesで構築。",
-		tags: ["Astro", "TypeScript", "Cloudflare"],
-		github: "https://github.com/naosuke884/about-naosuke884",
+		title: "about-naosuke884",
+		description: "自己紹介サイト。",
 	},
 ];
 ---
@@ -15,24 +12,10 @@ const works = [
 <Section id="works" title="作ったもの" divider>
 	<div class="grid gap-6">
 		{works.map((work) => (
-			<div class="card card-border border-base-content/10">
+			<div class="card w-full max-w-md bg-primary text-primary-content">
 				<div class="card-body">
-					<div class="flex items-center justify-between">
-						<h3 class="card-title text-subheading">{work.title}</h3>
-						<a
-							href={work.github}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label={`${work.title}のGitHubリポジトリ`}
-							class="link link-hover text-base-content/50 hover:text-primary transition-colors"
-						>
-							GitHub →
-						</a>
-					</div>
-					<p class="text-base-content/70">{work.description}</p>
-					<div class="card-actions">
-						{work.tags.map((tag) => <Tag>{tag}</Tag>)}
-					</div>
+					<h3 class="card-title text-subheading text-primary-content">{work.title}</h3>
+					<p class="text-body text-primary-content/80">{work.description}</p>
 				</div>
 			</div>
 		))}
