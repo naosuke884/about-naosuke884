@@ -6,7 +6,7 @@ export function setupBooksCarouselDots(): void {
 	const dots = Array.from(dotsWrap.children) as HTMLElement[];
 	const items = Array.from(carousel.children) as HTMLElement[];
 
-	// レイアウト測定はロード時と幅が変わったときだけ行い、scrollハンドラでは読み取らない
+	// レイアウト測定は初回とカルーセルのサイズ変更時だけ行い、scrollハンドラでは読み取らない
 	let maxScroll = 0;
 	let step = 1;
 	let active = -1;
@@ -30,8 +30,14 @@ export function setupBooksCarouselDots(): void {
 		}
 	};
 
-	measure();
-	update();
+	// スクリプト実行時点ではレイアウトが未確定なブラウザがある(iOS Firefoxで
+	// スクロール不要と誤判定しドットが消えた)ため、observe直後の初回発火で
+	// レイアウト確定後に測定する。URLバー開閉ではカルーセルの寸法は変わらない
+	// ので発火せず、回転などで幅が変わったときだけ再測定される
+	new ResizeObserver(() => {
+		measure();
+		update();
+	}).observe(carousel);
 
 	// スクロール中の更新は1フレーム1回に間引く
 	let rafId = 0;
@@ -43,19 +49,6 @@ export function setupBooksCarouselDots(): void {
 				rafId = 0;
 				update();
 			});
-		},
-		{ passive: true },
-	);
-
-	// モバイルのURLバー開閉は高さだけのresizeを連続発火させるため、幅が変わったときのみ再計算する
-	let lastWidth = window.innerWidth;
-	window.addEventListener(
-		"resize",
-		() => {
-			if (window.innerWidth === lastWidth) return;
-			lastWidth = window.innerWidth;
-			measure();
-			update();
 		},
 		{ passive: true },
 	);
