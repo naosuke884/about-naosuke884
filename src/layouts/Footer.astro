@@ -1,21 +1,14 @@
-<footer class="py-8 px-6 text-center text-small text-base-content/50">
-	<div class="flex justify-center gap-6 mb-4">
-		<a
-			href="https://github.com/naosuke884"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="link link-hover hover:text-primary transition-colors"
-		>
-			GitHub
-		</a>
-		<a
-			href="https://x.com/884naoki_dev"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="link link-hover hover:text-primary transition-colors"
-		>
-			X
-		</a>
+---
+import SocialLinks from "../components/social-links/SocialLinks.astro";
+---
+
+<footer
+	class="py-8 px-6 bg-base-200 border-t-2 border-dashed border-base-content/20"
+>
+	<div class="max-w-3xl mx-auto">
+		<div class="flex justify-start mb-4">
+			<SocialLinks />
+		</div>
+		<p>&copy; {new Date().getFullYear()} naosuke884</p>
 	</div>
-	<p>&copy; {new Date().getFullYear()} naosuke884</p>
 </footer>

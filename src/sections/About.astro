@@ -1,4 +1,5 @@
 ---
+import SocialLinks from "../components/social-links/SocialLinks.astro";
 import Tag from "../components/Tag.astro";
 
 const badges = [
@@ -11,11 +12,11 @@ const badges = [
 ];
 ---
 
-<section id="about" class="min-h-[calc(100dvh-var(--spacing-header))] bg-primary/18 flex items-center px-12 md:px-24">
+<section id="about" class="min-h-[min(calc(100dvh-var(--spacing-header)),640px)] bg-primary/20 flex items-center px-12 md:px-24">
 	<div class="max-w-3xl mx-auto w-full">
-		<h1 class="text-display mb-6">Hayashi Naoki</h1>
+		<h1 class="text-display mb-8">Hayashi Naoki</h1>
 
-		<div class="chat chat-start mb-6">
+		<div class="chat chat-start mb-8">
 			<div class="chat-image avatar">
 				<div class="w-18 rounded-full">
 					<img
@@ -31,8 +32,10 @@ const badges = [
 			</p>
 		</div>
 
-		<div class="flex flex-wrap gap-2">
+		<div class="flex flex-wrap gap-2 mb-8">
 			{badges.map((badge) => <Tag>{`# ${badge}`}</Tag>)}
 		</div>
+
+		<SocialLinks />
 	</div>
 </section>
