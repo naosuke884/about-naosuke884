@@ -1,6 +1,7 @@
 ---
 import { Font, getImage } from "astro:assets";
 import myIcon from "../assets/my-icon.png";
+import myIconRound from "../assets/my-icon-round.png";
 import "../styles/global.css";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
@@ -11,8 +12,9 @@ interface Props {
 
 const { title } = Astro.props;
 
-// faviconとapple-touch-iconは180pxあれば十分なのでビルド時に縮小して使う
-const favicon = await getImage({
+// apple-touch-iconは180pxあれば十分なのでビルド時に縮小して使う。
+// iOSが自前で角丸マスクをかける(透過は黒塗りされる)ため正方形のまま渡す
+const appleTouchIcon = await getImage({
 	src: myIcon,
 	width: 180,
 	height: 180,
@@ -23,8 +25,8 @@ const favicon = await getImage({
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href={favicon.src} />
-		<link rel="apple-touch-icon" href={favicon.src} />
+		<link rel="icon" type="image/png" href={myIconRound.src} />
+		<link rel="apple-touch-icon" href={appleTouchIcon.src} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta
