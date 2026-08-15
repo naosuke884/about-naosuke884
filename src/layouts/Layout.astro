@@ -1,5 +1,6 @@
 ---
-import { Font } from "astro:assets";
+import { Font, getImage } from "astro:assets";
+import myIcon from "../assets/my-icon.png";
 import "../styles/global.css";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
@@ -9,13 +10,21 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+// faviconとapple-touch-iconは180pxあれば十分なのでビルド時に縮小して使う
+const favicon = await getImage({
+	src: myIcon,
+	width: 180,
+	height: 180,
+	format: "png",
+});
 ---
 
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href="/my-icon.png" />
-		<link rel="apple-touch-icon" href="/my-icon.png" />
+		<link rel="icon" type="image/png" href={favicon.src} />
+		<link rel="apple-touch-icon" href={favicon.src} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta
