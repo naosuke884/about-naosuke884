@@ -22,5 +22,11 @@ export default defineConfig({
 
 	vite: {
 		plugins: [tailwindcss()],
+		// build/check(pre-commitフック含む)がデーモン稼働中のdevサーバーと
+		// Viteキャッシュを共有すると無効化されて全リクエスト500になるため、
+		// dev以外はキャッシュディレクトリを分離する
+		cacheDir: process.argv.includes("dev")
+			? undefined
+			: "node_modules/.vite-tools",
 	},
 });
