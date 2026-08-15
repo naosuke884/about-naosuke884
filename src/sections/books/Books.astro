@@ -1,6 +1,6 @@
 ---
-import Section from "../components/section/Section.astro";
-import { books } from "./books-data";
+import Section from "../../components/section/Section.astro";
+import { books } from "./data";
 ---
 
 <Section id="books" title="読んだ本" divider>
@@ -39,6 +39,6 @@ import { books } from "./books-data";
 </Section>
 
 <script>
-	import { setupBooksCarouselDots } from "./books-carousel-dots";
+	import { setupBooksCarouselDots } from "./carousel-dots";
 	setupBooksCarouselDots();
 </script>
