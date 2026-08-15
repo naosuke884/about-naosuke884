@@ -6,7 +6,8 @@ import { defineConfig, fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-	adapter: cloudflare(),
+	// 全ページ静的なのでランタイム変換(Cloudflare Images)ではなくビルド時に画像を変換する
+	adapter: cloudflare({ imageService: "compile" }),
 
 	fonts: [
 		{

@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Section from "../../components/section/Section.astro";
 import { books } from "./data";
 ---
@@ -25,12 +26,12 @@ import { books } from "./data";
 				rel="noopener noreferrer"
 				class="carousel-item w-32 group"
 			>
-				<img
+				<Image
 					src={book.cover}
 					alt={book.title}
-					width="128"
-					height="176"
-					loading="lazy"
+					width={128}
+					height={176}
+					densities={[1, 2]}
 					class="w-32 h-44 object-cover rounded ring-1 ring-base-content/10 transition-shadow group-hover:ring-2 group-hover:ring-primary"
 				/>
 			</a>

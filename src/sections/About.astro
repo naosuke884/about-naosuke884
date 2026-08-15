@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import SocialLinks from "../components/social-links/SocialLinks.astro";
 import Tag from "../components/Tag.astro";
+import aboutIcon from "./about-icon.png";
 
 const badges = [
 	"ソフトウェアエンジニア",
@@ -19,11 +21,13 @@ const badges = [
 		<div class="chat chat-start mb-8">
 			<div class="chat-image avatar">
 				<div class="w-18 rounded-full">
-					<img
-						src="/my-icon.png"
+					<Image
+						src={aboutIcon}
 						alt="naosuke884のアイコン"
-						width="72"
-						height="72"
+						width={72}
+						height={72}
+						densities={[1, 2]}
+						loading="eager"
 						fetchpriority="high"
 					/>
 				</div>
