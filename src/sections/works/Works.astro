@@ -1,0 +1,66 @@
+---
+import Section from "../../components/section/Section.astro";
+import GitHubIcon from "../../components/social-links/github.svg";
+import Tag from "../../components/Tag.astro";
+import { works } from "./data";
+---
+
+<Section id="works" title="作ったもの" divider>
+	<div class="grid gap-6">
+		{works.map((work) => (
+			<button
+				type="button"
+				class="card w-full max-w-md bg-primary text-primary-content text-left cursor-pointer transition-shadow hover:shadow-lg"
+				data-work-modal-trigger={work.id}
+				aria-haspopup="dialog"
+			>
+				<div class="card-body">
+					<h3 class="card-title text-subheading text-primary-content">{work.title}</h3>
+					<p class="text-body text-primary-content/80">{work.summary}</p>
+				</div>
+			</button>
+		))}
+	</div>
+	{works.map((work) => (
+		<dialog id={`work-modal-${work.id}`} class="modal">
+			<div class="modal-box max-w-2xl">
+				<form method="dialog">
+					<button
+						class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+						aria-label="閉じる"
+					>
+						✕
+					</button>
+				</form>
+				<h3 class="text-subheading">{work.title}</h3>
+				<p class="py-4 text-body">{work.description}</p>
+				<div class="flex flex-wrap gap-2">
+					{work.techs.map((tech) => <Tag>{tech}</Tag>)}
+				</div>
+				<div class="modal-action">
+					{work.links.map((link) => (
+						<a
+							href={link.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class:list={["btn", !link.icon && "btn-primary"]}
+						>
+							{link.icon === "github" && (
+								<GitHubIcon class="size-5" fill="currentColor" aria-hidden="true" />
+							)}
+							{link.label}
+						</a>
+					))}
+				</div>
+			</div>
+			<form method="dialog" class="modal-backdrop">
+				<button aria-label="閉じる">close</button>
+			</form>
+		</dialog>
+	))}
+</Section>
+
+<script>
+	import { setupWorksModal } from "./modal";
+	setupWorksModal();
+</script>
