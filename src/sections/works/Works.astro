@@ -9,12 +9,14 @@ import { works } from "./data";
 		{works.map((work) => (
 			<button
 				type="button"
-				class="card w-full max-w-md bg-primary text-primary-content text-left cursor-pointer transition-shadow hover:shadow-lg"
+				class="work-card card relative w-full max-w-md bg-primary text-primary-content text-left cursor-pointer overflow-hidden"
 				data-work-modal-trigger={work.id}
 				aria-haspopup="dialog"
 			>
 				<div class="card-body">
-					<h3 class="card-title text-subheading text-primary-content">{work.title}</h3>
+					<h3 class="card-title text-subheading text-primary-content pb-2 border-b border-primary-content/20">
+						{work.title}
+					</h3>
 					<p class="text-body text-primary-content/80">{work.summary}</p>
 				</div>
 			</button>
@@ -60,3 +62,43 @@ import { works } from "./data";
 	import { setupWorksModal } from "./modal";
 	setupWorksModal();
 </script>
+
+<style>
+	/* ホバーでカード右下がめくれるドッグイヤー。
+	   対角線の右下側はページ背景色(base-100)で「切り取られた角」、
+	   左上側は折り返ったフラップを表現する。
+	   ホバーできないデバイスでは発動しないため、めくれの切り口に合わせた
+	   右下の角丸解除ごとhover:hoverに限定する */
+	@media (hover: hover) {
+		.work-card {
+			border-bottom-right-radius: 0;
+		}
+
+		.work-card::after {
+			content: "";
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			width: 3.5rem;
+			height: 3.5rem;
+			background: linear-gradient(
+				to top left,
+				var(--color-base-100) 50%,
+				color-mix(in oklab, var(--color-primary), white 25%) 50%
+			);
+			transform: translate(100%, 100%);
+			transition: transform 0.3s ease-out;
+		}
+
+		.work-card:hover::after,
+		.work-card:focus-visible::after {
+			transform: translate(0, 0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.work-card::after {
+			transition: none;
+		}
+	}
+</style>
