@@ -1,7 +1,6 @@
 ---
 import Section from "../../components/section/Section.astro";
 import GitHubIcon from "../../components/social-links/github.svg";
-import Tag from "../../components/Tag.astro";
 import { works } from "./data";
 ---
 
@@ -34,9 +33,6 @@ import { works } from "./data";
 				</form>
 				<h3 class="text-subheading">{work.title}</h3>
 				<p class="py-4 text-body">{work.description}</p>
-				<div class="flex flex-wrap gap-2">
-					{work.techs.map((tech) => <Tag>{tech}</Tag>)}
-				</div>
 				<div class="modal-action">
 					{work.links.map((link) => (
 						<a
