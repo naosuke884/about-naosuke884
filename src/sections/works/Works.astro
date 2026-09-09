@@ -34,14 +34,14 @@ import { works } from "./data";
 					</button>
 				</form>
 				<h3 class="text-subheading">{work.title}</h3>
-				<p class="py-4 text-body">{work.description}</p>
-				<div class="modal-action">
+				<p class="py-4 text-body whitespace-pre-line">{work.description}</p>
+				<div class="modal-action gap-4">
 					{work.links.map((link) => (
 						<a
 							href={link.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class:list={["btn", !link.icon && "btn-primary"]}
+							class="btn btn-primary"
 						>
 							{link.icon === "github" && (
 								<GitHubIcon class="size-5" fill="currentColor" aria-hidden="true" />
