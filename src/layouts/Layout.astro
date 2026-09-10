@@ -4,7 +4,6 @@ import myIcon from "../assets/my-icon.png";
 import myIconRound from "../assets/my-icon-round.png";
 import "../styles/global.css";
 import Footer from "./Footer.astro";
-import Header from "./Header.astro";
 
 interface Props {
 	title: string;
@@ -48,8 +47,6 @@ const appleTouchIcon = await getImage({
 			class="btn btn-primary btn-sm fixed top-3 left-3 z-[60] -translate-y-20 shadow-lg focus:translate-y-0"
 			>本文へスキップ</a
 		>
-		<Header />
-
 		<main id="main">
 			<slot />
 		</main>
