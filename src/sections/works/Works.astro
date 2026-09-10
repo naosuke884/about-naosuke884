@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Section from "../../components/section/Section.astro";
 import GitHubIcon from "../../components/social-links/github.svg";
 import { works } from "./data";
@@ -34,6 +35,13 @@ import { works } from "./data";
 					</button>
 				</form>
 				<h3 class="text-subheading">{work.title}</h3>
+				<Image
+					src={work.screenshot.src}
+					alt={work.screenshot.alt}
+					width={624}
+					densities={[1, 2]}
+					class="mt-4 w-full rounded-box border border-base-content/10"
+				/>
 				<p class="py-4 text-body whitespace-pre-line">{work.description}</p>
 				<div class="modal-action gap-4">
 					{work.links.map((link) => (
