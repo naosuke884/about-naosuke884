@@ -14,33 +14,37 @@ const badges = [
 ];
 ---
 
-<section id="about" class="py-24 px-12 md:px-24 bg-primary/20">
-	<div class="max-w-3xl mx-auto">
-		<h1 class="text-display mb-8">Hayashi Naoki</h1>
+<!-- 帯の最大幅はコンテンツ幅(max-w-3xl)+左右パディング(md:px-24)の60rem。
+     テキストの左端が他セクションと揃うようパディングは帯の内側に持つ -->
+<section id="about">
+	<div class="mx-auto max-w-[60rem] bg-primary/20 py-24 px-12 md:px-24">
+		<div class="max-w-3xl mx-auto">
+			<h1 class="text-display mb-8">Hayashi Naoki</h1>
 
-		<div class="chat chat-start mb-8">
-			<div class="chat-image avatar">
-				<div class="w-18 rounded-full">
-					<Image
-						src={myIcon}
-						alt="naosuke884のアイコン"
-						width={72}
-						height={72}
-						densities={[1, 2]}
-						loading="eager"
-						fetchpriority="high"
-					/>
+			<div class="chat chat-start mb-8">
+				<div class="chat-image avatar">
+					<div class="w-18 rounded-full">
+						<Image
+							src={myIcon}
+							alt="naosuke884のアイコン"
+							width={72}
+							height={72}
+							densities={[1, 2]}
+							loading="eager"
+							fetchpriority="high"
+						/>
+					</div>
 				</div>
+				<p class="chat-bubble bg-base-100">
+					なんもわからん
+				</p>
 			</div>
-			<p class="chat-bubble bg-base-100">
-				なんもわからん
-			</p>
-		</div>
 
-		<div class="flex flex-wrap gap-2 mb-8">
-			{badges.map((badge) => <Tag>{`# ${badge}`}</Tag>)}
-		</div>
+			<div class="flex flex-wrap gap-2 mb-8">
+				{badges.map((badge) => <Tag>{`# ${badge}`}</Tag>)}
+			</div>
 
-		<SocialLinks />
+			<SocialLinks />
+		</div>
 	</div>
 </section>
