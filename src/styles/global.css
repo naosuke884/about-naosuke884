@@ -15,6 +15,8 @@
 	--color-base-200: #eceae4;
 	--color-base-300: #dfdcd3;
 	--color-base-content: #2d2d2d;
+	/* コンテンツ列(base-100)の外側に敷く一段暗い背景 */
+	--canvas: #dcd9cf;
 }
 
 @plugin "daisyui/theme" {
@@ -28,6 +30,13 @@
 	--color-base-200: #1d1d2b;
 	--color-base-300: #252536;
 	--color-base-content: #ededf0;
+	/* コンテンツ列(base-100)の外側に敷く一段暗い背景 */
+	--canvas: #0c0c14;
+}
+
+/* daisyUIのテーマごとに切り替わる--canvasをbg-canvasとして使えるようにする */
+@theme inline {
+	--color-canvas: var(--canvas);
 }
 
 @theme {

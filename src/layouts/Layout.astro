@@ -41,16 +41,21 @@ const appleTouchIcon = await getImage({
 		<Font cssVariable="--font-inter" preload />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="bg-canvas">
 		<a
 			href="#main"
 			class="btn btn-primary btn-sm fixed top-3 left-3 z-[60] -translate-y-20 shadow-lg focus:translate-y-0"
 			>本文へスキップ</a
 		>
-		<main id="main">
-			<slot />
-		</main>
+		<!-- コンテンツ列。幅はコンテンツ幅(max-w-3xl)+左右パディング(md:px-24)の60remで、
+		     各セクションの背景帯・区切り線・フッターはこの列の内側に収まる。
+		     列の外側はbodyのbg-canvasで一段暗くする -->
+		<div class="mx-auto min-h-dvh max-w-[60rem] bg-base-100">
+			<main id="main">
+				<slot />
+			</main>
 
-		<Footer />
+			<Footer />
+		</div>
 	</body>
 </html>
