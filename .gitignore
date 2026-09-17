@@ -26,3 +26,6 @@ pnpm-debug.log*
 
 # claude code local data
 .claude/projects/
+
+# local data
+data/
