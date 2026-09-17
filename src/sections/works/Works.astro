@@ -82,6 +82,10 @@ import { works } from "./data";
 			border-bottom-right-radius: 0;
 		}
 
+		/* transformでスライドさせると::afterがアニメーション中だけコンポジタレイヤーに
+		   昇格し、overflow-hiddenのクリップ縁がGPU側で再アンチエイリアスされて
+		   カード下端に薄い線が見える環境があるため、レイヤー昇格しない
+		   background-positionで同じスライドを行う */
 		.work-card::after {
 			content: "";
 			position: absolute;
@@ -90,17 +94,18 @@ import { works } from "./data";
 			width: 3.5rem;
 			height: 3.5rem;
 			background: linear-gradient(
-				to top left,
-				var(--color-base-100) 50%,
-				color-mix(in oklab, var(--color-primary), white 25%) 50%
-			);
-			transform: translate(100%, 100%);
-			transition: transform 0.3s ease-out;
+					to top left,
+					var(--color-base-100) 50%,
+					color-mix(in oklab, var(--color-primary), white 25%) 50%
+				)
+				no-repeat;
+			background-position: 3.5rem 3.5rem;
+			transition: background-position 0.3s ease-out;
 		}
 
 		.work-card:hover::after,
 		.work-card:focus-visible::after {
-			transform: translate(0, 0);
+			background-position: 0 0;
 		}
 	}
 
