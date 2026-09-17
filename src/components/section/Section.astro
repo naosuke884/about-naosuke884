@@ -5,10 +5,9 @@ import LinkIcon from "./link.svg";
 interface Props {
 	id: string;
 	title: string;
-	divider?: boolean;
 }
 
-const { id, title, divider = false } = Astro.props;
+const { id, title } = Astro.props;
 
 const tipClass =
 	"pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-field bg-neutral px-2 py-1 text-sm text-neutral-content opacity-0 transition-opacity";
@@ -16,10 +15,7 @@ const tipClass =
 
 <section
 	id={id}
-	class:list={[
-		"py-12 px-12 md:px-24",
-		divider && "border-t-2 border-dashed border-base-content/20",
-	]}
+	class="py-12 px-12 md:px-24"
 >
 	<div class="max-w-3xl mx-auto">
 		<div class="mb-8 flex items-center justify-between">
