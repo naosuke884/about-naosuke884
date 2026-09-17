@@ -50,8 +50,8 @@ const appleTouchIcon = await getImage({
 		<!-- コンテンツ列。幅はコンテンツ幅(max-w-3xl)+左右パディング(md:px-24)の60remで、
 		     各セクションの背景帯・区切り線・フッターはこの列の内側に収まる。
 		     列の外側はbodyのbg-canvasで一段暗くする -->
-		<div class="mx-auto min-h-dvh max-w-[60rem] bg-base-100">
-			<main id="main">
+		<div class="mx-auto flex min-h-dvh max-w-[60rem] flex-col bg-base-100">
+			<main id="main" class="flex-1">
 				<slot />
 			</main>
 
