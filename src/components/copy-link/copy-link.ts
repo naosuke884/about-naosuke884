@@ -1,4 +1,4 @@
-export function setupCopySectionLinks(): void {
+export function setupCopyLinkButtons(): void {
 	const timers = new WeakMap<HTMLButtonElement, number>();
 
 	document
@@ -11,7 +11,8 @@ export function setupCopySectionLinks(): void {
 			const status = wrapper?.querySelector<HTMLElement>("[data-copy-status]");
 
 			button.addEventListener("click", async () => {
-				const url = `${location.origin}${location.pathname}#${button.dataset.copyLink}`;
+				const hash = button.dataset.copyLink;
+				const url = `${location.origin}${location.pathname}${hash ? `#${hash}` : ""}`;
 				let copied = true;
 				try {
 					await navigator.clipboard.writeText(url);
