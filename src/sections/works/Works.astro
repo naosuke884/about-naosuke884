@@ -24,7 +24,10 @@ import { works } from "./data";
 	</div>
 	{works.map((work) => (
 		<dialog id={`work-modal-${work.id}`} class="modal">
-			<div class="modal-box max-w-2xl">
+			{/* モバイルは全画面表示(h-fullはfixed inset-0の.modalグリッドいっぱいに伸びる。
+			    vh系単位はFirefox Androidのアドレスバー問題があるため使わない)、
+			    sm以上はdaisyUIデフォルトの中央表示に戻す */}
+			<div class="modal-box h-full w-full max-w-none rounded-none sm:h-auto sm:w-11/12 sm:max-w-2xl sm:rounded-box">
 				<form method="dialog">
 					<button
 						class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
