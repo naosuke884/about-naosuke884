@@ -37,14 +37,17 @@ import { works } from "./data";
 					</button>
 				</form>
 				<h3 class="text-subheading">{work.title}</h3>
+				{/* controlsは付けない。開いた瞬間のplay()と組み合わさると再生開始時に
+				    コントロールオーバーレイが出て数秒で消え、不安定に見えるため、
+				    modal.tsでタップ/キー操作時に初めて表示する (#52) */}
 				<video
 					src={work.demo.src}
 					aria-label={work.demo.label}
 					muted
 					loop
 					playsinline
-					controls
 					preload="metadata"
+					tabindex="0"
 					class="mt-4 w-full rounded-box border border-base-content/10"
 				/>
 				<p class="pt-12 pb-4 text-body whitespace-pre-line">{work.description}</p>

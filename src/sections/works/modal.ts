@@ -13,7 +13,11 @@ export function setupWorksModal(): void {
 			if (!dialog) return;
 			dialog.showModal();
 			const video = dialog.querySelector("video");
-			if (video && !prefersReducedMotion.matches) {
+			if (!video) return;
+			if (prefersReducedMotion.matches) {
+				// 自動再生しないので、再生手段として最初からコントロールを見せる
+				video.controls = true;
+			} else {
 				video.play().catch(() => {});
 			}
 		});
@@ -21,12 +25,23 @@ export function setupWorksModal(): void {
 	for (const dialog of document.querySelectorAll<HTMLDialogElement>(
 		"[id^='work-modal-']",
 	)) {
-		dialog.addEventListener("close", () => {
-			const video = dialog.querySelector("video");
-			if (video) {
-				video.pause();
-				video.currentTime = 0;
+		const video = dialog.querySelector("video");
+		if (!video) continue;
+		// コントロールは初期表示せず、操作の意思を示したときに初めて出す (#52)
+		video.addEventListener("click", () => {
+			video.controls = true;
+		});
+		video.addEventListener("keydown", (event) => {
+			if (video.controls) return;
+			if (event.key === "Enter" || event.key === " ") {
+				event.preventDefault();
+				video.controls = true;
 			}
+		});
+		dialog.addEventListener("close", () => {
+			video.pause();
+			video.currentTime = 0;
+			video.controls = false;
 		});
 	}
 }
