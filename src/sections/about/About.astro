@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import myIcon from "../../assets/my-icon.png";
+import SocialLinks from "../../components/social-links/SocialLinks.astro";
+import { aboutTags } from "./data";
+import Tag from "./Tag.astro";
+---
+
+<section id="about" class="py-12 px-12 md:px-24 bg-primary/20">
+	<div class="max-w-3xl mx-auto">
+		<h1 class="text-display mb-8">Hayashi Naoki</h1>
+
+		<div class="chat chat-start mb-8">
+			<div class="chat-image avatar">
+				<div class="w-18 rounded-full">
+					<Image
+						src={myIcon}
+						alt="naosuke884のアイコン"
+						width={72}
+						height={72}
+						densities={[1, 2]}
+						loading="eager"
+						fetchpriority="high"
+					/>
+				</div>
+			</div>
+			<p class="chat-bubble bg-base-100">
+				なんもわからん
+			</p>
+		</div>
+
+		<div class="mb-8">
+			<div class="flex flex-wrap gap-2">
+				{aboutTags.map((tag) => (
+					<Tag
+						data-tag-detail-trigger={tag.id}
+						aria-expanded="false"
+						aria-controls={`about-tag-panel-${tag.id}`}
+					>
+						{`# ${tag.label}`}
+					</Tag>
+				))}
+			</div>
+			{aboutTags.map((tag) => (
+				<div
+					id={`about-tag-panel-${tag.id}`}
+					data-tag-detail-panel={tag.id}
+					aria-hidden="true"
+					class="grid grid-rows-[1fr] aria-hidden:grid-rows-[0fr] motion-safe:transition-[grid-template-rows] motion-safe:duration-300"
+				>
+					{/* overflow-hiddenでgrid行の自動最小サイズを0にし、0frまで潰せるようにする。
+					    閉状態はhidden(display:noneはtransition不可)でなくaria-hiddenで表現し、
+					    スタイルフックとスクリーンリーダーからの隠蔽を1属性で兼ねる。
+					    パネル内にリンク等の操作要素を入れる場合はinertへの切替を検討 */}
+					<div class="overflow-hidden">
+						<div class="card bg-base-100 mt-3">
+							<div class="card-body px-5 py-4">
+								<p class="text-body">{tag.description}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			))}
+		</div>
+
+		<SocialLinks />
+	</div>
+</section>
+
+<script>
+	import { setupTagDetails } from "./tag-details";
+	setupTagDetails();
+</script>
