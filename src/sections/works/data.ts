@@ -13,7 +13,7 @@ export const works: Work[] = [
 		title: "poi",
 		summary: "30日で消えるメモ帳Webアプリ。",
 		description:
-			"書いたものが30日後に自動で消える1画面のメモ帳です。ログインすると1枚のボードにMarkdown記法でメモが書けます。\n\n初めてちゃんと作ったアプリです。自分で欲しいなと思ったものを作りました。TanStack Routerを使用したSPAで技術的には軽めの構成です。Markdown編集時の挙動に気を使いました。",
+			"書いたものが30日後に自動で消える1画面のメモ帳です。ログインすると1枚のボードにMarkdown記法でメモが書けます。\n\n初めてちゃんと作ったアプリです。自分で欲しいなと思ったものを作りました。Markdown編集時の挙動に気を使いました。",
 		demo: {
 			// poi側(public/demo.mp4)で配信している実物のデモ動画を参照し、常に最新に保つ
 			src: "https://poinote.app/demo.mp4",
