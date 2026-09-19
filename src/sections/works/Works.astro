@@ -40,16 +40,21 @@ import { works } from "./data";
 				{/* controlsは付けない。開いた瞬間のplay()と組み合わさると再生開始時に
 				    コントロールオーバーレイが出て数秒で消え、不安定に見えるため、
 				    modal.tsでタップ/キー操作時に初めて表示する (#52) */}
-				<video
-					src={work.demo.src}
-					aria-label={work.demo.label}
-					muted
-					loop
-					playsinline
-					preload="metadata"
-					tabindex="0"
-					class="mt-4 w-full rounded-box border border-base-content/10"
-				/>
+				{/* 角丸はvideo自体でなくラッパーに付ける。videoのborder-radiusでは
+				    ネイティブコントロールのオーバーレイがクリップされず角がずれるため、
+				    overflow-hiddenでコントロールごと切り抜く */}
+				<div class="mt-4 rounded-box border border-base-content/10 overflow-hidden">
+					<video
+						src={work.demo.src}
+						aria-label={work.demo.label}
+						muted
+						loop
+						playsinline
+						preload="metadata"
+						tabindex="0"
+						class="block w-full"
+					/>
+				</div>
 				<p class="pt-12 pb-4 text-body whitespace-pre-line">{work.description}</p>
 				<div class="modal-action gap-4">
 					{work.links.map((link) => (
