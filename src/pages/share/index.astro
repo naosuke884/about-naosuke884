@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const entries = (await getCollection("share")).toSorted(
+	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+---
+
+<Layout title="シェア | about-naosuke884" description="技術や記事の簡単な共有">
+	<section class="py-12 px-12 md:px-24">
+		<div class="max-w-3xl mx-auto">
+			<h1 class="text-heading mb-8 flex items-center gap-3">
+				<span class="w-1 self-stretch rounded-full bg-primary" aria-hidden="true"
+				></span>
+				シェア
+			</h1>
+			<ul class="list">
+				{
+					entries.map((entry) => (
+						<li class="list-row px-0">
+							<div class="list-col-grow flex flex-col gap-2">
+								<a
+									href={`/share/${entry.id}/`}
+									class="text-subheading text-base-content hover:text-primary transition-colors"
+								>
+									{entry.data.title}
+								</a>
+								<time
+									datetime={formatDate(entry.data.date)}
+									class="text-small text-base-content/70"
+								>
+									{formatDate(entry.data.date)}
+								</time>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+</Layout>

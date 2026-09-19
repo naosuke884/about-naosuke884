@@ -1,0 +1,38 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+	{ href: "/", label: "自己紹介", active: pathname === "/" },
+	{ href: "/share/", label: "シェア", active: pathname.startsWith("/share") },
+];
+---
+
+<header class="sticky top-0 z-50 bg-base-100 border-b border-base-content/10">
+	<div class="max-w-3xl mx-auto flex items-center justify-between px-6 h-header">
+		<a
+			href="/"
+			class="font-bold tracking-tight text-base-content/70 hover:text-base-content transition-colors"
+			>Nao~ 👋</a
+		>
+		<nav>
+			<ul class="menu menu-horizontal gap-1 p-0 text-nav">
+				{
+					links.map(({ href, label, active }) => (
+						<li>
+							<a
+								href={href}
+								class:list={[
+									"text-base-content/70 hover:text-base-content",
+									active && "menu-active",
+								]}
+								aria-current={active ? "page" : undefined}
+							>
+								{label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
+</header>

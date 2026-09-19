@@ -9,6 +9,13 @@ export default defineConfig({
 	// 全ページ静的なのでランタイム変換(Cloudflare Images)ではなくビルド時に画像を変換する
 	adapter: cloudflare({ imageService: "compile" }),
 
+	markdown: {
+		// コードブロックをライト/ダーク両テーマに対応させる(切替CSSはshare/[slug].astro側)
+		shikiConfig: {
+			themes: { light: "github-light", dark: "github-dark" },
+		},
+	},
+
 	fonts: [
 		{
 			provider: fontProviders.google(),
