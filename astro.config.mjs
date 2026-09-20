@@ -10,7 +10,7 @@ export default defineConfig({
 	adapter: cloudflare({ imageService: "compile" }),
 
 	markdown: {
-		// コードブロックをライト/ダーク両テーマに対応させる(切替CSSはshare/[slug].astro側)
+		// コードブロックをライト/ダーク両テーマに対応させる(切替CSSはblog/[slug].astro側)
 		shikiConfig: {
 			themes: { light: "github-light", dark: "github-dark" },
 		},
