@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, date, externalUrl } = entry.data;
+const { title, date, emoji, externalUrl } = entry.data;
 
 const formattedDate = date.toISOString().slice(0, 10);
 ---
@@ -25,7 +25,8 @@ const formattedDate = date.toISOString().slice(0, 10);
 >
 	<article class="py-12 px-12 md:px-24">
 		<div class="max-w-3xl mx-auto">
-			<header class="flex flex-col gap-3">
+			<header class="flex flex-col items-center gap-3 text-center">
+				<span class="text-5xl mb-2" aria-hidden="true">{emoji}</span>
 				<h1 class="text-heading">{title}</h1>
 				<div class="flex items-center gap-2">
 					<time datetime={formattedDate} class="text-small text-base-content/70">
@@ -56,9 +57,11 @@ const formattedDate = date.toISOString().slice(0, 10);
 			<div class="blog-body mt-8">
 				<Content />
 			</div>
-			<a href="/blog/" class="link text-small text-base-content/70 mt-12 inline-block"
-				>← ブログ一覧へ戻る</a
-			>
+			<div class="text-center">
+				<a href="/blog/" class="link text-small text-base-content/70 mt-12 inline-block"
+					>← ブログ一覧へ戻る</a
+				>
+			</div>
 		</div>
 	</article>
 </Layout>
