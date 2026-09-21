@@ -6,8 +6,35 @@ import { aboutTags } from "./data";
 import Tag from "./Tag.astro";
 ---
 
-<section id="about" class="py-12 px-12 md:px-24 bg-primary/20">
-	<div class="max-w-3xl mx-auto">
+<section id="about" class="relative overflow-hidden py-12 px-12 md:px-24 bg-primary/20">
+	{/* 右側の装飾: 右端に沿ったローポリ風の多角形ファセット。
+	    高さはセクションに追従させ、はみ出しはoverflow-hiddenで切る */}
+	<svg
+		aria-hidden="true"
+		class="absolute inset-y-0 right-0 h-full text-primary"
+		viewBox="0 0 320 480"
+		preserveAspectRatio="xMaxYMid slice"
+		fill="currentColor"
+	>
+		<polygon points="150,0 320,0 210,60" fill-opacity="0.10" />
+		<polygon points="320,0 320,120 210,60" fill-opacity="0.06" />
+		<polygon points="210,60 320,120 248,190" fill-opacity="0.13" />
+		<polygon points="320,120 320,260 248,190" fill-opacity="0.08" />
+		<polygon points="248,190 320,260 240,330" fill-opacity="0.05" />
+		<polygon points="320,260 320,380 240,330" fill-opacity="0.11" />
+		<polygon points="240,330 320,380 276,480" fill-opacity="0.07" />
+		<polygon points="320,380 320,480 276,480" fill-opacity="0.13" />
+		{/* 輪郭だけの三角形はモバイルだと吹き出しに重なるのでmd以上のみ */}
+		<polygon
+			class="max-md:hidden"
+			points="176,148 214,236 132,212"
+			fill="none"
+			stroke="currentColor"
+			stroke-opacity="0.25"
+			stroke-width="1.5"
+		/>
+	</svg>
+	<div class="relative max-w-3xl mx-auto">
 		<h1 class="text-display mb-8">Hayashi Naoki</h1>
 
 		<div class="chat chat-start mb-8">
