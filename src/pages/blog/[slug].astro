@@ -18,7 +18,11 @@ const { title, date, externalUrl } = entry.data;
 const formattedDate = date.toISOString().slice(0, 10);
 ---
 
-<Layout title={`${title} | about-naosuke884`} description="naosuke884のブログ記事">
+<Layout
+	title={`${title} | about-naosuke884`}
+	description="naosuke884のブログ記事"
+	ogImage={`/blog/${entry.id}/og.png`}
+>
 	<article class="py-12 px-12 md:px-24">
 		<div class="max-w-3xl mx-auto">
 			<header class="flex flex-col gap-3">

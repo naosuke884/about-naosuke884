@@ -1,6 +1,7 @@
 ---
 title: 音声入力アプリのHandyを使ってみた
 date: 2026-09-21
+emoji: 🎙️
 externalUrl: https://handy.computer
 ---
 

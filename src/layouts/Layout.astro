@@ -9,9 +9,11 @@ import Header from "./Header.astro";
 interface Props {
 	title: string;
 	description?: string;
+	// OG画像のパス(ブログ記事など)。未指定ならサイトアイコンを小さいカードで出す
+	ogImage?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogImage } = Astro.props;
 
 // apple-touch-iconは180pxあれば十分なのでビルド時に縮小して使う。
 // iOSが自前で角丸マスクをかける(透過は黒塗りされる)ため正方形のまま渡す
@@ -21,6 +23,9 @@ const appleTouchIcon = await getImage({
 	height: 180,
 	format: "png",
 });
+
+// og:imageは絶対URL必須
+const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 ---
 
 <html lang="ja">
@@ -43,6 +48,16 @@ const appleTouchIcon = await getImage({
 		<Font cssVariable="--font-inter" preload />
 		<title>{title}</title>
 		{description && <meta name="description" content={description} />}
+		<meta property="og:title" content={title} />
+		{description && <meta property="og:description" content={description} />}
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:site_name" content="about-naosuke884" />
+		<meta property="og:type" content={ogImage ? "article" : "website"} />
+		<meta property="og:image" content={ogImageUrl} />
+		<meta
+			name="twitter:card"
+			content={ogImage ? "summary_large_image" : "summary"}
+		/>
 	</head>
 	<body class="bg-canvas">
 		<a

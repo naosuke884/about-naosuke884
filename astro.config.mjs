@@ -6,6 +6,9 @@ import { defineConfig, fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
+	// OGP等の絶対URL生成に使う
+	site: "https://about-naosuke884.884naoki-dev.workers.dev",
+
 	// 全ページ静的なのでランタイム変換(Cloudflare Images)ではなくビルド時に画像を変換する
 	adapter: cloudflare({ imageService: "compile" }),
 

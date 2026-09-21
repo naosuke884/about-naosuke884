@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"dev": "astro dev --host",
-		"build": "astro build",
+		"build": "astro build && node scripts/generate-og-images.mjs",
 		"preview": "astro preview",
 		"astro": "astro",
 		"generate-types": "wrangler types",
@@ -24,10 +24,12 @@
 	"devDependencies": {
 		"@astrojs/check": "^0.9.8",
 		"@biomejs/biome": "^2.4.9",
+		"@resvg/resvg-js": "^2.6.2",
 		"@types/node": "^22.20.1",
 		"daisyui": "^5.7.16",
 		"lefthook": "^2.1.4",
 		"playwright-core": "1.62.1",
+		"satori": "^0.33.4",
 		"typescript": "^5.9.3"
 	}
 }
