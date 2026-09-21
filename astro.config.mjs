@@ -9,8 +9,14 @@ export default defineConfig({
 	// OGP等の絶対URL生成に使う
 	site: "https://about-naosuke884.884naoki-dev.workers.dev",
 
-	// 全ページ静的なのでランタイム変換(Cloudflare Images)ではなくビルド時に画像を変換する
-	adapter: cloudflare({ imageService: "compile" }),
+	adapter: cloudflare({
+		// 全ページ静的なのでランタイム変換(Cloudflare Images)ではなくビルド時に画像を変換する
+		imageService: "compile",
+		// prerenderをデフォルトのworkerdではなくNodeで実行する。
+		// OG画像生成(og.png.ts)がネイティブモジュール(@resvg/resvg-js)を使うため。
+		// 全ページ静的なので、workerdで動かない事故をビルドで検出できなくなるデメリットは実質ない
+		prerenderEnvironment: "node",
+	}),
 
 	markdown: {
 		// コードブロックをライト/ダーク両テーマに対応させる(切替CSSはblog/[slug].astro側)
