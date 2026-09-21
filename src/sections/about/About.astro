@@ -41,26 +41,33 @@ import Tag from "./Tag.astro";
 					</Tag>
 				))}
 			</div>
-			{aboutTags.map((tag) => (
-				<div
-					id={`about-tag-panel-${tag.id}`}
-					data-tag-detail-panel={tag.id}
-					aria-hidden="true"
-					class="grid grid-rows-[1fr] aria-hidden:grid-rows-[0fr] motion-safe:transition-[grid-template-rows] motion-safe:duration-300"
-				>
-					{/* overflow-hiddenでgrid行の自動最小サイズを0にし、0frまで潰せるようにする。
-					    閉状態はhidden(display:noneはtransition不可)でなくaria-hiddenで表現し、
-					    スタイルフックとスクリーンリーダーからの隠蔽を1属性で兼ねる。
-					    パネル内にリンク等の操作要素を入れる場合はinertへの切替を検討 */}
-					<div class="overflow-hidden">
-						<div class="card bg-base-100 mt-3">
+			{/* heightはauto⇄autoをtransitionできないため、開閉・切り替え時の高さは
+			    tag-details.tsがpxで測ってセットし、アニメーション完了後にautoへ戻す */}
+			<div
+				data-tag-detail-container
+				class="relative overflow-hidden motion-safe:transition-[height] motion-safe:duration-300 ease-out"
+				style="height: 0px"
+			>
+				{aboutTags.map((tag) => (
+					<div
+						id={`about-tag-panel-${tag.id}`}
+						data-tag-detail-panel={tag.id}
+						aria-hidden="true"
+						class="pt-3 motion-safe:transition-[opacity,filter] motion-safe:duration-300 ease-out aria-hidden:duration-150 aria-hidden:ease-in aria-hidden:absolute aria-hidden:top-0 aria-hidden:inset-x-0 aria-hidden:opacity-0 aria-hidden:blur-sm"
+					>
+						{/* 非表示パネルはabsoluteで重ねてコンテナの高さに影響させず、
+						    blur+opacityでピントが合うように入れ替える(退場150ms・入場300ms)。
+						    閉状態はhidden(display:noneはtransition不可)でなくaria-hiddenで表現し、
+						    スタイルフックとスクリーンリーダーからの隠蔽を1属性で兼ねる。
+						    パネル内にリンク等の操作要素を入れる場合はinertへの切替を検討 */}
+						<div class="card bg-base-100">
 							<div class="card-body px-5 py-4">
 								<p class="text-body">{tag.description}</p>
 							</div>
 						</div>
 					</div>
-				</div>
-			))}
+				))}
+			</div>
 		</div>
 
 		<SocialLinks />
