@@ -22,8 +22,11 @@ const links = [
 							<a
 								href={href}
 								class:list={[
-									"text-base-content/70 hover:text-base-content",
-									active && "menu-active",
+									// menu-activeは背景がneutral由来の黒になり文字色と衝突するため使わず、
+									// アクティブはprimaryのピルで表現する
+									active
+										? "bg-primary text-primary-content"
+										: "text-base-content/70 hover:text-base-content",
 								]}
 								aria-current={active ? "page" : undefined}
 							>
