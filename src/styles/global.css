@@ -113,9 +113,11 @@ html {
 		text-wrap: balance;
 	}
 
-	/* モバイルのダブルタップズーム遅延をなくす */
+	/* モバイルのダブルタップズーム遅延をなくす。タップ時の既定ハイライトは
+	   stretched linkだと文字部分だけが光り、行のactive背景と二重になるため消す */
 	a,
 	button {
 		touch-action: manipulation;
+		-webkit-tap-highlight-color: transparent;
 	}
 }

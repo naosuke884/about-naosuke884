@@ -25,7 +25,7 @@ const entries = (await getCollection("blog")).toSorted(
 							<div class="list-col-grow min-w-0 flex flex-col gap-1">
 								<time
 									datetime={formatDate(entry.data.date)}
-									class="text-small text-base-content/70"
+									class="text-small text-base-content/70 tabular-nums"
 								>
 									{formatDate(entry.data.date)}
 								</time>

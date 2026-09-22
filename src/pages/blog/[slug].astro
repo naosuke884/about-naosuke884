@@ -25,7 +25,7 @@ const formattedDate = formatDate(date);
 				<span class="text-5xl mb-2" aria-hidden="true">{emoji}</span>
 				<h1 class="text-heading">{title}</h1>
 				<div class="flex items-center gap-2">
-					<time datetime={formattedDate} class="text-small text-base-content/70">
+					<time datetime={formattedDate} class="text-small text-base-content/70 tabular-nums">
 						{formattedDate}
 					</time>
 					<CopyLinkButton label="この記事へのリンクをコピー" />
@@ -48,6 +48,11 @@ const formattedDate = formatDate(date);
      文字サイズ・トーンはglobal.cssの@layer base(本文=text-body/70%)に任せ、
      余白とpreflightで消えた装飾だけ復元する -->
 <style>
+	/* 長いURLや英単語がモバイルで横スクロールを生まないよう折り返す */
+	.blog-body {
+		overflow-wrap: anywhere;
+	}
+
 	.blog-body :global(h2) {
 		font-size: var(--text-subheading);
 		line-height: var(--text-subheading--line-height);
