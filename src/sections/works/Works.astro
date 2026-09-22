@@ -100,6 +100,8 @@ import { works } from "./data";
 		   昇格し、overflow-hiddenのクリップ縁がGPU側で再アンチエイリアスされて
 		   カード下端に薄い線が見える環境があるため、レイヤー昇格しない
 		   background-positionで同じスライドを行う */
+		/* 2層目は静止時から見せる小さな三角。カード地より少し明るい色にして
+		   「ここがめくれる」ホバーのヒントにする(ホバーすると1層目のフラップが上に被さる) */
 		.work-card::after {
 			content: "";
 			position: absolute;
@@ -107,19 +109,30 @@ import { works } from "./data";
 			bottom: 0;
 			width: 3.5rem;
 			height: 3.5rem;
-			background: linear-gradient(
+			background-image:
+				linear-gradient(
 					to top left,
 					var(--color-base-100) 50%,
 					color-mix(in oklab, var(--color-primary), white 25%) 50%
-				)
-				no-repeat;
-			background-position: 3.5rem 3.5rem;
+				),
+				linear-gradient(
+					to top left,
+					color-mix(in oklab, var(--color-primary), white 40%) 50%,
+					transparent 50%
+				);
+			background-repeat: no-repeat;
+			background-size: auto, 1.25rem 1.25rem;
+			background-position:
+				3.5rem 3.5rem,
+				right bottom;
 			transition: background-position 0.3s ease-out;
 		}
 
 		.work-card:hover::after,
 		.work-card:focus-visible::after {
-			background-position: 0 0;
+			background-position:
+				0 0,
+				right bottom;
 		}
 	}
 
