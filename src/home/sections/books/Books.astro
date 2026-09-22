@@ -21,32 +21,31 @@ import MemoIcon from "./memo.svg";
 		data-books-carousel
 	>
 		{books.map((book) => (
-			<div class="carousel-item w-32 relative">
-				<a
-					href={book.url}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="relative block after:absolute after:inset-0 after:rounded after:bg-primary/18 after:opacity-0 after:transition-opacity hover:after:opacity-100"
+			<div class="carousel-item w-32">
+				{/* 表紙全体を感想メモのモーダルを開くボタンにする。出版社ページへのリンクはモーダル内に置く */}
+				<button
+					type="button"
+					class="relative block rounded cursor-pointer after:absolute after:inset-0 after:rounded after:bg-primary/18 after:opacity-0 after:transition-opacity hover:after:opacity-100 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+					data-book-modal-trigger={book.id}
+					aria-haspopup="dialog"
+					aria-label={`「${book.title}」の感想メモ`}
 				>
 					<Image
 						src={book.cover}
-						alt={book.title}
+						alt=""
 						width={128}
 						height={176}
 						densities={[1, 2]}
 						class="w-32 h-44 object-cover rounded"
 					/>
-				</a>
-				{/* 表紙リンクの左下に重ねる扇形（四分円）ボタン。<a>の中にネストせず兄弟として重ねる。
-				    クリック領域として目立つよう、弧側だけに縁取りを付ける */}
-				<button
-					type="button"
-					class="absolute bottom-0 left-0 w-9 h-9 rounded-tr-full rounded-bl bg-primary text-primary-content border-t-2 border-r-2 border-neutral cursor-pointer flex items-end justify-start pl-1.5 pb-1.5 transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-					data-book-modal-trigger={book.id}
-					aria-haspopup="dialog"
-					aria-label={`「${book.title}」の感想メモ`}
-				>
-					<MemoIcon class="size-4" aria-hidden="true" />
+					{/* 感想メモがあることを示す左下の扇形（四分円）の目印。独立したボタンにはせず表紙ボタンの一部とし、
+					    hoverのオーバーレイ(::after)より手前に出すためz-10で重ねる。弧側だけに縁取りを付ける */}
+					<span
+						class="absolute z-10 bottom-0 left-0 w-9 h-9 rounded-tr-full rounded-bl bg-primary text-primary-content border-t-2 border-r-2 border-neutral flex items-end justify-start pl-1.5 pb-1.5"
+						aria-hidden="true"
+					>
+						<MemoIcon class="size-4" />
+					</span>
 				</button>
 			</div>
 		))}
@@ -64,6 +63,16 @@ import MemoIcon from "./memo.svg";
 				</form>
 				<h3 class="text-subheading text-center">{book.title}</h3>
 				<p class="pt-4 text-body whitespace-pre-line">{book.memo}</p>
+				<div class="modal-action justify-center">
+					<a
+						href={book.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="btn btn-primary shadow-none border-0"
+					>
+						出版社のページを見る ↗
+					</a>
+				</div>
 			</div>
 			<form method="dialog" class="modal-backdrop">
 				<button aria-label="閉じる">close</button>
