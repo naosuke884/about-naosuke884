@@ -7,6 +7,8 @@ const blog = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		date: z.coerce.date(),
+		// 記事ページのmeta description・og:description。記事ごとの説明文を必ず出すため必須にする
+		description: z.string(),
 		// OG画像に載せる絵文字(1グリフ)
 		emoji: z.string().default("📝"),
 		// 外部記事を紹介する場合のリンク先。未指定なら自分の記事

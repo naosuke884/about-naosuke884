@@ -1,6 +1,7 @@
 ---
 title: 音声入力アプリのHandyを使ってみた
 date: 2026-09-21
+description: Linuxでも使える無料の音声入力アプリHandyを使ってみた。使い方や、選べる音声認識モデルについて。
 emoji: 🎙️
 externalUrl: https://handy.computer
 ---

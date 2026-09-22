@@ -8,14 +8,14 @@ export const getStaticPaths = getBlogStaticPaths;
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
-const { title, date, emoji, externalUrl } = entry.data;
+const { title, description, date, emoji, externalUrl } = entry.data;
 
 const formattedDate = formatDate(date);
 ---
 
 <Layout
 	title={title}
-	description="Hayashi Naokiのブログ記事"
+	description={description}
 	ogImage={`/blog/${entry.id}/og.png`}
 >
 	<article class="py-12 section-px">
