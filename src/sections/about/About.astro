@@ -4,6 +4,8 @@ import myIcon from "../../assets/my-icon.png";
 import SocialLinks from "../../components/social-links/SocialLinks.astro";
 import { aboutTags } from "./data";
 import Tag from "./Tag.astro";
+
+const initialTagId = "software-engineer";
 ---
 
 <section id="about" class="relative overflow-hidden py-12 px-12 md:px-24 bg-primary/20">
@@ -66,7 +68,7 @@ import Tag from "./Tag.astro";
 				{aboutTags.map((tag) => (
 					<Tag
 						data-tag-detail-trigger={tag.id}
-						aria-expanded="false"
+						aria-expanded={tag.id === initialTagId ? "true" : "false"}
 						aria-controls={`about-tag-panel-${tag.id}`}
 					>
 						{`# ${tag.label}`}
@@ -78,13 +80,13 @@ import Tag from "./Tag.astro";
 			<div
 				data-tag-detail-container
 				class="relative overflow-hidden motion-safe:transition-[height] motion-safe:duration-300 ease-out"
-				style="height: 0px"
+				style="height: auto"
 			>
 				{aboutTags.map((tag) => (
 					<div
 						id={`about-tag-panel-${tag.id}`}
 						data-tag-detail-panel={tag.id}
-						aria-hidden="true"
+						aria-hidden={tag.id === initialTagId ? undefined : "true"}
 						class="pt-3 motion-safe:transition-[opacity,filter] motion-safe:duration-300 ease-out aria-hidden:duration-150 aria-hidden:ease-in aria-hidden:absolute aria-hidden:top-0 aria-hidden:inset-x-0 aria-hidden:opacity-0 aria-hidden:blur-sm"
 					>
 						{/* 非表示パネルはabsoluteで重ねてコンテナの高さに影響させず、

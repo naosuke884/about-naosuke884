@@ -13,7 +13,10 @@ export function setupTagDetails(): void {
 	const prefersReducedMotion = window.matchMedia(
 		"(prefers-reduced-motion: reduce)",
 	);
-	let activeIndex = -1;
+	// 初期選択タグはサーバー側でaria-expanded="true"を付けて描画済みなので、DOMから引き継ぐ
+	let activeIndex = triggers.findIndex(
+		(trigger) => trigger.getAttribute("aria-expanded") === "true",
+	);
 
 	// 開いている間はheightをautoに戻し、リサイズによる折り返し変化へ追従させる
 	container.addEventListener("transitionend", (event) => {
