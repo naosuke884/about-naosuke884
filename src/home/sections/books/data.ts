@@ -5,6 +5,8 @@ import goodCodeBadCode from "./covers/good-code-bad-code.jpg";
 import practicalGo from "./covers/practical-go.jpg";
 
 export type Book = {
+	/** モーダルのDOM idとトリガーの対応付けに使う */
+	id: string;
 	title: string;
 	cover: ImageMetadata;
 	url: string;
@@ -14,6 +16,7 @@ export type Book = {
 
 export const books: Book[] = [
 	{
+		id: "domain-driven-design-intro",
 		title: "ドメイン駆動設計入門",
 		cover: domainDrivenDesignIntro,
 		url: "https://www.shoeisha.co.jp/book/detail/9784798150727",
@@ -22,6 +25,7 @@ export const books: Book[] = [
 			"かなり読みやすかった。著者の成瀬さんがおもしろくて好き。",
 	},
 	{
+		id: "good-code-bad-code",
 		title: "良いコード悪いコードで学ぶ設計入門",
 		cover: goodCodeBadCode,
 		url: "https://gihyo.jp/book/2022/978-4-297-12783-1",
@@ -30,6 +34,7 @@ export const books: Book[] = [
 			"自分で要点をまとめたノートを定期的に読み返したくなる。",
 	},
 	{
+		id: "practical-go",
 		title: "実用Go言語",
 		cover: practicalGo,
 		url: "https://www.oreilly.co.jp/books/9784873119694/",
@@ -39,6 +44,7 @@ export const books: Book[] = [
 			"最近はAIコーディングが主流なのもあって具体より抽象の本が役に立ちそう。",
 	},
 	{
+		id: "agile-samurai",
 		title: "アジャイルサムライ",
 		cover: agileSamurai,
 		url: "https://www.ohmsha.co.jp/book/9784274068560/",

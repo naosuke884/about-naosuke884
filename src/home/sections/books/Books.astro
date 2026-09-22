@@ -20,7 +20,7 @@ import MemoIcon from "./memo.svg";
 		class="carousel carousel-start gap-6 px-1 -mx-1 pt-1 -mt-1 pb-4 w-full"
 		data-books-carousel
 	>
-		{books.map((book, index) => (
+		{books.map((book) => (
 			<div class="carousel-item w-32 relative">
 				<a
 					href={book.url}
@@ -42,7 +42,7 @@ import MemoIcon from "./memo.svg";
 				<button
 					type="button"
 					class="absolute bottom-0 left-0 w-9 h-9 rounded-tr-full rounded-bl bg-primary text-primary-content border-t-2 border-r-2 border-neutral cursor-pointer flex items-end justify-start pl-1.5 pb-1.5 transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-					data-book-modal-trigger={index}
+					data-book-modal-trigger={book.id}
 					aria-haspopup="dialog"
 					aria-label={`「${book.title}」の感想メモ`}
 				>
@@ -51,8 +51,8 @@ import MemoIcon from "./memo.svg";
 			</div>
 		))}
 	</div>
-	{books.map((book, index) => (
-		<dialog id={`book-modal-${index}`} class="modal">
+	{books.map((book) => (
+		<dialog id={`book-modal-${book.id}`} class="modal">
 			<div class="modal-box max-w-sm">
 				<form method="dialog">
 					<button
