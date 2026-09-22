@@ -35,6 +35,12 @@ export default defineConfig({
 		prerenderEnvironment: "node",
 	}),
 
+	image: {
+		// 記事で紹介する外部サイトのog:image(src/blog/link-preview.ts)をビルド時に取り込む。
+		// 紹介先は記事ごとに変わるのでホストは限定しない
+		remotePatterns: [{ protocol: "https" }],
+	},
+
 	markdown: {
 		// コードブロックをライト/ダーク両テーマに対応させる(切替CSSはblog/[slug].astro側)
 		shikiConfig: {

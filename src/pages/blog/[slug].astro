@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import { formatDate, getBlogStaticPaths } from "../../blog/entries";
+import LinkPreviewCard from "../../blog/LinkPreviewCard.astro";
 import CopyLinkButton from "../../components/copy-link/CopyLinkButton.astro";
 import Layout from "../../layouts/Layout.astro";
 
@@ -30,25 +31,7 @@ const formattedDate = formatDate(date);
 					<CopyLinkButton label="この記事へのリンクをコピー" />
 				</div>
 			</header>
-			{
-				externalUrl && (
-					<a
-						href={externalUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="card card-border border-base-300 bg-base-200 mt-6 transition-colors hover:border-primary"
-					>
-						<div class="card-body px-5 py-4 gap-1">
-							<span class="text-body font-medium text-base-content">
-								{new URL(externalUrl).hostname} で読む ↗
-							</span>
-							<span class="text-small text-base-content/70 break-all">
-								{externalUrl}
-							</span>
-						</div>
-					</a>
-				)
-			}
+			{externalUrl && <LinkPreviewCard url={externalUrl} />}
 			<div class="blog-body mt-8">
 				<Content />
 			</div>

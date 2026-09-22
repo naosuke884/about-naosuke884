@@ -1,0 +1,55 @@
+---
+import { fetchLinkPreview } from "./link-preview";
+
+interface Props {
+	url: string;
+}
+
+const { url } = Astro.props;
+const { hostname } = new URL(url);
+const { title, description, siteName, image } = await fetchLinkPreview(url);
+// 見出しが取れなければホスト名を見出しにし、下段はホスト名の重複を避けてURL全体を出す
+const heading = title ?? siteName;
+---
+
+<!-- 記事で紹介している外部サイトのカード。記事本体が外部にあるように読めないよう、
+     「で読む」ではなく紹介先であることをラベルで示す(issue #59)。
+     OGPが取れなかった項目は出さず、ホスト名とURLだけのカードになる -->
+<a
+	href={url}
+	target="_blank"
+	rel="noopener noreferrer"
+	class="card card-border border-base-300 bg-base-200 mt-6 overflow-hidden transition-colors hover:border-primary sm:card-side"
+>
+	{
+		image && (
+			<figure class="shrink-0 sm:w-2/5">
+				<img
+					src={image.src}
+					width={image.width}
+					height={image.height}
+					alt=""
+					loading="lazy"
+					decoding="async"
+					class="size-full object-cover"
+				/>
+			</figure>
+		)
+	}
+	<div class="card-body min-w-0 px-5 py-4 gap-1">
+		<span class="text-small text-base-content/70">紹介しているサイト</span>
+		<span class="text-body font-medium text-base-content">
+			{heading ?? hostname}
+		</span>
+		{
+			description && (
+				<span class="text-small text-base-content/70 line-clamp-2">
+					{description}
+				</span>
+			)
+		}
+		<span class="text-small text-base-content/70 break-all">
+			{heading ? hostname : url} ↗
+		</span>
+	</div>
+</a>
