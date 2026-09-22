@@ -5,35 +5,31 @@ import GitHubIcon from "./github.svg";
 ---
 
 <Section id="works" title="作ったもの">
-	<div class="overflow-x-auto">
-		<table class="table">
-			<tbody>
-				{works.map((work) => (
-					<tr class="relative cursor-pointer transition-colors hover:bg-base-200 active:bg-base-200">
-						<td class="whitespace-nowrap">
-							{/* trをbuttonにはできないため、ボタンの::afterを行全体に広げて
-							    クリック領域にするstretched buttonパターン(trがrelativeで基準) */}
-							<button
-								type="button"
-								class="flex items-center gap-2 font-semibold cursor-pointer after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
-								data-work-modal-trigger={work.id}
-								aria-haspopup="dialog"
-							>
-								<img src={work.icon} alt="" class="size-6" loading="lazy" />
-								{work.title}
-							</button>
-						</td>
-						<td class="text-base-content/70">
-							<span class="flex items-center justify-between gap-4">
-								{work.summary}
-								<span class="text-base-content/40" aria-hidden="true">›</span>
-							</span>
-						</td>
-					</tr>
-				))}
-			</tbody>
-		</table>
-	</div>
+	{/* 表だと列幅が内容から自動で決まり、モバイルでは概要が細かく折り返し、PCでは名前と概要の間が空くため、
+	    名前と概要を縦に積むリストにして、画面幅によらず概要が横幅いっぱいを使えるようにする (#57)。
+	    行の区切り線(list-rowの::after)はdaisyUI既定の5%では薄すぎるため、動画枠と同じ10%にする */}
+	<ul class="list -mx-4">
+		{works.map((work) => (
+			<li class="list-row items-center after:border-base-content/10 cursor-pointer transition-colors hover:bg-base-200 active:bg-base-200">
+				<img src={work.icon} alt="" class="size-8" loading="lazy" />
+				{/* グリッドの列は既定で中身より縮まず、1行省略の概要が行を押し広げるためmin-w-0で縮めるようにする */}
+				<div class="min-w-0">
+					{/* liをbuttonにはできないため、ボタンの::afterを行全体に広げて
+					    クリック領域にするstretched buttonパターン(list-rowがrelativeで基準) */}
+					<button
+						type="button"
+						class="text-base font-semibold text-base-content cursor-pointer after:absolute after:inset-0 after:rounded-box focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
+						data-work-modal-trigger={work.id}
+						aria-haspopup="dialog"
+					>
+						{work.title}
+					</button>
+					{/* 概要は1行に収め、はみ出す分は省略する */}
+					<p class="text-base-content/70 truncate">{work.summary}</p>
+				</div>
+			</li>
+		))}
+	</ul>
 	{works.map((work) => (
 		<dialog id={`work-modal-${work.id}`} class="modal">
 			{/* モバイルは全画面表示(h-fullはfixed inset-0の.modalグリッドいっぱいに伸びる。
