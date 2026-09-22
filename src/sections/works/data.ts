@@ -1,7 +1,7 @@
 export type Work = {
 	id: string;
 	title: string;
-	/** カード左側に表示するアイコンのURL */
+	/** カード見出しの冒頭に表示するアイコンのURL */
 	icon: string;
 	summary: string;
 	description: string;
