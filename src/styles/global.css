@@ -75,6 +75,16 @@
 	--text-nav--font-weight: 500;
 }
 
+/* セクション外枠の左右パディング。Layout.astroのコンテンツ列幅60remは
+   コンテンツ幅max-w-3xl(48rem)+この左右パディング(md以上で6remずつ)で構成される */
+@utility section-px {
+	padding-inline: calc(var(--spacing) * 12);
+
+	@variant md {
+		padding-inline: calc(var(--spacing) * 24);
+	}
+}
+
 html {
 	scroll-padding-top: var(--spacing-header);
 }

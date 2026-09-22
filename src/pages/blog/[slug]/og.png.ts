@@ -1,20 +1,16 @@
-import { type CollectionEntry, getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { Resvg } from "@resvg/resvg-js";
 import type { APIRoute } from "astro";
 import satori from "satori";
+import { getBlogStaticPaths } from "../../../blog/entries";
+import { SITE_NAME } from "../../../site";
 
 // ブログ記事のOG画像(X等のシェアプレビュー)をビルド時に生成する。
 // 記事frontmatterのemojiをTwemojiのSVGで大きく載せたカードデザイン。
 // resvgのネイティブモジュールを使うため、prerenderはNodeで実行する
 // (astro.config.mjsのprerenderEnvironment: "node"と対)
 
-export async function getStaticPaths() {
-	const entries = await getCollection("blog");
-	return entries.map((entry) => ({
-		params: { slug: entry.id },
-		props: { entry },
-	}));
-}
+export const getStaticPaths = getBlogStaticPaths;
 
 // satoriはJSXなしでも {type, props} のオブジェクトツリーを受け取れる
 type Element = {
@@ -59,8 +55,6 @@ const COLORS = {
 	title: "#2d2d2d",
 	siteName: "#486289",
 };
-
-const SITE_NAME = "about-naosuke884";
 
 function ogTemplate(title: string, emojiDataUri: string): Element {
 	return {

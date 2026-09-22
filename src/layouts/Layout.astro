@@ -2,18 +2,21 @@
 import { Font, getImage } from "astro:assets";
 import myIcon from "../assets/my-icon.png";
 import myIconRound from "../assets/my-icon-round.png";
+import { SITE_NAME } from "../site";
 import "../styles/global.css";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
 
 interface Props {
-	title: string;
+	// ページ固有のタイトル。「<title> | サイト名」の形になる。未指定(トップページ)はサイト名のみ
+	title?: string;
 	description?: string;
 	// OG画像のパス(ブログ記事など)。未指定ならサイトアイコンを小さいカードで出す
 	ogImage?: string;
 }
 
 const { title, description, ogImage } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
 
 // apple-touch-iconは180pxあれば十分なのでビルド時に縮小して使う。
 // iOSが自前で角丸マスクをかける(透過は黒塗りされる)ため正方形のまま渡す
@@ -46,12 +49,12 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 			content="#151520"
 		/>
 		<Font cssVariable="--font-inter" preload />
-		<title>{title}</title>
+		<title>{fullTitle}</title>
 		{description && <meta name="description" content={description} />}
-		<meta property="og:title" content={title} />
+		<meta property="og:title" content={fullTitle} />
 		{description && <meta property="og:description" content={description} />}
 		<meta property="og:url" content={Astro.url} />
-		<meta property="og:site_name" content="about-naosuke884" />
+		<meta property="og:site_name" content={SITE_NAME} />
 		<meta property="og:type" content={ogImage ? "article" : "website"} />
 		<meta property="og:image" content={ogImageUrl} />
 		<meta
@@ -65,7 +68,7 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 			class="btn btn-primary btn-sm fixed top-3 left-3 z-[60] -translate-y-20 shadow-lg focus:translate-y-0"
 			>本文へスキップ</a
 		>
-		<!-- コンテンツ列。幅はコンテンツ幅(max-w-3xl)+左右パディング(md:px-24)の60remで、
+		<!-- コンテンツ列。幅はコンテンツ幅(max-w-3xl)+左右パディング(section-px)の60remで、
 		     各セクションの背景帯・区切り線・フッターはこの列の内側に収まる。
 		     列の外側はbodyのbg-canvasで一段暗くする -->
 		<div class="mx-auto flex min-h-dvh max-w-[60rem] flex-col bg-base-100">

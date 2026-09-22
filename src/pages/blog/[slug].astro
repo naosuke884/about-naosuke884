@@ -1,29 +1,24 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
+import { formatDate, getBlogStaticPaths } from "../../blog/entries";
 import CopyLinkButton from "../../components/copy-link/CopyLinkButton.astro";
 import Layout from "../../layouts/Layout.astro";
 
-export async function getStaticPaths() {
-	const entries = await getCollection("blog");
-	return entries.map((entry) => ({
-		params: { slug: entry.id },
-		props: { entry },
-	}));
-}
+export const getStaticPaths = getBlogStaticPaths;
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const { title, date, emoji, externalUrl } = entry.data;
 
-const formattedDate = date.toISOString().slice(0, 10);
+const formattedDate = formatDate(date);
 ---
 
 <Layout
-	title={`${title} | about-naosuke884`}
+	title={title}
 	description="naosuke884のブログ記事"
 	ogImage={`/blog/${entry.id}/og.png`}
 >
-	<article class="py-12 px-12 md:px-24">
+	<article class="py-12 section-px">
 		<div class="max-w-3xl mx-auto">
 			<header class="flex flex-col items-center gap-3 text-center">
 				<span class="text-5xl mb-2" aria-hidden="true">{emoji}</span>

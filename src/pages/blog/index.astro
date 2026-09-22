@@ -1,22 +1,18 @@
 ---
 import { getCollection } from "astro:content";
+import { formatDate } from "../../blog/entries";
+import SectionHeading from "../../components/section-heading/SectionHeading.astro";
 import Layout from "../../layouts/Layout.astro";
 
 const entries = (await getCollection("blog")).toSorted(
 	(a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-
-const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 ---
 
-<Layout title="ブログ | about-naosuke884" description="naosuke884のブログ">
-	<section class="py-12 px-12 md:px-24">
+<Layout title="ブログ" description="naosuke884のブログ">
+	<section class="py-12 section-px">
 		<div class="max-w-3xl mx-auto">
-			<h1 class="text-heading mb-8 flex items-center gap-3">
-				<span class="w-1 self-stretch rounded-full bg-primary" aria-hidden="true"
-				></span>
-				ブログ
-			</h1>
+			<SectionHeading level={1} class="mb-8">ブログ</SectionHeading>
 			<ul class="list">
 				{
 					entries.map((entry) => (

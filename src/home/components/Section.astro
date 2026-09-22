@@ -1,5 +1,6 @@
 ---
 import CopyLinkButton from "../../components/copy-link/CopyLinkButton.astro";
+import SectionHeading from "../../components/section-heading/SectionHeading.astro";
 
 interface Props {
 	id: string;
@@ -11,16 +12,12 @@ const { id, title } = Astro.props;
 
 <section
 	id={id}
-	class="py-12 px-12 md:px-24"
+	class="py-12 section-px"
 >
 	<div class="max-w-3xl mx-auto">
 		<div class="mb-8 flex items-center justify-between">
 			<div class="flex items-center gap-2">
-				<h2 class="text-heading flex items-center gap-3">
-					<span class="w-1 self-stretch rounded-full bg-primary" aria-hidden="true"
-					></span>
-					{title}
-				</h2>
+				<SectionHeading>{title}</SectionHeading>
 				<CopyLinkButton hash={id} label={`${title}セクションへのリンクをコピー`} />
 			</div>
 			<slot name="heading-extra" />

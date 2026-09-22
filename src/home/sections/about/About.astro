@@ -5,10 +5,11 @@ import SocialLinks from "../../../components/social-links/SocialLinks.astro";
 import { aboutTags } from "./data";
 import Tag from "./Tag.astro";
 
-const initialTagId = "software-engineer";
+// 初期表示は先頭のタグを開いておく
+const initialTagId = aboutTags[0].id;
 ---
 
-<section id="about" class="relative overflow-hidden py-12 px-12 md:px-24 bg-primary/20">
+<section id="about" class="relative overflow-hidden py-12 section-px bg-primary/20">
 	{/* 右側の装飾: 右端に沿ったローポリ風の多角形ファセット。
 	    タグ切り替えでセクション高さが変わっても伸縮しないよう固定サイズ(等倍)で
 	    右上にアンカーし、はみ出しはoverflow-hiddenで切る。
