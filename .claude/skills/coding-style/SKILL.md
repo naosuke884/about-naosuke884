@@ -7,7 +7,8 @@ description: このリポジトリのコード方針（コンポーネント配�
 
 about-naosuke884 — 自己紹介サイト。Astro 6 + TypeScript、Cloudflare Pages（@astrojs/cloudflare）にデプロイ。
 
-- コンポーネントは複数箇所で再利用する必要が出てから `src/components/` に切り出す。それまではページ内にコロケーションして可読性を優先する
+- ディレクトリはページ(feature)単位で分ける: トップ(about)ページ専用は `src/about/`、ブログ専用は `src/blog/`、ページ横断で使うものだけ `src/components/` に置く。`src/pages/` はルーティングのみ
+- コンポーネントは複数箇所で再利用する必要が出てから `src/components/` に切り出す。それまではページのディレクトリ（`src/about/` / `src/blog/`）にコロケーションして可読性を優先する
 - `src/styles/` には `global.css` のみ置く。スタイリングはTailwindのユーティリティクラスとAstroのスコープド `<style>` で完結させる
 - UIはdaisyUIのコンポーネントクラス（avatar, badge, card, menu など）を積極的に使う。素のTailwindだけで同等のUIを組むのは、daisyUIに該当コンポーネントがない場合のみ
 - `.astro` ファイルの `<script>` タグにロジックを直書きしない。クライアントJSは `.ts` ファイルに切り出してコロケーションし、`<script>` 内は import と関数呼び出しのみにする（Biomeはscriptタグ内を処理できないため）
