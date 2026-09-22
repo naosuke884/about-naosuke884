@@ -5,23 +5,34 @@ import { works } from "./data";
 ---
 
 <Section id="works" title="作ったもの">
-	<div class="grid gap-6">
-		{works.map((work) => (
-			<button
-				type="button"
-				class="work-card card relative w-full max-w-md bg-primary text-primary-content text-left cursor-pointer overflow-hidden"
-				data-work-modal-trigger={work.id}
-				aria-haspopup="dialog"
-			>
-				<div class="card-body">
-					<h3 class="card-title text-subheading text-primary-content pb-2 border-b border-primary-content/20">
-						<img src={work.icon} alt="" class="size-7" loading="lazy" />
-						{work.title}
-					</h3>
-					<p class="text-body text-primary-content/80">{work.summary}</p>
-				</div>
-			</button>
-		))}
+	<div class="overflow-x-auto">
+		<table class="table">
+			<tbody>
+				{works.map((work) => (
+					<tr class="relative cursor-pointer transition-colors hover:bg-base-200 active:bg-base-200">
+						<td class="whitespace-nowrap">
+							{/* trをbuttonにはできないため、ボタンの::afterを行全体に広げて
+							    クリック領域にするstretched buttonパターン(trがrelativeで基準) */}
+							<button
+								type="button"
+								class="flex items-center gap-2 font-semibold cursor-pointer after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
+								data-work-modal-trigger={work.id}
+								aria-haspopup="dialog"
+							>
+								<img src={work.icon} alt="" class="size-6" loading="lazy" />
+								{work.title}
+							</button>
+						</td>
+						<td class="text-base-content/70">
+							<span class="flex items-center justify-between gap-4">
+								{work.summary}
+								<span class="text-base-content/40" aria-hidden="true">›</span>
+							</span>
+						</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
 	</div>
 	{works.map((work) => (
 		<dialog id={`work-modal-${work.id}`} class="modal">
@@ -84,61 +95,3 @@ import { works } from "./data";
 	import { setupWorksModal } from "./modal";
 	setupWorksModal();
 </script>
-
-<style>
-	/* ホバーでカード右下がめくれるドッグイヤー。
-	   対角線の右下側はページ背景色(base-100)で「切り取られた角」、
-	   左上側は折り返ったフラップを表現する。
-	   ホバーできないデバイスでは発動しないため、めくれの切り口に合わせた
-	   右下の角丸解除ごとhover:hoverに限定する */
-	@media (hover: hover) {
-		.work-card {
-			border-bottom-right-radius: 0;
-		}
-
-		/* transformでスライドさせると::afterがアニメーション中だけコンポジタレイヤーに
-		   昇格し、overflow-hiddenのクリップ縁がGPU側で再アンチエイリアスされて
-		   カード下端に薄い線が見える環境があるため、レイヤー昇格しない
-		   background-positionで同じスライドを行う */
-		/* 2層目は静止時から見せる小さな三角。カード地より少し明るい色にして
-		   「ここがめくれる」ホバーのヒントにする(ホバーすると1層目のフラップが上に被さる) */
-		.work-card::after {
-			content: "";
-			position: absolute;
-			right: 0;
-			bottom: 0;
-			width: 3.5rem;
-			height: 3.5rem;
-			background-image:
-				linear-gradient(
-					to top left,
-					var(--color-base-100) 50%,
-					color-mix(in oklab, var(--color-primary), white 25%) 50%
-				),
-				linear-gradient(
-					to top left,
-					color-mix(in oklab, var(--color-primary), white 40%) 50%,
-					transparent 50%
-				);
-			background-repeat: no-repeat;
-			background-size: auto, 1.25rem 1.25rem;
-			background-position:
-				3.5rem 3.5rem,
-				right bottom;
-			transition: background-position 0.3s ease-out;
-		}
-
-		.work-card:hover::after,
-		.work-card:focus-visible::after {
-			background-position:
-				0 0,
-				right bottom;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.work-card::after {
-			transition: none;
-		}
-	}
-</style>
