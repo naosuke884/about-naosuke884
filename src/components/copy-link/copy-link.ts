@@ -12,7 +12,15 @@ export function setupCopyLinkButtons(): void {
 
 			button.addEventListener("click", async () => {
 				const hash = button.dataset.copyLink;
-				const url = `${location.origin}${location.pathname}${hash ? `#${hash}` : ""}`;
+				// location基準だと*.pages.devやプレビュー経由のドメインを拾うため、
+				// 共有用の正規URLとしてog:urlを使う。末尾のスラッシュはルート以外では除く
+				const ogUrl = document.querySelector<HTMLMetaElement>(
+					'meta[property="og:url"]',
+				)?.content;
+				const page = new URL(ogUrl || location.href);
+				const path =
+					page.pathname === "/" ? "/" : page.pathname.replace(/\/$/, "");
+				const url = `${page.origin}${path}${hash ? `#${hash}` : ""}`;
 				let copied = true;
 				try {
 					await navigator.clipboard.writeText(url);
