@@ -23,3 +23,7 @@ jobs:
 
       - name: Astro check
         run: npx astro check
+
+      # checkでは検出できないビルド時エラー(OG画像生成の外部フェッチ等)をPR時点で検出する
+      - name: Build
+        run: npm run build
