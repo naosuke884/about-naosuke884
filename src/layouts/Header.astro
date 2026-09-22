@@ -22,6 +22,9 @@ const links = [
 							<a
 								href={href}
 								class:list={[
+									// daisyUIのmenuはfocus-visible時に--tw-outline-styleをnoneにしてoutlineを消すため、
+									// outline-solidでスタイルを明示して他の操作要素と同じoutlineを出し直す
+									"focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
 									// menu-activeは背景がneutral由来の黒になり文字色と衝突するため使わず、
 									// アクティブはprimaryのピルで表現する
 									active
