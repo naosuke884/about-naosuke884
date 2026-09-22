@@ -48,7 +48,10 @@ import { works } from "./data";
 						✕
 					</button>
 				</form>
-				<h3 class="text-subheading">{work.title}</h3>
+				<h3 class="flex items-center gap-2 text-subheading">
+					<img src={work.icon} alt="" class="size-6" loading="lazy" />
+					{work.title}
+				</h3>
 				{/* controlsは付けない。開いた瞬間のplay()と組み合わさると再生開始時に
 				    コントロールオーバーレイが出て数秒で消え、不安定に見えるため、
 				    modal.tsでタップ/キー操作時に初めて表示する (#52) */}
