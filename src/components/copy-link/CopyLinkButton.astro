@@ -13,10 +13,11 @@ const tipClass =
 	"pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-field bg-neutral px-2 py-1 text-sm text-neutral-content opacity-0 transition-opacity";
 ---
 
+<!-- アイコン色の/60は非テキストのコントラスト3:1(WCAG 1.4.11)をライトテーマのbase-200上でも満たす下限付近 -->
 <div class="group relative">
 	<button
 		type="button"
-		class="btn btn-ghost btn-xs btn-circle swap swap-rotate text-base-content/40 hover:text-base-content"
+		class="btn btn-ghost btn-xs btn-circle swap swap-rotate text-base-content/60 hover:text-base-content"
 		data-copy-link={hash ?? ""}
 		aria-label={label}
 	>
