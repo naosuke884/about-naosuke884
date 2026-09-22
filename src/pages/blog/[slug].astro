@@ -83,8 +83,9 @@ const formattedDate = date.toISOString().slice(0, 10);
 		margin-block: 2rem 0.5rem;
 	}
 
+	/* 段落間は行間(line-height 1.8 ≒ 0.8rem)より明確に広くして切れ目を見せる */
 	.blog-body :global(p) {
-		margin-block: 1rem;
+		margin-block: 1.5rem;
 	}
 
 	.blog-body :global(ul) {
@@ -97,7 +98,15 @@ const formattedDate = date.toISOString().slice(0, 10);
 
 	.blog-body :global(:is(ul, ol)) {
 		padding-inline-start: 1.5rem;
-		margin-block: 1rem;
+		margin-block: 1.5rem;
+	}
+
+	.blog-body :global(li) {
+		margin-block: 0.375rem;
+	}
+
+	.blog-body :global(li)::marker {
+		color: var(--color-primary);
 	}
 
 	.blog-body :global(a) {
