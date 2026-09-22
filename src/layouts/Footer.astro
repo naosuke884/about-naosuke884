@@ -7,6 +7,7 @@ import SocialLinks from "../components/social-links/SocialLinks.astro";
 >
 	<div class="max-w-3xl mx-auto flex flex-col items-center gap-y-4">
 		<SocialLinks />
-		<p>&copy; {new Date().getFullYear()} Hayashi Naoki</p>
+		{/* 年を動的に出すとビルド時の年で固定されて古くなるため、公開年で固定する */}
+		<p>&copy; 2026 Hayashi Naoki</p>
 	</div>
 </footer>
