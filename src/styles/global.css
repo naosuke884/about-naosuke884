@@ -119,8 +119,3 @@ html {
 		touch-action: manipulation;
 	}
 }
-
-/* daisyUIのchat-bubbleはbase-contentを直接指定するため、本文トーンを継承させる */
-.chat-bubble {
-	color: inherit;
-}

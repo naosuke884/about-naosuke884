@@ -32,7 +32,7 @@ const initialTagId = aboutTags[0].id;
 		<polygon points="320,480 320,620 238,560" fill-opacity="0.06" />
 		<polygon points="238,560 320,620 272,700" fill-opacity="0.12" />
 		<polygon points="320,620 320,768 272,700" fill-opacity="0.08" />
-		{/* 輪郭だけの三角形はモバイルだと吹き出しに重なるのでmd以上のみ */}
+		{/* 輪郭だけの三角形はモバイルだとコンテンツに重なるのでmd以上のみ */}
 		<polygon
 			class="max-md:hidden"
 			points="176,148 214,236 132,212"
@@ -43,25 +43,25 @@ const initialTagId = aboutTags[0].id;
 		/>
 	</svg>
 	<div class="relative max-w-3xl mx-auto">
-		<h1 class="text-display mb-8">Hayashi Naoki</h1>
-
-		<div class="chat chat-start mb-8">
-			<div class="chat-image avatar">
-				<div class="w-18 rounded-full">
+		{/* アイコンと名前のプロフィールヘッダー。モバイルでは名前が折り返さないよう縦積み、
+		    md以上で横並びにする。DOM上は見出しを先に置き、表示順だけアイコンを先にする。
+		    イラストは余白が多く小さく見えるため、アイコンは名前の約2倍(80px)にして釣り合わせる。
+		    背景に溶けないよう薄いリングで輪郭を付ける */}
+		<div class="flex flex-col items-start gap-5 md:flex-row md:items-center md:gap-6 mb-10">
+			<h1 class="text-display order-2">Hayashi Naoki</h1>
+			<div class="avatar order-1 shrink-0 self-start md:self-center">
+				<div class="size-20 rounded-full ring-4 ring-base-100/60">
 					<Image
 						src={myIcon}
 						alt="Hayashi Naokiのアイコン"
-						width={72}
-						height={72}
+						width={80}
+						height={80}
 						densities={[1, 2]}
 						loading="eager"
 						fetchpriority="high"
 					/>
 				</div>
 			</div>
-			<p class="chat-bubble bg-base-100">
-				なんもわからん
-			</p>
 		</div>
 
 		<div class="mb-8">
