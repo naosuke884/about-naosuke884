@@ -13,26 +13,29 @@ const entries = (await getCollection("blog")).toSorted(
 	<section class="py-12 section-px">
 		<div class="max-w-3xl mx-auto">
 			<SectionHeading level={1} class="mb-8">ブログ</SectionHeading>
-			<ul class="list">
+			{/* 行の区切り線(list-rowの::after)はWorksと揃えて10%にする。
+			    hover背景が見出しの左端より外に出るよう、行の左右パディング分だけ-mx-4で広げる */}
+			<ul class="list -mx-4">
 				{
 					entries.map((entry) => (
-						<li class="list-row px-0">
+						<li class="list-row after:border-base-content/10 transition-colors hover:bg-base-200 active:bg-base-200">
 							<span class="text-3xl self-center" aria-hidden="true">
 								{entry.data.emoji}
 							</span>
-							<div class="list-col-grow flex flex-col gap-2">
-								<a
-									href={`/blog/${entry.id}/`}
-									class="text-subheading text-base-content hover:text-primary transition-colors"
-								>
-									{entry.data.title}
-								</a>
+							<div class="list-col-grow min-w-0 flex flex-col gap-1">
 								<time
 									datetime={formatDate(entry.data.date)}
 									class="text-small text-base-content/70"
 								>
 									{formatDate(entry.data.date)}
 								</time>
+								{/* aの::afterを行全体に広げてクリック領域にするstretched linkパターン(list-rowがrelativeで基準) */}
+								<a
+									href={`/blog/${entry.id}/`}
+									class="text-base font-semibold text-base-content after:absolute after:inset-0 after:rounded-box focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
+								>
+									<span class="line-clamp-2">{entry.data.title}</span>
+								</a>
 							</div>
 						</li>
 					))
