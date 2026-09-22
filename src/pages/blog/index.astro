@@ -21,6 +21,9 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 				{
 					entries.map((entry) => (
 						<li class="list-row px-0">
+							<span class="text-3xl self-center" aria-hidden="true">
+								{entry.data.emoji}
+							</span>
 							<div class="list-col-grow flex flex-col gap-2">
 								<a
 									href={`/blog/${entry.id}/`}
