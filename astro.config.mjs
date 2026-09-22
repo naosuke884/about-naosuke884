@@ -2,7 +2,24 @@
 
 import cloudflare from "@astrojs/cloudflare";
 import tailwindcss from "@tailwindcss/vite";
+import { satteri } from "@astrojs/markdown-satteri";
 import { defineConfig, fontProviders } from "astro/config";
+import { defineHastPlugin } from "satteri";
+
+// 記事本文の外部リンクを別タブで開く
+const externalLinksPlugin = defineHastPlugin({
+	name: "external-links",
+	element: {
+		filter: ["a"],
+		visit(node, ctx) {
+			const href = node.properties?.href;
+			if (typeof href === "string" && /^https?:\/\//.test(href)) {
+				ctx.setProperty(node, "target", "_blank");
+				ctx.setProperty(node, "rel", "noopener noreferrer");
+			}
+		},
+	},
+});
 
 // https://astro.build/config
 export default defineConfig({
@@ -23,6 +40,7 @@ export default defineConfig({
 		shikiConfig: {
 			themes: { light: "github-light", dark: "github-dark" },
 		},
+		processor: satteri({ hastPlugins: [externalLinksPlugin] }),
 	},
 
 	fonts: [
