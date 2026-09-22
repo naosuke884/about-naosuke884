@@ -10,7 +10,7 @@ const blog = defineCollection({
 		// OG画像に載せる絵文字(1グリフ)
 		emoji: z.string().default("📝"),
 		// 外部記事を紹介する場合のリンク先。未指定なら自分の記事
-		externalUrl: z.string().url().optional(),
+		externalUrl: z.url().optional(),
 	}),
 });
 
