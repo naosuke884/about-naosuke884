@@ -26,7 +26,7 @@ import MemoIcon from "./memo.svg";
 					href={book.url}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="group"
+					class="relative block after:absolute after:inset-0 after:rounded after:bg-primary/18 after:opacity-0 after:transition-opacity hover:after:opacity-100"
 				>
 					<Image
 						src={book.cover}
@@ -34,14 +34,14 @@ import MemoIcon from "./memo.svg";
 						width={128}
 						height={176}
 						densities={[1, 2]}
-						class="w-32 h-44 object-cover rounded border-2 border-neutral transition-shadow group-hover:ring-2 group-hover:ring-primary"
+						class="w-32 h-44 object-cover rounded"
 					/>
 				</a>
 				{/* 表紙リンクの左下に重ねる扇形（四分円）ボタン。<a>の中にネストせず兄弟として重ねる。
-				    表紙のborder-2の内側に収まるよう2pxオフセット */}
+				    クリック領域として目立つよう、弧側だけに縁取りを付ける */}
 				<button
 					type="button"
-					class="absolute bottom-[2px] left-[2px] w-9 h-9 rounded-tr-full rounded-bl bg-primary/90 text-primary-content cursor-pointer flex items-end justify-start pl-1.5 pb-1.5 transition-colors hover:bg-primary focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+					class="absolute bottom-0 left-0 w-9 h-9 rounded-tr-full rounded-bl bg-primary text-primary-content border-t-2 border-r-2 border-neutral cursor-pointer flex items-end justify-start pl-1.5 pb-1.5 transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
 					data-book-modal-trigger={index}
 					aria-haspopup="dialog"
 					aria-label={`「${book.title}」の感想メモ`}
