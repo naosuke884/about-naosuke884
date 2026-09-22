@@ -4,4 +4,4 @@
 
 - ページ横断で使うものは `src/components/` へ
 - トップページ専用のものは `src/home/` へ
-- 記事本体(Markdown)は `src/content/blog/` へ
+- 記事本体(Markdown)は `src/blog/content/` へ
