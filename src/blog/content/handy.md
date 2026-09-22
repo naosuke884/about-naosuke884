@@ -19,7 +19,7 @@ externalUrl: https://handy.computer
 で、喋った内容が入力される。  
 
 音声認識に使うモデルはいろいろ選べる。
-[使えるモデルの詳細はこちら](https://handy.computer/docs/models)から。僕のマシンは性能がそこそこ良いので、OpenAI の Whisper Large v3 Turbo を使ってみてる。
+[使えるモデルの詳細はこちら](https://handy.computer/docs/models)。僕のマシンは性能がそこそこ良いので、OpenAI の Whisper Large v3 Turbo を使ってみてる。
 
 料金は無料。ローカルの計算資源がある程度あればOK。
 > Accessibility tooling belongs in everyone's hands, not behind a paywall. 
