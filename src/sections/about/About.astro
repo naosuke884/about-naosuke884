@@ -57,10 +57,12 @@ import Tag from "./Tag.astro";
 		</div>
 
 		<div class="mb-8">
-			{/* 折り返し行ごとのタグ数の偏りはtag-balance.tsがmax-widthを詰めて均す
-			    (CSSのtext-wrap:balanceはflexに効かず、Firefoxはインライン配置にしても
-			    タグのようなatomic inlineを均してくれないため) */}
-			<div data-tag-balance class="flex flex-wrap gap-2">
+			{/* text-wrap:balanceはflexには効かずインラインフローにのみ効くため、
+			    flex-wrap+gapではなくインライン配置+マージン(-m-1/*:m-1で間隔0.5rem)で
+			    折り返し行ごとのタグ数の偏りを防ぐ。
+			    Firefoxはatomic inlineにbalanceを適用しないが、サポート対象外とする
+			    (単に貪欲な折り返しになるだけで表示は壊れない) */}
+			<div class="[text-wrap:balance] -m-1 *:m-1">
 				{aboutTags.map((tag) => (
 					<Tag
 						data-tag-detail-trigger={tag.id}
@@ -105,8 +107,6 @@ import Tag from "./Tag.astro";
 </section>
 
 <script>
-	import { setupTagBalance } from "./tag-balance";
 	import { setupTagDetails } from "./tag-details";
 	setupTagDetails();
-	setupTagBalance();
 </script>
