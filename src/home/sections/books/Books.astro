@@ -51,7 +51,11 @@ import MemoIcon from "./memo.svg";
 		))}
 	</div>
 	{books.map((book) => (
-		<dialog id={`book-modal-${book.id}`} class="modal">
+		<dialog
+			id={`book-modal-${book.id}`}
+			class="modal"
+			aria-labelledby={`book-modal-${book.id}-title`}
+		>
 			<div class="modal-box max-w-sm">
 				<form method="dialog">
 					<button
@@ -61,7 +65,9 @@ import MemoIcon from "./memo.svg";
 						✕
 					</button>
 				</form>
-				<h3 class="text-subheading text-center">{book.title}</h3>
+				<h3 id={`book-modal-${book.id}-title`} class="text-subheading text-center">
+					{book.title}
+				</h3>
 				<p class="pt-4 text-body whitespace-pre-line">{book.memo}</p>
 				<div class="modal-action justify-center">
 					<a

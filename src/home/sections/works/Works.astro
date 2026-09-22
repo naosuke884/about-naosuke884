@@ -11,7 +11,7 @@ import GitHubIcon from "./github.svg";
 	<ul class="list -mx-4">
 		{works.map((work) => (
 			<li class="list-row items-center after:border-base-content/10 cursor-pointer transition-colors hover:bg-base-200 active:bg-base-200">
-				<img src={work.icon} alt="" class="size-8" loading="lazy" />
+				<img src={work.icon} alt="" width={32} height={32} class="size-8" />
 				{/* グリッドの列は既定で中身より縮まず、1行省略の概要が行を押し広げるためmin-w-0で縮めるようにする */}
 				<div class="min-w-0">
 					{/* liをbuttonにはできないため、ボタンの::afterを行全体に広げて
@@ -31,7 +31,11 @@ import GitHubIcon from "./github.svg";
 		))}
 	</ul>
 	{works.map((work) => (
-		<dialog id={`work-modal-${work.id}`} class="modal">
+		<dialog
+			id={`work-modal-${work.id}`}
+			class="modal"
+			aria-labelledby={`work-modal-${work.id}-title`}
+		>
 			{/* モバイルは全画面表示(h-fullはfixed inset-0の.modalグリッドいっぱいに伸びる。
 			    vh系単位はFirefox Androidのアドレスバー問題があるため使わない)、
 			    sm以上はdaisyUIデフォルトの中央表示に戻す */}
@@ -44,8 +48,11 @@ import GitHubIcon from "./github.svg";
 						✕
 					</button>
 				</form>
-				<h3 class="flex items-center justify-center gap-2 text-subheading">
-					<img src={work.icon} alt="" class="size-6" loading="lazy" />
+				<h3
+					id={`work-modal-${work.id}-title`}
+					class="flex items-center justify-center gap-2 text-subheading"
+				>
+					<img src={work.icon} alt="" width={24} height={24} class="size-6" loading="lazy" />
 					{work.title}
 				</h3>
 				{/* controlsは付けない。開いた瞬間のplay()と組み合わさると再生開始時に
@@ -66,6 +73,9 @@ import GitHubIcon from "./github.svg";
 						class="block w-full"
 					/>
 				</div>
+				{/* 自動再生のループ動画は止める手段が必要だが、コントロールは操作するまで出さないため、
+				    操作できることを文言で示す */}
+				<p class="mt-2 text-small text-center">動画を押すと再生を操作できます</p>
 				<p class="pt-12 pb-4 text-body whitespace-pre-line">{work.description}</p>
 				<div class="modal-action justify-center gap-4">
 					{work.links.map((link) => (

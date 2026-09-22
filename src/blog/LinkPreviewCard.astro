@@ -14,11 +14,13 @@ const heading = title ?? siteName;
 
 <!-- 記事で紹介している外部サイトのカード。記事本体が外部にあるように読めないよう、
      「で読む」ではなく紹介先であることをラベルで示す(issue #59)。
-     OGPが取れなかった項目は出さず、ホスト名とURLだけのカードになる -->
+     OGPが取れなかった項目は出さず、ホスト名とURLだけのカードになる。
+     カード内の全テキストが読み上げ名になると長すぎるため、aria-labelで見出しだけに絞る -->
 <a
 	href={url}
 	target="_blank"
 	rel="noopener noreferrer"
+	aria-label={`紹介しているサイト: ${heading ?? hostname}(新しいタブで開く)`}
 	class="card card-border border-base-300 bg-base-200 mt-6 overflow-hidden transition-colors hover:border-primary sm:card-side"
 >
 	{
