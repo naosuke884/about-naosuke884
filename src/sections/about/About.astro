@@ -10,12 +10,13 @@ const initialTagId = "software-engineer";
 
 <section id="about" class="relative overflow-hidden py-12 px-12 md:px-24 bg-primary/20">
 	{/* 右側の装飾: 右端に沿ったローポリ風の多角形ファセット。
-	    高さはセクションに追従させ、はみ出しはoverflow-hiddenで切る */}
+	    タグ切り替えでセクション高さが変わっても伸縮しないよう固定サイズ(等倍)で
+	    右上にアンカーし、はみ出しはoverflow-hiddenで切る。
+	    パターンはセクションの最大高さ(モバイルで約620px)を超える768まで敷いてある */}
 	<svg
 		aria-hidden="true"
-		class="absolute inset-y-0 right-0 h-full text-primary"
-		viewBox="0 0 320 480"
-		preserveAspectRatio="xMaxYMid slice"
+		class="absolute top-0 right-0 w-80 h-[768px] text-primary"
+		viewBox="0 0 320 768"
 		fill="currentColor"
 	>
 		<polygon points="150,0 320,0 210,60" fill-opacity="0.10" />
@@ -26,6 +27,10 @@ const initialTagId = "software-engineer";
 		<polygon points="320,260 320,380 240,330" fill-opacity="0.11" />
 		<polygon points="240,330 320,380 276,480" fill-opacity="0.07" />
 		<polygon points="320,380 320,480 276,480" fill-opacity="0.13" />
+		<polygon points="276,480 320,480 238,560" fill-opacity="0.10" />
+		<polygon points="320,480 320,620 238,560" fill-opacity="0.06" />
+		<polygon points="238,560 320,620 272,700" fill-opacity="0.12" />
+		<polygon points="320,620 320,768 272,700" fill-opacity="0.08" />
 		{/* 輪郭だけの三角形はモバイルだと吹き出しに重なるのでmd以上のみ */}
 		<polygon
 			class="max-md:hidden"
