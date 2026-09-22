@@ -1,6 +1,8 @@
 export type Work = {
 	id: string;
 	title: string;
+	/** カード左側に表示するアイコンのURL */
+	icon: string;
 	summary: string;
 	description: string;
 	demo: { src: string; label: string };
@@ -11,6 +13,8 @@ export const works: Work[] = [
 	{
 		id: "poi",
 		title: "poi",
+		// demo.mp4と同様、poi側で配信している実物のfaviconを参照し、常に最新に保つ
+		icon: "https://poinote.app/icon.svg",
 		summary: "30日で消えるメモ帳Webアプリ。",
 		description:
 			"書いたものが30日後に自動で消える1画面のメモ帳です。ログインすると1枚のボードにMarkdown記法でメモが書けます。\n\n初めてちゃんと作ったアプリです。自分で欲しいなと思ったものを作りました。Markdown編集時の挙動に気を使いました。",

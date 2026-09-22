@@ -13,7 +13,13 @@ import { works } from "./data";
 				data-work-modal-trigger={work.id}
 				aria-haspopup="dialog"
 			>
-				<div class="card-body">
+				<div class="card-body grid grid-cols-[auto_1fr] gap-x-4">
+					<img
+						src={work.icon}
+						alt=""
+						class="row-span-2 h-full w-20 object-contain"
+						loading="lazy"
+					/>
 					<h3 class="card-title text-subheading text-primary-content pb-2 border-b border-primary-content/20">
 						{work.title}
 					</h3>
