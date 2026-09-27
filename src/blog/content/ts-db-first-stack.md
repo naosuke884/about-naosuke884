@@ -5,8 +5,6 @@ description: dbmate・kysely-codegen・Kysely・DBのViewを組み合わせて�
 emoji: 🗄️
 ---
 
-## はじめに
-
 TypeScriptでDBを扱うなら、PrismaやDrizzleを使ってTypeScript側でスキーマを書くのが定番だ。
 
 ただ、これが合わない場面もある。
@@ -24,9 +22,7 @@ TypeScriptでDBを扱うなら、PrismaやDrizzleを使ってTypeScript側でス
 - [Kysely](https://kysely.dev/)：型安全なクエリビルダー
 - DBのView：DB固有の機能を使う読み取りクエリを置く
 
-## 構成
-
-全体の流れは次のとおり。
+先にDBを決めて、アプリをそれに合わせる構成だ。全体の流れは次のとおり。
 
 1. dbmateでSQLのマイグレーションを書いて適用する
 1. kysely-codegenが、適用後のDBを読んで型を生成する
@@ -34,7 +30,7 @@ TypeScriptでDBを扱うなら、PrismaやDrizzleを使ってTypeScript側でス
 
 型はいつも実際のDBから作られる。マイグレーションのたびに型を作り直していれば、スキーマと型がずれることはない。
 
-### dbmate：マイグレーションを素のSQLで書く
+## dbmate：マイグレーションを素のSQLで書く
 
 dbmateは言語やORMに依存しないマイグレーションツールだ。マイグレーションはただのSQLファイルとして書く。
 
@@ -61,7 +57,7 @@ SQLで書くので、制約・インデックス・ViewといったDBの機能�
 
 また、dbmateは適用のたびにスキーマ全体を `db/schema.sql` に書き出す。これをコミットしておけば、今のスキーマをSQLのまま読めて、変更もdiffでレビューできる。
 
-### kysely-codegen：DBから型を作る
+## kysely-codegen：DBから型を作る
 
 Kyselyは自分では型を生成しないので、kysely-codegenを使う。接続したDBを読み取り、Kysely用の型定義を出力するツールだ。
 
@@ -79,7 +75,7 @@ dbmateもkysely-codegenも接続先を環境変数 `DATABASE_URL` から読む�
 }
 ```
 
-### Kysely：型安全にSQLを書く
+## Kysely：型安全にSQLを書く
 
 Kyselyは、`selectFrom` や `where` のようにSQLの句に対応したメソッドを並べて書くクエリビルダーだ。生成した型を渡すと、テーブル名・カラム名・結果の型がチェックされる。
 
@@ -104,7 +100,7 @@ const posts = await db
 
 スキーマを変えて型を作り直せば、影響を受けるクエリは型エラーとして見つかる。
 
-### DBのView：DB固有の機能を使う読み取りをSQLに逃がす
+## DBのView：DB固有の機能を使う読み取りをSQLに逃がす
 
 KyselyでもDB固有の関数は `eb.fn` で呼べる。ただ、戻り値の型は手書きになる。
 
@@ -168,7 +164,3 @@ const counts = await db
 Viewにはもう1つ利点がある。クエリがDBの中にあるので、同じDBを使う別のサービスからもそのまま使える。
 
 普段のクエリはKyselyで書き、DB固有の機能が要る読み取りだけをViewに逃がす。こう使い分けておけば、アプリのコードに手書きの型を持ち込まずに済む。
-
-## まとめ
-
-先にDBを決めて、アプリをそれに合わせる構成だ。DBの機能をそのまま使えて、型もずれない。
