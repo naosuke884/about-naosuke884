@@ -76,9 +76,10 @@
 }
 
 /* セクション外枠の左右パディング。Layout.astroのコンテンツ列幅60remは
-   コンテンツ幅max-w-3xl(48rem)+この左右パディング(md以上で6remずつ)で構成される */
+   コンテンツ幅max-w-3xl(48rem)+この左右パディング(md以上で6remずつ)で構成される。
+   md未満はヘッダーのpx-6と左端を揃え、本文の1行の文字数を確保する */
 @utility section-px {
-	padding-inline: calc(var(--spacing) * 12);
+	padding-inline: calc(var(--spacing) * 6);
 
 	@variant md {
 		padding-inline: calc(var(--spacing) * 24);
