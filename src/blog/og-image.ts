@@ -1,11 +1,12 @@
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { Resvg } from "@resvg/resvg-js";
+import { loadDefaultJapaneseParser } from "budoux";
 import satori from "satori";
-import { SITE_NAME } from "../site";
+import { formatDate } from "./entries";
 
 // ブログ記事のOG画像(X等のシェアプレビュー)をビルド時に生成する。
-// 記事frontmatterのemojiをTwemojiのSVGで大きく載せたカードデザイン。
+// 記事frontmatterのemojiをTwemojiのSVGで大きく載せ、タイトルと投稿日を並べたカードデザイン。
 // フォント・絵文字はnpmパッケージ同梱のファイルから読み、ビルド時に
 // 外部サービスへアクセスしない(issue #55)。壊れるのは収録外の絵文字を
 // 使ったときだけなので、ローカル/CIのビルドで検出できる。
@@ -46,16 +47,31 @@ async function loadEmojiDataUri(emoji: string): Promise<string> {
 	return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
+const budouxParser = loadDefaultJapaneseParser();
+
+// 「技術ス/タック」のような語の途中での折り返しを防ぐため、タイトルを文節ごとの
+// spanに分けてflexWrapで並べる(satoriはZWSP+wordBreak: keep-allだと行幅を超えて描画する)
+function splitIntoPhrases(text: string): Element[] {
+	return budouxParser
+		.parse(text)
+		.map((phrase) => ({ type: "span", props: { children: phrase } }));
+}
+
 // 配色はglobal.cssのlightテーマと同じトーンで固定する
 const COLORS = {
-	gradientFrom: "#486289",
-	gradientTo: "#89aed0",
+	// 外枠はlightテーマのprimary
+	frame: "#486289",
 	card: "#f8f7f4",
 	title: "#2d2d2d",
-	siteName: "#486289",
+	// base-contentの70%(ページ上の日付表示と同じ濃さ)をcardの上で合成した色
+	date: "#6a6a69",
 };
 
-function ogTemplate(title: string, emojiDataUri: string): Element {
+function ogTemplate(
+	title: string,
+	emojiDataUri: string,
+	date: string,
+): Element {
 	return {
 		type: "div",
 		props: {
@@ -64,7 +80,7 @@ function ogTemplate(title: string, emojiDataUri: string): Element {
 				height: "100%",
 				display: "flex",
 				padding: "40px",
-				background: `linear-gradient(135deg, ${COLORS.gradientFrom}, ${COLORS.gradientTo})`,
+				background: COLORS.frame,
 			},
 			children: [
 				{
@@ -74,7 +90,10 @@ function ogTemplate(title: string, emojiDataUri: string): Element {
 							flex: 1,
 							display: "flex",
 							flexDirection: "column",
-							justifyContent: "space-between",
+							// 記事ページの見出し(絵文字・タイトル・日付を縦に中央寄せ)と揃える
+							justifyContent: "center",
+							alignItems: "center",
+							gap: "32px",
 							background: COLORS.card,
 							borderRadius: "24px",
 							padding: "56px 64px",
@@ -92,11 +111,14 @@ function ogTemplate(title: string, emojiDataUri: string): Element {
 										fontWeight: 700,
 										lineHeight: 1.4,
 										color: COLORS.title,
-										// 長いタイトルは3行で省略する
-										display: "block",
-										lineClamp: 3,
+										display: "flex",
+										flexWrap: "wrap",
+										justifyContent: "center",
+										// 長いタイトルは3行までで切る(flexではlineClampが効かない)
+										maxHeight: `${56 * 1.4 * 3}px`,
+										overflow: "hidden",
 									},
-									children: title,
+									children: splitIntoPhrases(title),
 								},
 							},
 							{
@@ -105,9 +127,9 @@ function ogTemplate(title: string, emojiDataUri: string): Element {
 									style: {
 										fontSize: "32px",
 										fontWeight: 700,
-										color: COLORS.siteName,
+										color: COLORS.date,
 									},
-									children: SITE_NAME,
+									children: date,
 								},
 							},
 						],
@@ -121,13 +143,14 @@ function ogTemplate(title: string, emojiDataUri: string): Element {
 export async function renderBlogOgImage(
 	title: string,
 	emoji: string,
+	date: Date,
 ): Promise<Uint8Array<ArrayBuffer>> {
 	const [font, emojiDataUri] = await Promise.all([
 		fontPromise,
 		loadEmojiDataUri(emoji),
 	]);
 
-	const svg = await satori(ogTemplate(title, emojiDataUri), {
+	const svg = await satori(ogTemplate(title, emojiDataUri, formatDate(date)), {
 		width: 1200,
 		height: 630,
 		fonts: [{ name: "Noto Sans JP", data: font, weight: 700, style: "normal" }],

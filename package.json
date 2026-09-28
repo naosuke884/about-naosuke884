@@ -18,6 +18,7 @@
 		"@astrojs/cloudflare": "^14.2.0",
 		"@tailwindcss/vite": "^4.2.2",
 		"astro": "^7.2.0",
+		"budoux": "^0.9.3",
 		"tailwindcss": "^4.2.2",
 		"wrangler": "^4.120.0"
 	},

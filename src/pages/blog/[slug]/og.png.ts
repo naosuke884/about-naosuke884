@@ -12,8 +12,8 @@ export const getStaticPaths = getBlogStaticPaths;
 export const GET: APIRoute<{ entry: CollectionEntry<"blog"> }> = async ({
 	props,
 }) => {
-	const { title, emoji } = props.entry.data;
-	const png = await renderBlogOgImage(title, emoji);
+	const { title, emoji, date } = props.entry.data;
+	const png = await renderBlogOgImage(title, emoji, date);
 	return new Response(png, {
 		headers: { "Content-Type": "image/png" },
 	});
