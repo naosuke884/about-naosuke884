@@ -34,10 +34,4 @@ export const aboutTags: AboutTag[] = [
 		description:
 			"雑にいろいろ見てます。ファンタジー系と泣ける系と怖い系とグロい系が好きかもです。",
 	},
-	{
-		id: "tv-series",
-		label: "海外ドラマ",
-		description:
-			"面白いシリーズを見つけると一気見してしまいます。最近は三体という海外ドラマが気になっています。",
-	},
 ];
