@@ -114,6 +114,13 @@ html {
 		text-wrap: balance;
 	}
 
+	/* src/middleware.tsがBudouXを適用した要素。<wbr>で区切った文節の途中では折り返さない。
+	   1文節が行幅を超える場合(長いURLなど)だけ任意の位置で折り返す */
+	.budoux {
+		word-break: keep-all;
+		overflow-wrap: anywhere;
+	}
+
 	/* モバイルのダブルタップズーム遅延をなくす。タップ時の既定ハイライトは
 	   stretched linkだと文字部分だけが光り、行のactive背景と二重になるため消す */
 	a,
