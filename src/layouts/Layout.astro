@@ -34,7 +34,10 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href={myIconRound.src} />
+		<link
+			rel="icon"
+			href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>"
+		/>
 		<link rel="apple-touch-icon" href={appleTouchIcon.src} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
