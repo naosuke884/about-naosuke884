@@ -77,7 +77,7 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 		<div class="mx-auto flex min-h-dvh max-w-[60rem] flex-col bg-base-100">
 			<Header />
 
-			<main id="main" class="flex-1">
+			<main id="main" class="flex-1 motion-safe:animate-page-enter">
 				<slot />
 			</main>
 

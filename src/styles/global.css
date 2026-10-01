@@ -42,6 +42,16 @@
 @theme {
 	--spacing-header: 3.5rem;
 
+	/* ページ読み込み時に本文をふわっと表示する(Layout.astroのmainで使う) */
+	--animate-page-enter: page-enter 0.5s ease-out;
+
+	@keyframes page-enter {
+		from {
+			opacity: 0;
+			translate: 0 0.75rem;
+		}
+	}
+
 	/* 日本語はシステムフォントに任せる(--font-interのフォールバックはsans-serif) */
 	--font-sans: var(--font-inter);
 
