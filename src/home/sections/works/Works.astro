@@ -1,106 +1,32 @@
 ---
 import Section from "../../components/Section.astro";
 import { works } from "./data";
-import GitHubIcon from "./github.svg";
 ---
 
 <Section id="works" title="作ったもの">
 	{/* 表だと列幅が内容から自動で決まり、モバイルでは概要が細かく折り返し、PCでは名前と概要の間が空くため、
 	    名前と概要を縦に積むリストにして、画面幅によらず概要が横幅いっぱいを使えるようにする (#57)。
-	    行の区切り線(list-rowの::after)はdaisyUI既定の5%では薄すぎるため、動画枠と同じ10%にする */}
-	<ul class="list -mx-4">
+	    行の区切り線(list-rowの::after)はdaisyUI既定の5%では薄すぎるため、10%にする */}
+	<ul class="list -m-4">
 		{works.map((work) => (
-			<li class="list-row items-center after:border-base-content/10 cursor-pointer transition-colors hover:bg-base-200 active:bg-base-200">
+			<li class="list-row items-center after:border-base-content/10 transition-colors hover:bg-base-200 active:bg-base-200">
 				<img src={work.icon} alt="" width={32} height={32} class="size-8" />
 				{/* グリッドの列は既定で中身より縮まず、1行省略の概要が行を押し広げるためmin-w-0で縮めるようにする */}
 				<div class="min-w-0">
-					{/* liをbuttonにはできないため、ボタンの::afterを行全体に広げて
-					    クリック領域にするstretched buttonパターン(list-rowがrelativeで基準) */}
-					<button
-						type="button"
-						class="text-base font-semibold text-base-content cursor-pointer after:absolute after:inset-0 after:rounded-box focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
-						data-work-modal-trigger={work.id}
-						aria-haspopup="dialog"
+					{/* liをaにはできないため、リンクの::afterを行全体に広げて
+					    クリック領域にするstretched linkパターン(list-rowがrelativeで基準) */}
+					<a
+						href={work.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-base font-semibold text-base-content after:absolute after:inset-0 after:rounded-box focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
 					>
 						{work.title}
-					</button>
+					</a>
 					{/* 概要は1行に収め、はみ出す分は省略する */}
 					<p class="text-base-content/70 truncate">{work.summary}</p>
 				</div>
 			</li>
 		))}
 	</ul>
-	{works.map((work) => (
-		<dialog
-			id={`work-modal-${work.id}`}
-			class="modal"
-			aria-labelledby={`work-modal-${work.id}-title`}
-		>
-			{/* モバイルは全画面表示(h-fullはfixed inset-0の.modalグリッドいっぱいに伸びる。
-			    vh系単位はFirefox Androidのアドレスバー問題があるため使わない)、
-			    sm以上はdaisyUIデフォルトの中央表示に戻す */}
-			<div class="modal-box h-full w-full max-w-none rounded-none sm:h-auto sm:w-11/12 sm:max-w-2xl sm:rounded-box">
-				<form method="dialog">
-					<button
-						class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-						aria-label="閉じる"
-					>
-						✕
-					</button>
-				</form>
-				<h3
-					id={`work-modal-${work.id}-title`}
-					class="flex items-center justify-center gap-2 text-subheading"
-				>
-					<img src={work.icon} alt="" width={24} height={24} class="size-6" loading="lazy" />
-					{work.title}
-				</h3>
-				{/* controlsは付けない。開いた瞬間のplay()と組み合わさると再生開始時に
-				    コントロールオーバーレイが出て数秒で消え、不安定に見えるため、
-				    modal.tsでタップ/キー操作時に初めて表示する (#52) */}
-				{/* 角丸はvideo自体でなくラッパーに付ける。videoのborder-radiusでは
-				    ネイティブコントロールのオーバーレイがクリップされず角がずれるため、
-				    overflow-hiddenでコントロールごと切り抜く */}
-				<div class="mt-4 rounded-box border border-base-content/10 overflow-hidden">
-					<video
-						src={work.demo.src}
-						aria-label={work.demo.label}
-						muted
-						loop
-						playsinline
-						preload="metadata"
-						tabindex="0"
-						class="block w-full"
-					/>
-				</div>
-				{/* 自動再生のループ動画は止める手段が必要だが、コントロールは操作するまで出さないため、
-				    操作できることを文言で示す */}
-				<p class="mt-2 text-small text-center">動画を押すと再生を操作できます</p>
-				<p class="pt-12 pb-4 text-body whitespace-pre-line">{work.description}</p>
-				<div class="modal-action justify-center gap-4">
-					{work.links.map((link) => (
-						<a
-							href={link.url}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="btn btn-primary shadow-none border-0"
-						>
-							{link.icon === "github" && (
-								<GitHubIcon class="size-5" fill="currentColor" aria-hidden="true" />
-							)}
-							{link.label}
-						</a>
-					))}
-				</div>
-			</div>
-			<form method="dialog" class="modal-backdrop">
-				<button aria-label="閉じる">close</button>
-			</form>
-		</dialog>
-	))}
 </Section>
-
-<script>
-	import { setupWorksModal } from "./modal";
-	setupWorksModal();
-</script>
