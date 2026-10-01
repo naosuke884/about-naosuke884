@@ -1,120 +1,16 @@
 ---
-import { Image } from "astro:assets";
-import myIcon from "../../../assets/my-icon.png";
 import SocialLinks from "../../../components/social-links/SocialLinks.astro";
-import { aboutTags } from "./data";
-import Tag from "./Tag.astro";
-
-// 初期表示は先頭のタグを開いておく
-const initialTagId = aboutTags[0].id;
 ---
 
-<section id="about" class="relative overflow-hidden py-12 section-px bg-primary/20">
-	{/* 右側の装飾: 右端に沿ったローポリ風の多角形ファセット。
-	    タグ切り替えでセクション高さが変わっても伸縮しないよう固定サイズ(等倍)で
-	    右上にアンカーし、はみ出しはoverflow-hiddenで切る。
-	    パターンはセクションの最大高さ(モバイルで約620px)を超える768まで敷いてある */}
-	<svg
-		aria-hidden="true"
-		class="absolute top-0 right-0 w-80 h-[768px] text-primary"
-		viewBox="0 0 320 768"
-		fill="currentColor"
-	>
-		<polygon points="150,0 320,0 210,60" fill-opacity="0.10" />
-		<polygon points="320,0 320,120 210,60" fill-opacity="0.06" />
-		<polygon points="210,60 320,120 248,190" fill-opacity="0.13" />
-		<polygon points="320,120 320,260 248,190" fill-opacity="0.08" />
-		<polygon points="248,190 320,260 240,330" fill-opacity="0.05" />
-		<polygon points="320,260 320,380 240,330" fill-opacity="0.11" />
-		<polygon points="240,330 320,380 276,480" fill-opacity="0.07" />
-		<polygon points="320,380 320,480 276,480" fill-opacity="0.13" />
-		<polygon points="276,480 320,480 238,560" fill-opacity="0.10" />
-		<polygon points="320,480 320,620 238,560" fill-opacity="0.06" />
-		<polygon points="238,560 320,620 272,700" fill-opacity="0.12" />
-		<polygon points="320,620 320,768 272,700" fill-opacity="0.08" />
-		{/* 輪郭だけの三角形はモバイルだとコンテンツに重なるのでmd以上のみ */}
-		<polygon
-			class="max-md:hidden"
-			points="176,148 214,236 132,212"
-			fill="none"
-			stroke="currentColor"
-			stroke-opacity="0.25"
-			stroke-width="1.5"
-		/>
-	</svg>
-	<div class="relative max-w-3xl mx-auto">
-		{/* アイコンと名前のプロフィールヘッダー。モバイルでは名前が折り返さないよう縦積み、
-		    md以上で横並びにする。DOM上は見出しを先に置き、表示順だけアイコンを先にする。
-		    イラストは余白が多く小さく見えるため、アイコンは名前の約2倍(80px)にして釣り合わせる。
-		    背景に溶けないよう薄いリングで輪郭を付ける */}
-		<div class="flex flex-col items-start gap-5 md:flex-row md:items-center md:gap-6 mb-10">
-			<h1 class="text-display order-2">Hayashi Naoki</h1>
-			<div class="avatar order-1 shrink-0 self-start md:self-center">
-				<div class="size-20 rounded-full ring-4 ring-base-100/60">
-					<Image
-						src={myIcon}
-						alt="Hayashi Naokiのアイコン"
-						width={80}
-						height={80}
-						densities={[1, 2]}
-						loading="eager"
-						fetchpriority="high"
-					/>
-				</div>
-			</div>
-		</div>
+<section id="about" class="pt-12 pb-8 section-px">
+	<div class="max-w-3xl mx-auto">
+		<h1 class="text-display">Hayashi Naoki</h1>
+		<p class="text-subheading text-base-content/70 mt-2 mb-4">ソフトウェアエンジニア</p>
 
-		<div class="mb-8">
-			{/* text-wrap:balanceはflexには効かずインラインフローにのみ効くため、
-			    flex-wrap+gapではなくインライン配置+マージン(-m-1/*:m-1で間隔0.5rem)で
-			    折り返し行ごとのタグ数の偏りを防ぐ。
-			    Firefoxはatomic inlineにbalanceを適用しないが、サポート対象外とする
-			    (単に貪欲な折り返しになるだけで表示は壊れない) */}
-			<div class="[text-wrap:balance] -m-1 *:m-1">
-				{aboutTags.map((tag) => (
-					<Tag
-						data-tag-detail-trigger={tag.id}
-						aria-expanded={tag.id === initialTagId ? "true" : "false"}
-						aria-controls={`about-tag-panel-${tag.id}`}
-					>
-						{`# ${tag.label}`}
-					</Tag>
-				))}
-			</div>
-			{/* heightはauto⇄autoをtransitionできないため、開閉・切り替え時の高さは
-			    tag-details.tsがpxで測ってセットし、アニメーション完了後にautoへ戻す */}
-			<div
-				data-tag-detail-container
-				class="relative overflow-hidden motion-safe:transition-[height] motion-safe:duration-300 ease-out"
-				style="height: auto"
-			>
-				{aboutTags.map((tag) => (
-					<div
-						id={`about-tag-panel-${tag.id}`}
-						data-tag-detail-panel={tag.id}
-						aria-hidden={tag.id === initialTagId ? undefined : "true"}
-						class="pt-3 motion-safe:transition-[opacity,filter] motion-safe:duration-300 ease-out aria-hidden:duration-150 aria-hidden:ease-in aria-hidden:absolute aria-hidden:top-0 aria-hidden:inset-x-0 aria-hidden:opacity-0 aria-hidden:blur-sm"
-					>
-						{/* 非表示パネルはabsoluteで重ねてコンテナの高さに影響させず、
-						    blur+opacityでピントが合うように入れ替える(退場150ms・入場300ms)。
-						    閉状態はhidden(display:noneはtransition不可)でなくaria-hiddenで表現し、
-						    スタイルフックとスクリーンリーダーからの隠蔽を1属性で兼ねる。
-						    パネル内にリンク等の操作要素を入れる場合はinertへの切替を検討 */}
-						<div class="card bg-base-100">
-							<div class="card-body px-5 py-4">
-								<p class="text-body">{tag.description}</p>
-							</div>
-						</div>
-					</div>
-				))}
-			</div>
-		</div>
+		<p class="text-body mb-8">
+			SIerで保守開発をしています。<a href="#works" class="link">個人開発</a>も少し取り組んでいます。<a href="/blog/" class="link">ブログ</a>も書いています。にわか卒業を目指しています。
+		</p>
 
 		<SocialLinks />
 	</div>
 </section>
-
-<script>
-	import { setupTagDetails } from "./tag-details";
-	setupTagDetails();
-</script>
