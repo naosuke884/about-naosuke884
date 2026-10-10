@@ -20,4 +20,6 @@ description: このリポジトリでgit commit・push・ブランチ作成・PR
 
 ## コミットメッセージ
 
-- 日本語で書く
+- Conventional Commits形式（`<type>: <subject>`）で書く。commit-msgフックのcommitlint（`@commitlint/config-conventional`）で検証される
+  - typeは `feat` / `fix` / `docs` / `style` / `refactor` / `perf` / `test` / `build` / `ci` / `chore` / `revert` のいずれか
+- subjectは日本語で書く
