@@ -36,6 +36,6 @@
 		"lefthook": "^2.1.4",
 		"playwright-core": "1.62.1",
 		"satori": "^0.33.4",
-		"typescript": "^5.9.3"
+		"typescript": "^7.0.2"
 	}
 }
