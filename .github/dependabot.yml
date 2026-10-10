@@ -8,6 +8,9 @@ updates:
       prefix: chore
       prefix-development: chore
       include: scope
+    ignore:
+      # Playwrightコンテナ(ws://playwright:3000)とバージョンが一致しないと接続できないため、コンテナ側と合わせて手で上げる
+      - dependency-name: playwright-core
 
   - package-ecosystem: github-actions
     directory: /
