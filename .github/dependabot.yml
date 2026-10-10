@@ -4,14 +4,20 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # 出たばかりの不具合版や乗っ取られた版を避けるため、リリースから7日経った版だけを提案させる
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: chore
       prefix-development: chore
       include: scope
     # 1件ずつPRにするとpackage-lock.jsonが衝突し、同時に開けるPR数の上限(5件)ですぐ詰まるため、メジャー以外はまとめる
     groups:
-      npm-minor-and-patch:
-        patterns: ["*"]
+      dev-dependencies:
+        dependency-type: development
+        update-types: [minor, patch]
+      prod-dependencies:
+        dependency-type: production
         update-types: [minor, patch]
     ignore:
       # Playwrightコンテナ(ws://playwright:3000)とバージョンが一致しないと接続できないため、コンテナ側と合わせて手で上げる
@@ -20,10 +26,10 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     commit-message:
       prefix: ci
       include: scope
     groups:
-      github-actions:
+      actions:
         patterns: ["*"]
