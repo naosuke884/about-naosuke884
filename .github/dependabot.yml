@@ -19,9 +19,16 @@ updates:
       prod-dependencies:
         dependency-type: production
         update-types: [minor, patch]
+      # 脆弱性修正のPRは上のグループの対象外で1件ずつ届くため、別にまとめる
+      security-updates:
+        applies-to: security-updates
+        patterns: ["*"]
     ignore:
       # Playwrightコンテナ(ws://playwright:3000)とバージョンが一致しないと接続できないため、コンテナ側と合わせて手で上げる
       - dependency-name: playwright-core
+      # 実行環境(CI・engines)のNode 22に型を揃え、存在しないAPIを型検査で通さないため
+      - dependency-name: "@types/node"
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
     directory: /
