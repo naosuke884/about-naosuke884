@@ -7,3 +7,8 @@ pre-commit:
 
     - name: astro check
       run: npx astro check
+
+commit-msg:
+  jobs:
+    - name: commitlint
+      run: npx commitlint --edit {1}
