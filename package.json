@@ -16,7 +16,7 @@
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^14.2.0",
-		"@tailwindcss/vite": "^4.2.2",
+		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^7.2.0",
 		"budoux": "^0.9.3",
 		"linkedom": "^0.18.13",
