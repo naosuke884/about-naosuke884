@@ -21,7 +21,7 @@
 		"budoux": "^0.9.3",
 		"linkedom": "^0.18.13",
 		"tailwindcss": "^4.2.2",
-		"wrangler": "^4.148.0"
+		"wrangler": "^4.149.0"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.8",
