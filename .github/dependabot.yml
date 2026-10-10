@@ -8,6 +8,11 @@ updates:
       prefix: chore
       prefix-development: chore
       include: scope
+    # 1件ずつPRにするとpackage-lock.jsonが衝突し、同時に開けるPR数の上限(5件)ですぐ詰まるため、メジャー以外はまとめる
+    groups:
+      npm-minor-and-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
     ignore:
       # Playwrightコンテナ(ws://playwright:3000)とバージョンが一致しないと接続できないため、コンテナ側と合わせて手で上げる
       - dependency-name: playwright-core
@@ -19,3 +24,6 @@ updates:
     commit-message:
       prefix: ci
       include: scope
+    groups:
+      github-actions:
+        patterns: ["*"]
