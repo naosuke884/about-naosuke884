@@ -15,7 +15,7 @@
 		"check:fix": "biome check --write ."
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.2.0",
+		"@astrojs/cloudflare": "^14.3.4",
 		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^7.3.6",
 		"budoux": "^0.9.3",

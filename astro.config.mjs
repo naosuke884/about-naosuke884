@@ -62,6 +62,9 @@ export default defineConfig({
 
 	vite: {
 		plugins: [tailwindcss()],
+		// devの依存事前バンドルがネイティブモジュール(.node)を読もうとして失敗するため除外する。
+		// アダプターはユーザーのexcludeをサーバー環境(ssr/prerender)に引き継ぐので、ここに書けば足りる
+		optimizeDeps: { exclude: ["@resvg/resvg-js"] },
 		// build/check(pre-commitフック含む)がデーモン稼働中のdevサーバーと
 		// Viteキャッシュを共有すると無効化されて全リクエスト500になるため、
 		// dev以外はキャッシュディレクトリを分離する
