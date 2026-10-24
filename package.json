@@ -32,10 +32,10 @@
 		"@resvg/resvg-js": "^2.6.2",
 		"@twemoji/svg": "^15.0.0",
 		"@types/node": "^22.20.5",
-		"daisyui": "^5.7.47",
-		"lefthook": "^2.1.16",
+		"daisyui": "^5.7.50",
+		"lefthook": "^2.2.2",
 		"playwright-core": "1.62.1",
-		"satori": "^0.35.0",
+		"satori": "^0.62.0",
 		"typescript": "^6.0.3"
 	}
 }
