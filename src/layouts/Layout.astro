@@ -41,6 +41,8 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 		<link rel="apple-touch-icon" href={appleTouchIcon.src} />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
+		<!-- 個別要素にx-apple-data-detectorsを当てるより、電話番号を載せないサイトなので全体で無効化する方が漏れがない -->
+		<meta name="format-detection" content="telephone=no" />
 		<meta
 			name="theme-color"
 			media="(prefers-color-scheme: light)"
