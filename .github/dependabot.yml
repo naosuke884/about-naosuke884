@@ -26,7 +26,7 @@ updates:
     ignore:
       # Playwrightコンテナ(ws://playwright:3000)とバージョンが一致しないと接続できないため、コンテナ側と合わせて手で上げる
       - dependency-name: playwright-core
-      # 実行環境(CI・engines)のNode 22に型を揃え、存在しないAPIを型検査で通さないため
+      # 実行環境(CI・engines)のNode 26に型を揃え、存在しないAPIを型検査で通さないため
       - dependency-name: "@types/node"
         update-types: [version-update:semver-major]
 
