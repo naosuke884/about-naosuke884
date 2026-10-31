@@ -77,6 +77,8 @@ function ogTemplate(
 		props: {
 			style: {
 				width: "100%",
+				// paddingを含めて画像サイズに収める(satori 0.63はcontent-box扱いで外枠が右下にはみ出す)
+				boxSizing: "border-box",
 				height: "100%",
 				display: "flex",
 				padding: "40px",
