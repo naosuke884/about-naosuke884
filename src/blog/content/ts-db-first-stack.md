@@ -1,8 +1,10 @@
 ---
 title: TypeScriptでDBファーストな技術スタックを組む
 date: 2026-09-27
+updated: 2026-11-08
 description: dbmate・kysely-codegen・Kysely・DBのViewを組み合わせて、SQLのスキーマを正としてTypeScriptの型を作る構成について。
 emoji: 🗄️
+toc: true
 ---
 
 TypeScriptでDBを扱うなら、PrismaやDrizzleを使ってTypeScript側でスキーマを書くのが定番だ。
