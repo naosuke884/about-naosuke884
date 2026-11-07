@@ -17,7 +17,7 @@ export const careers: Career[] = [
 	{
 		period: "2020.04 – 2026.03",
 		// 大学名は載せず、分野だけを示す
-		organization: "大学",
+		organization: "大学・大学院",
 		role: "情報科学を専攻",
 	},
 ];
