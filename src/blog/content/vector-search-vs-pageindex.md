@@ -1,12 +1,13 @@
 ---
 title: ベクトル検索RAGとツリー検索RAGを比較してみた
 date: 2026-11-07
+updated: 2026-11-08
 description: ベクトル検索を使ったRAGと、LLMに文書の目次ツリーを上からたどらせるツリー検索RAGを、検索性能・料金・速度で比較してみた。
 emoji: 🔍
 toc: true
 ---
 
-ベクトル検索RAGとツリー検索RAGをローカル環境で実装して比較してみた。その結果と感想をまとめる。
+ベクトル検索RAGとツリー検索RAGをローカル環境で実装して比較してみた。その結果と感想をまとめる。実装は[naosuke884/poc-of-chatbots-with-rag](https://github.com/naosuke884/poc-of-chatbots-with-rag)に置いている。
 
 なお、今回比較したのは**検索部分だけ**で、回答の正しさは評価していない。
 
