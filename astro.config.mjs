@@ -4,6 +4,7 @@ import cloudflare from "@astrojs/cloudflare";
 import { satteri } from "@astrojs/markdown-satteri";
 import { defineConfig, fontProviders } from "astro/config";
 import { defineHastPlugin } from "satteri";
+import { markdownTablesPlugin } from "./src/blog/markdown-tables.ts";
 
 // 記事本文の外部リンクを別タブで開く
 const externalLinksPlugin = defineHastPlugin({
@@ -45,7 +46,7 @@ export default defineConfig({
 		shikiConfig: {
 			themes: { light: "github-light", dark: "github-dark" },
 		},
-		processor: satteri({ hastPlugins: [externalLinksPlugin] }),
+		processor: satteri({ hastPlugins: [externalLinksPlugin, markdownTablesPlugin] }),
 	},
 
 	fonts: [
