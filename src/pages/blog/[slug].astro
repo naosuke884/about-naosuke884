@@ -134,6 +134,28 @@ const formattedDate = formatDate(date);
 		text-underline-offset: 0.2em;
 	}
 
+	/* 日本語のシステムフォントでは太さだけだと差が出にくいため、蛍光ペン風のマーカーを引く。
+	   文字色をフルトーンにすると見出しと紛れ、primary色にするとリンクと紛れるので色は変えない。
+	   輪郭はSVG画像だとテーマ色(CSS変数)を参照できないため、不揃いなborder-radiusで手描きの縁を出し、
+	   書き始めと書き終わりのインク溜まりをグラデーションで重ねる */
+	.blog-body :global(strong) {
+		--marker: color-mix(in oklch, var(--color-primary) 22%, transparent);
+		--marker-ink: color-mix(in oklch, var(--color-primary) 14%, transparent);
+		background-color: var(--marker);
+		background-image: linear-gradient(
+			100deg,
+			var(--marker-ink),
+			transparent 0.6em,
+			transparent calc(100% - 0.6em),
+			var(--marker-ink)
+		);
+		border-radius: 0.3em 0.8em 0.4em 0.9em / 0.7em 0.3em 0.8em 0.4em;
+		padding: 0.05em 0.2em;
+		/* 折り返したときも行ごとに縁を付ける */
+		-webkit-box-decoration-break: clone;
+		box-decoration-break: clone;
+	}
+
 	.blog-body :global(code) {
 		background: var(--color-base-200);
 		border-radius: var(--radius-field);
