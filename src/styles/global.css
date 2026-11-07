@@ -19,6 +19,8 @@
 	--color-neutral-content: oklch(92% 0.004 286.32);
 	/* コンテンツ列(base-100)の外側に敷く一段暗い背景 */
 	--canvas: #dcd9cf;
+	/* 背景に重ねる砂状ノイズ(Layout.astro)の濃さ */
+	--grain-opacity: 0.12;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +33,7 @@
 		--color-base-300: #252536;
 		--color-base-content: #ededf0;
 		--canvas: #0c0c14;
+		--grain-opacity: 0.08;
 	}
 }
 
