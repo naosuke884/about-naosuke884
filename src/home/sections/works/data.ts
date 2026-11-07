@@ -22,7 +22,7 @@ export const works: Work[] = [
 		title: "roommate",
 		// roommate側で配信している実物のロゴを参照し、常に最新に保つ
 		icon: "https://roommate.hayashi-naoki.com/logo.svg",
-		summary: "同じ日に同じコースを遊ぶ人と、スコアを競うブラウザゲーム。",
+		summary: "同じ日に同じゲームを遊ぶ人と、スコアを競うブラウザゲーム。",
 		url: "https://roommate.hayashi-naoki.com/",
 	},
 ];
