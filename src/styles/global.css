@@ -363,6 +363,7 @@
 		font-size: var(--btn-fs);
 		font-weight: 600;
 		text-align: center;
+		vertical-align: middle;
 		text-shadow: 0 0.5px oklch(100% 0 0 / 15%);
 		box-shadow:
 			var(--btn-inset) inset,
@@ -408,8 +409,8 @@
 		--btn-fg: var(--color-primary-content);
 	}
 
-	/* 背景・枠線・影なし。hover時だけ.btnの背景が出る */
-	.btn-ghost:not(:hover, :active) {
+	/* 背景・枠線・影なし。hover・フォーカス時だけ.btnの背景が出る */
+	.btn-ghost:not(:hover, :active, :focus-visible) {
 		--btn-bg: transparent;
 		--btn-border: transparent;
 		--btn-shadow: 0 0 0 0 transparent;

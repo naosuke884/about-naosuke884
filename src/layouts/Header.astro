@@ -50,6 +50,7 @@ const links = [
 		transition: var(--transition-colors);
 	}
 
+	/* flexにするとnavの行ボックスから外れ、ピルの縦位置がロゴとずれる */
 	ul {
 		display: inline-flex;
 		gap: 0.25rem;
@@ -75,7 +76,6 @@ const links = [
 
 		&:not([aria-current="page"]):focus-visible {
 			background-color: var(--color-line);
-			color: var(--color-base-content);
 		}
 
 		/* アクティブはprimaryのピルで表現する */
