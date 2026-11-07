@@ -15,9 +15,9 @@
 		"check:fix": "biome check --write ."
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.4.2",
-		"astro": "^7.3.6",
-		"budoux": "^0.10.0",
+		"@astrojs/cloudflare": "^14.4.3",
+		"astro": "^7.4.4",
+		"budoux": "^0.10.2",
 		"linkedom": "^0.18.14",
 		"wrangler": "^4.156.0"
 	},
