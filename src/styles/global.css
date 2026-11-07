@@ -1,12 +1,11 @@
-@import "tailwindcss";
+/* レイヤーの優先度は宣言順。リセットと要素の既定スタイルを先に置き、
+   複数のコンポーネントで共有するクラス(components)で上書きする。
+   各コンポーネントのスコープド<style>はレイヤー外なので、どのレイヤーよりも優先される */
+@layer reset, base, components;
 
-@plugin "daisyui" {
-	themes: false;
-}
+/* ---------- テーマ ---------- */
 
-@plugin "daisyui/theme" {
-	name: "light";
-	default: true;
+:root {
 	color-scheme: light;
 	--color-primary: #486289;
 	/* primary-contentはbase-100と同値にする(primary上では背景色を反転して使う) */
@@ -15,47 +14,52 @@
 	--color-base-200: #eceae4;
 	--color-base-300: #dfdcd3;
 	--color-base-content: #2d2d2d;
+	/* ツールチップの背景。テーマによらず暗くする */
+	--color-neutral: oklch(14% 0.005 285.823);
+	--color-neutral-content: oklch(92% 0.004 286.32);
 	/* コンテンツ列(base-100)の外側に敷く一段暗い背景 */
 	--canvas: #dcd9cf;
 }
 
-@plugin "daisyui/theme" {
-	name: "dark";
-	prefersdark: true;
-	color-scheme: dark;
-	--color-primary: #89aed0;
-	/* primary-contentはbase-100と同値にする(primary上では背景色を反転して使う) */
-	--color-primary-content: #151520;
-	--color-base-100: #151520;
-	--color-base-200: #1d1d2b;
-	--color-base-300: #252536;
-	--color-base-content: #ededf0;
-	/* コンテンツ列(base-100)の外側に敷く一段暗い背景 */
-	--canvas: #0c0c14;
-}
-
-/* daisyUIのテーマごとに切り替わる--canvasをbg-canvasとして使えるようにする */
-@theme inline {
-	--color-canvas: var(--canvas);
-}
-
-@theme {
-	--spacing-header: 3.5rem;
-
-	/* ページ読み込み時に本文をふわっと表示する(Layout.astroのmainで使う) */
-	--animate-page-enter: page-enter 0.5s ease-out;
-
-	@keyframes page-enter {
-		from {
-			opacity: 0;
-			translate: 0 0.75rem;
-		}
+@media (prefers-color-scheme: dark) {
+	:root {
+		color-scheme: dark;
+		--color-primary: #89aed0;
+		--color-primary-content: #151520;
+		--color-base-100: #151520;
+		--color-base-200: #1d1d2b;
+		--color-base-300: #252536;
+		--color-base-content: #ededf0;
+		--canvas: #0c0c14;
 	}
+}
 
-	/* 日本語はシステムフォントに任せる(--font-interのフォールバックはsans-serif) */
-	--font-sans: var(--font-inter);
+/* ---------- トークン ---------- */
 
-	/* タイポグラフィは役割ベースのトークンのみ使う(text-display等) */
+:root {
+	/* テキストのトーンは2段のみ: 見出し=base-contentフル、本文・補足=70% */
+	--color-muted: color-mix(
+		in oklab,
+		var(--color-base-content) 70%,
+		transparent
+	);
+	/* 区切り線・枠線 */
+	--color-line: color-mix(in oklab, var(--color-base-content) 10%, transparent);
+
+	--radius-field: 0.25rem;
+	--radius-box: 0.5rem;
+
+	--header-height: 3.5rem;
+	/* コンテンツ幅。Layout.astroのコンテンツ列幅60remは、
+	   このコンテンツ幅(48rem)+.section-pxの左右パディング(md以上で6remずつ)で構成される */
+	--content-width: 48rem;
+
+	--transition-colors:
+		color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+		background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+		border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+	/* タイポグラフィは役割ベースのトークンのみ使う(.text-display等) */
 	--text-display: 2.5rem;
 	--text-display--line-height: 1.1;
 	--text-display--letter-spacing: 0.01em;
@@ -85,35 +89,153 @@
 	--text-nav--font-weight: 500;
 }
 
-/* セクション外枠の左右パディング。Layout.astroのコンテンツ列幅60remは
-   コンテンツ幅max-w-3xl(48rem)+この左右パディング(md以上で6remずつ)で構成される。
-   md未満はヘッダーのpx-6と左端を揃え、本文の1行の文字数を確保する */
-@utility section-px {
-	padding-inline: calc(var(--spacing) * 6);
-
-	@variant md {
-		padding-inline: calc(var(--spacing) * 24);
+/* ページ読み込み時に本文をふわっと表示する(Layout.astroのmainで使う) */
+@keyframes page-enter {
+	from {
+		opacity: 0;
+		translate: 0 0.75rem;
 	}
 }
 
-html {
-	scroll-padding-top: var(--spacing-header);
-}
+/* ---------- リセット ---------- */
 
-@media (prefers-reduced-motion: no-preference) {
+/* 要素の既定スタイルを打ち消し、必要な見た目だけを各コンポーネントで足す。
+   normalize系のように既定を残す方式にしないのは、見出しやリストの既定の余白・文字サイズを
+   ほぼすべての箇所で打ち消すことになるため */
+@layer reset {
+	*,
+	::before,
+	::after,
+	::backdrop {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		border: 0 solid;
+	}
+
 	html {
-		scroll-behavior: smooth;
+		line-height: 1.5;
+		-webkit-text-size-adjust: 100%;
+		tab-size: 4;
+		/* 日本語はシステムフォントに任せる */
+		font-family: var(--font-inter), sans-serif;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	hr {
+		height: 0;
+		color: inherit;
+		border-top-width: 1px;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-size: inherit;
+		font-weight: inherit;
+	}
+
+	a {
+		color: inherit;
+		text-decoration: inherit;
+	}
+
+	b,
+	strong {
+		font-weight: bolder;
+	}
+
+	code,
+	kbd,
+	samp,
+	pre {
+		font-family:
+			ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+			"Courier New", monospace;
+		font-size: 1em;
+	}
+
+	table {
+		text-indent: 0;
+		border-color: inherit;
+		border-collapse: collapse;
+	}
+
+	ol,
+	ul,
+	menu {
+		list-style: none;
+	}
+
+	img,
+	svg,
+	video,
+	canvas,
+	iframe {
+		display: block;
+		vertical-align: middle;
+	}
+
+	img,
+	video {
+		max-width: 100%;
+		height: auto;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		font: inherit;
+		letter-spacing: inherit;
+		color: inherit;
+		border-radius: 0;
+		background-color: transparent;
+	}
+
+	button {
+		cursor: pointer;
+	}
+
+	dialog {
+		color: inherit;
 	}
 }
 
-/* テキストのトーンは2段のみ: 見出し=base-contentフル、本文・補足=70% */
-/* baseレイヤーに置き、ユーティリティクラスで上書きできるようにする(primary背景上など) */
+/* ---------- 要素の既定スタイル ---------- */
+
 @layer base {
+	:root {
+		background-color: var(--color-base-100);
+		color: var(--color-base-content);
+		scroll-padding-top: var(--header-height);
+		scrollbar-color: color-mix(in oklch, currentColor 35%, transparent)
+			transparent;
+	}
+
+	/* モーダルを開いている間は背面のページをスクロールさせない。
+	   スクロールバーが消えてページが横にずれないよう、その幅は空けたままにし、
+	   空いた部分もモーダルの背景と同じ暗さにする */
+	:root:has(dialog[open]) {
+		overflow: hidden;
+		scrollbar-gutter: stable;
+		background-color: color-mix(in srgb, var(--color-base-100), #000 40%);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		:root {
+			scroll-behavior: smooth;
+		}
+	}
+
 	body {
 		font-size: var(--text-body);
 		line-height: var(--text-body--line-height);
 		letter-spacing: var(--text-body--letter-spacing);
-		@apply text-base-content/70;
+		color: var(--color-muted);
 	}
 
 	h1,
@@ -137,5 +259,241 @@ html {
 	button {
 		touch-action: manipulation;
 		-webkit-tap-highlight-color: transparent;
+	}
+}
+
+/* ---------- 共有クラス ---------- */
+
+/* 複数のページ・コンポーネントで同じ見た目を使うものだけをここに置く。
+   1か所でしか使わないスタイルは、使用元のスコープド<style>に書く */
+@layer components {
+	.text-display {
+		font-size: var(--text-display);
+		line-height: var(--text-display--line-height);
+		letter-spacing: var(--text-display--letter-spacing);
+		font-weight: var(--text-display--font-weight);
+	}
+
+	.text-heading {
+		font-size: var(--text-heading);
+		line-height: var(--text-heading--line-height);
+		letter-spacing: var(--text-heading--letter-spacing);
+		font-weight: var(--text-heading--font-weight);
+	}
+
+	.text-subheading {
+		font-size: var(--text-subheading);
+		line-height: var(--text-subheading--line-height);
+		letter-spacing: var(--text-subheading--letter-spacing);
+		font-weight: var(--text-subheading--font-weight);
+	}
+
+	.text-body {
+		font-size: var(--text-body);
+		line-height: var(--text-body--line-height);
+		letter-spacing: var(--text-body--letter-spacing);
+	}
+
+	.text-small {
+		font-size: var(--text-small);
+		line-height: var(--text-small--line-height);
+		letter-spacing: var(--text-small--letter-spacing);
+	}
+
+	/* セクション外枠の左右パディング。md未満はヘッダーの左右パディングと左端を揃え、
+	   本文の1行の文字数を確保する */
+	.section-px {
+		padding-inline: 1.5rem;
+
+		@media (width >= 48rem) {
+			padding-inline: 6rem;
+		}
+	}
+
+	.content {
+		max-width: var(--content-width);
+		margin-inline: auto;
+	}
+
+	.link {
+		text-decoration-line: underline;
+
+		&:focus-visible {
+			outline: 2px solid;
+			outline-offset: 2px;
+		}
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		border-width: 0;
+	}
+
+	/* ボタン。背景色(--btn-bg)から枠線と影の色を導き、hover時は背景を一段暗くする */
+	.btn {
+		--btn-size: 2.5rem;
+		--btn-px: 1rem;
+		--btn-fs: 0.875rem;
+		--btn-bg: var(--btn-color, var(--color-base-200));
+		--btn-fg: var(--color-base-content);
+		--btn-border: color-mix(in oklab, var(--btn-bg), #000 5%);
+		--btn-shadow:
+			0 3px 2px -2px color-mix(in oklab, var(--btn-bg) 30%, transparent),
+			0 4px 3px -2px color-mix(in oklab, var(--btn-bg) 30%, transparent);
+		--btn-inset: 0 0.5px 0 0.5px oklch(100% 0 0 / 6%);
+
+		display: inline-flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		gap: 0.375rem;
+		height: var(--btn-size);
+		padding-inline: var(--btn-px);
+		border: 1px solid var(--btn-border);
+		border-radius: var(--radius-field);
+		background-color: var(--btn-bg);
+		color: var(--btn-fg);
+		font-size: var(--btn-fs);
+		font-weight: 600;
+		text-align: center;
+		text-shadow: 0 0.5px oklch(100% 0 0 / 15%);
+		box-shadow:
+			var(--btn-inset) inset,
+			var(--btn-shadow);
+		cursor: pointer;
+		user-select: none;
+		outline-offset: 2px;
+		outline-color: var(--btn-color, var(--color-base-content));
+		transition-property: color, background-color, border-color, box-shadow;
+		transition-duration: 0.2s;
+		transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+
+		@media (hover: hover) {
+			&:hover {
+				--btn-bg: color-mix(
+					in oklab,
+					var(--btn-color, var(--color-base-200)),
+					#000 7%
+				);
+				color: var(--btn-fg);
+			}
+		}
+
+		&:active {
+			--btn-bg: color-mix(
+				in oklab,
+				var(--btn-color, var(--color-base-200)),
+				#000 5%
+			);
+			--btn-shadow: 0 0 0 0 transparent;
+			--btn-inset: 0 0 0 0 transparent;
+			translate: 0 0.5px;
+		}
+
+		&:focus-visible {
+			outline-width: 2px;
+			outline-style: solid;
+		}
+	}
+
+	.btn-primary {
+		--btn-color: var(--color-primary);
+		--btn-fg: var(--color-primary-content);
+	}
+
+	/* 背景・枠線・影なし。hover時だけ.btnの背景が出る */
+	.btn-ghost:not(:hover, :active) {
+		--btn-bg: transparent;
+		--btn-border: transparent;
+		--btn-shadow: 0 0 0 0 transparent;
+		--btn-inset: 0 0 0 0 transparent;
+	}
+
+	@media (hover: none) {
+		.btn-ghost:hover:not(:active) {
+			--btn-bg: transparent;
+			--btn-border: transparent;
+			--btn-shadow: 0 0 0 0 transparent;
+			--btn-inset: 0 0 0 0 transparent;
+		}
+	}
+
+	.btn-sm {
+		--btn-size: 2rem;
+		--btn-px: 0.75rem;
+		--btn-fs: 0.75rem;
+	}
+
+	.btn-xs {
+		--btn-size: 1.5rem;
+		--btn-px: 0.5rem;
+		--btn-fs: 0.6875rem;
+	}
+
+	.btn-circle {
+		width: var(--btn-size);
+		padding-inline: 0;
+		border-radius: 9999px;
+	}
+
+	/* 行全体がリンクになるリスト(トップページの「作ったもの」とブログ一覧)。
+	   行の中のリンク(.row-link)の::afterを行全体に広げてクリック領域にする */
+	.row-list > li {
+		position: relative;
+		display: grid;
+		grid-template-columns: minmax(0, auto) 1fr;
+		gap: 1rem;
+		padding: 1rem;
+		border-radius: var(--radius-box);
+		word-break: break-word;
+		transition: var(--transition-colors);
+
+		&:not(:last-child)::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			inset-inline: var(--radius-box);
+			border-bottom: 1px solid var(--color-line);
+		}
+
+		&:active {
+			background-color: var(--color-base-200);
+		}
+
+		@media (hover: hover) {
+			&:hover {
+				background-color: var(--color-base-200);
+			}
+		}
+	}
+
+	.row-link {
+		font-size: 1rem;
+		line-height: 1.5;
+		font-weight: 600;
+		color: var(--color-base-content);
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: var(--radius-box);
+		}
+
+		&:focus-visible {
+			outline: none;
+		}
+
+		&:focus-visible::after {
+			outline: 2px solid var(--color-primary);
+			outline-offset: -2px;
+		}
 	}
 }

@@ -67,19 +67,15 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 			content={ogImage ? "summary_large_image" : "summary"}
 		/>
 	</head>
-	<body class="bg-canvas">
-		<a
-			href="#main"
-			class="btn btn-primary btn-sm fixed top-3 left-3 z-[60] -translate-y-20 shadow-lg focus:translate-y-0"
-			>本文へスキップ</a
-		>
-		<!-- コンテンツ列。幅はコンテンツ幅(max-w-3xl)+左右パディング(section-px)の60remで、
+	<body>
+		<a href="#main" class="btn btn-primary btn-sm skip-link">本文へスキップ</a>
+		<!-- コンテンツ列。幅はコンテンツ幅(48rem)+左右パディング(.section-px)の60remで、
 		     各セクションの背景帯・区切り線・フッターはこの列の内側に収まる。
-		     列の外側はbodyのbg-canvasで一段暗くする -->
-		<div class="mx-auto flex min-h-dvh max-w-[60rem] flex-col bg-base-100">
+		     列の外側はbodyの--canvasで一段暗くする -->
+		<div class="column">
 			<Header />
 
-			<main id="main" class="flex-1 motion-safe:animate-page-enter">
+			<main id="main">
 				<slot />
 			</main>
 
@@ -87,3 +83,42 @@ const ogImageUrl = new URL(ogImage ?? myIconRound.src, Astro.site);
 		</div>
 	</body>
 </html>
+
+<style>
+	body {
+		background-color: var(--canvas);
+	}
+
+	/* フォーカスされるまで画面外に置く */
+	.skip-link {
+		position: fixed;
+		top: 0.75rem;
+		left: 0.75rem;
+		z-index: 60;
+		translate: 0 -5rem;
+		box-shadow:
+			0 10px 15px -3px rgb(0 0 0 / 0.1),
+			0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+		&:focus {
+			translate: 0 0;
+		}
+	}
+
+	.column {
+		display: flex;
+		flex-direction: column;
+		max-width: 60rem;
+		min-height: 100dvh;
+		margin-inline: auto;
+		background-color: var(--color-base-100);
+	}
+
+	main {
+		flex: 1;
+
+		@media (prefers-reduced-motion: no-preference) {
+			animation: page-enter 0.5s ease-out;
+		}
+	}
+</style>

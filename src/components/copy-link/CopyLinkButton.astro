@@ -8,28 +8,21 @@ interface Props {
 }
 
 const { label, hash } = Astro.props;
-
-const tipClass =
-	"pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-field bg-neutral px-2 py-1 text-sm text-neutral-content opacity-0 transition-opacity";
 ---
 
-<!-- アイコン色の/60は非テキストのコントラスト3:1(WCAG 1.4.11)をライトテーマのbase-200上でも満たす下限付近 -->
-<div class="group relative">
+<!-- コピー後はwrapperにdata-state(copied/failed)が付き、アイコンとツールチップが切り替わる(copy-link.ts) -->
+<div class="copy-link">
 	<button
 		type="button"
-		class="btn btn-ghost btn-xs btn-circle swap swap-rotate text-base-content/60 hover:text-base-content"
+		class="btn btn-ghost btn-xs btn-circle"
 		data-copy-link={hash ?? ""}
 		aria-label={label}
 	>
-		<LinkIcon class="swap-off size-4" aria-hidden="true" />
-		<CheckIcon class="swap-on size-4" aria-hidden="true" />
+		<LinkIcon class="icon-link" aria-hidden="true" />
+		<CheckIcon class="icon-check" aria-hidden="true" />
 	</button>
-	<span
-		class:list={[tipClass, "group-hover:opacity-100 group-has-focus-visible:opacity-100 group-active:opacity-0"]}
-		data-copy-tip
-		aria-hidden="true">リンクをコピー</span
-	>
-	<span class={tipClass} data-copied-tip aria-hidden="true">コピーしました</span>
+	<span class="tip tip-hover" aria-hidden="true">リンクをコピー</span>
+	<span class="tip tip-copied" data-copied-tip aria-hidden="true">コピーしました</span>
 	<span class="sr-only" role="status" data-copy-status></span>
 </div>
 
@@ -37,3 +30,90 @@ const tipClass =
 	import { setupCopyLinkButtons } from "./copy-link";
 	setupCopyLinkButtons();
 </script>
+
+<style>
+	.copy-link {
+		position: relative;
+	}
+
+	/* アイコン色の60%は非テキストのコントラスト3:1(WCAG 1.4.11)をライトテーマのbase-200上でも満たす下限付近 */
+	button {
+		display: inline-grid;
+		place-content: center;
+		color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--color-base-content);
+			}
+		}
+
+		/* 2つのアイコンを同じセルに重ね、回転しながら入れ替える */
+		& > :global(svg) {
+			grid-area: 1 / 1;
+			width: 1rem;
+			height: 1rem;
+
+			@media (prefers-reduced-motion: no-preference) {
+				transition-property: rotate, opacity;
+				transition-duration: 0.2s;
+				transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+			}
+		}
+
+		& > :global(.icon-check) {
+			opacity: 0;
+			rotate: 45deg;
+		}
+	}
+
+	.copy-link[data-state="copied"] {
+		& :global(.icon-link) {
+			opacity: 0;
+			rotate: -45deg;
+		}
+
+		& :global(.icon-check) {
+			opacity: 1;
+			rotate: 0deg;
+		}
+	}
+
+	.tip {
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		translate: -50% 0;
+		margin-bottom: 0.5rem;
+		padding: 0.25rem 0.5rem;
+		border-radius: var(--radius-field);
+		background-color: var(--color-neutral);
+		color: var(--color-neutral-content);
+		font-size: 0.875rem;
+		line-height: calc(1.25 / 0.875);
+		white-space: nowrap;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	@media (hover: hover) {
+		.copy-link:hover .tip-hover {
+			opacity: 1;
+		}
+	}
+
+	.copy-link:has(:focus-visible) .tip-hover {
+		opacity: 1;
+	}
+
+	/* クリックした瞬間とコピー後は「リンクをコピー」を隠し、コピー後は結果を出す */
+	.copy-link:active .tip-hover,
+	.copy-link[data-state] .tip-hover {
+		opacity: 0;
+	}
+
+	.copy-link[data-state] .tip-copied {
+		opacity: 1;
+	}
+</style>

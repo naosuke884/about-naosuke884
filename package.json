@@ -16,11 +16,9 @@
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^14.4.2",
-		"@tailwindcss/vite": "^4.3.3",
 		"astro": "^7.3.6",
 		"budoux": "^0.10.0",
 		"linkedom": "^0.18.14",
-		"tailwindcss": "^4.2.2",
 		"wrangler": "^4.156.0"
 	},
 	"devDependencies": {
@@ -32,7 +30,6 @@
 		"@resvg/resvg-js": "^2.6.2",
 		"@twemoji/svg": "^15.0.0",
 		"@types/node": "^26.6.6",
-		"daisyui": "^5.7.50",
 		"lefthook": "^2.2.2",
 		"playwright-core": "1.62.1",
 		"satori": "^0.63.2",

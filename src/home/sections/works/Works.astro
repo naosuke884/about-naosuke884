@@ -5,28 +5,48 @@ import { works } from "./data";
 
 <Section id="works" title="作ったもの">
 	{/* 表だと列幅が内容から自動で決まり、モバイルでは概要が細かく折り返し、PCでは名前と概要の間が空くため、
-	    名前と概要を縦に積むリストにして、画面幅によらず概要が横幅いっぱいを使えるようにする (#57)。
-	    行の区切り線(list-rowの::after)はdaisyUI既定の5%では薄すぎるため、10%にする */}
-	<ul class="list -m-4">
+	    名前と概要を縦に積むリストにして、画面幅によらず概要が横幅いっぱいを使えるようにする (#57) */}
+	<ul class="row-list">
 		{works.map((work) => (
-			<li class="list-row items-center after:border-base-content/10 transition-colors hover:bg-base-200 active:bg-base-200">
-				<img src={work.icon} alt="" width={32} height={32} class="size-8" />
-				{/* グリッドの列は既定で中身より縮まず、1行省略の概要が行を押し広げるためmin-w-0で縮めるようにする */}
-				<div class="min-w-0">
-					{/* liをaにはできないため、リンクの::afterを行全体に広げて
-					    クリック領域にするstretched linkパターン(list-rowがrelativeで基準) */}
-					<a
-						href={work.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-base font-semibold text-base-content after:absolute after:inset-0 after:rounded-box focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
-					>
+			<li>
+				<img src={work.icon} alt="" width={32} height={32} />
+				{/* グリッドの列は既定で中身より縮まず、1行省略の概要が行を押し広げるためmin-width: 0で縮めるようにする */}
+				<div class="text">
+					{/* liをaにはできないため、リンクの::afterを行全体に広げてクリック領域にする */}
+					<a href={work.url} target="_blank" rel="noopener noreferrer" class="row-link">
 						{work.title}
 					</a>
 					{/* 概要は1行に収め、はみ出す分は省略する */}
-					<p class="text-base-content/70 truncate">{work.summary}</p>
+					<p class="summary">{work.summary}</p>
 				</div>
 			</li>
 		))}
 	</ul>
 </Section>
+
+<style>
+	/* hover背景が見出しの左端より外に出るよう、行の左右パディング分だけ広げる */
+	ul {
+		margin: -1rem;
+		font-size: 0.875rem;
+	}
+
+	li {
+		align-items: center;
+	}
+
+	img {
+		width: 2rem;
+		height: 2rem;
+	}
+
+	.text {
+		min-width: 0;
+	}
+
+	.summary {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+</style>

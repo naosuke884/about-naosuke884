@@ -2,15 +2,30 @@
 import SocialLinks from "../../../components/social-links/SocialLinks.astro";
 ---
 
-<section id="about" class="pt-12 pb-8 section-px">
-	<div class="max-w-3xl mx-auto">
+<section id="about" class="section-px">
+	<div class="content">
 		<h1 class="text-display">Hayashi Naoki</h1>
-		<p class="text-subheading text-base-content/70 mt-2 mb-4">ソフトウェアエンジニア</p>
+		<p class="text-subheading role">ソフトウェアエンジニア</p>
 
-		<p class="text-body mb-8">
+		<p class="text-body intro">
 			SIerで保守開発をしています。<a href="#works" class="link">個人開発</a>も少し取り組んでいます。<a href="/blog/" class="link">ブログ</a>を書いています。にわか卒業を目指しています。
 		</p>
 
 		<SocialLinks />
 	</div>
 </section>
+
+<style>
+	section {
+		padding-block: 3rem 2rem;
+	}
+
+	.role {
+		margin-block: 0.5rem 1rem;
+		color: var(--color-muted);
+	}
+
+	.intro {
+		margin-bottom: 2rem;
+	}
+</style>

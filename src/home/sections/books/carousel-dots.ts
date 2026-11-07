@@ -13,7 +13,7 @@ export function setupBooksCarouselDots(): void {
 	const measure = () => {
 		maxScroll = carousel.scrollWidth - carousel.clientWidth;
 		step = items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : 1;
-		dotsWrap.classList.toggle("invisible", maxScroll <= 8);
+		dotsWrap.toggleAttribute("data-hidden", maxScroll <= 8);
 	};
 
 	const update = () => {
@@ -25,8 +25,7 @@ export function setupBooksCarouselDots(): void {
 		if (next === active) return;
 		active = next;
 		for (const [i, dot] of dots.entries()) {
-			dot.classList.toggle("bg-base-content", i === active);
-			dot.classList.toggle("bg-base-content/20", i !== active);
+			dot.toggleAttribute("data-active", i === active);
 		}
 	};
 

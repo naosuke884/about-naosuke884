@@ -1,7 +1,6 @@
 // @ts-check
 
 import cloudflare from "@astrojs/cloudflare";
-import tailwindcss from "@tailwindcss/vite";
 import { satteri } from "@astrojs/markdown-satteri";
 import { defineConfig, fontProviders } from "astro/config";
 import { defineHastPlugin } from "satteri";
@@ -61,7 +60,6 @@ export default defineConfig({
 	],
 
 	vite: {
-		plugins: [tailwindcss()],
 		// devの依存事前バンドルがネイティブモジュール(.node)を読もうとして失敗するため除外する。
 		// アダプターはユーザーのexcludeをサーバー環境(ssr/prerender)に引き継ぐので、ここに書けば足りる
 		optimizeDeps: { exclude: ["@resvg/resvg-js"] },

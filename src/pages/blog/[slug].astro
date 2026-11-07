@@ -19,37 +19,73 @@ const formattedDate = formatDate(date);
 	description={description}
 	ogImage={`/blog/${entry.id}/og.png`}
 >
-	<article class="py-12 section-px">
-		<div class="max-w-3xl mx-auto">
-			<header class="flex flex-col items-center gap-3 text-center">
-				<span class="text-5xl mb-2" aria-hidden="true">{emoji}</span>
+	<article class="section-px">
+		<div class="content">
+			<header>
+				<span class="emoji" aria-hidden="true">{emoji}</span>
 				<h1 class="text-heading">{title}</h1>
-				<div class="flex items-center gap-2">
-					<time datetime={formattedDate} class="text-small text-base-content/70 tabular-nums">
+				<div class="meta">
+					<time datetime={formattedDate} class="text-small">
 						{formattedDate}
 					</time>
 					<CopyLinkButton label="この記事へのリンクをコピー" />
 				</div>
 			</header>
 			{externalUrl && <LinkPreviewCard url={externalUrl} />}
-			<div class="blog-body mt-8">
+			<div class="blog-body">
 				<Content />
 			</div>
-			<div class="text-center">
-				<a href="/blog/" class="link text-small text-base-content/70 mt-12 inline-block"
-					>← ブログ一覧へ戻る</a
-				>
+			<div class="back">
+				<a href="/blog/" class="link text-small">← ブログ一覧へ戻る</a>
 			</div>
 		</div>
 	</article>
 </Layout>
 
 <!-- Markdown本文の最小スタイリング。<Content />の出力はスコープ対象外なので:global()で当てる。
-     文字サイズ・トーンはglobal.cssの@layer base(本文=text-body/70%)に任せ、
-     余白とpreflightで消えた装飾だけ復元する -->
+     文字サイズ・トーンはglobal.cssの@layer base(本文=--text-body/70%)に任せ、
+     余白とリセットで消えた装飾だけ復元する -->
 <style>
+	article {
+		padding-block: 3rem;
+	}
+
+	header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		text-align: center;
+	}
+
+	.emoji {
+		margin-bottom: 0.5rem;
+		font-size: 3rem;
+		line-height: 1;
+	}
+
+	.meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	time {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.back {
+		text-align: center;
+	}
+
+	.back a {
+		display: inline-block;
+		margin-top: 3rem;
+	}
+
 	/* 長いURLや英単語がモバイルで横スクロールを生まないよう折り返す */
 	.blog-body {
+		margin-top: 2rem;
 		overflow-wrap: anywhere;
 	}
 

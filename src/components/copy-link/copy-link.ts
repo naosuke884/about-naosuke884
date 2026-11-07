@@ -5,7 +5,6 @@ export function setupCopyLinkButtons(): void {
 		.querySelectorAll<HTMLButtonElement>("[data-copy-link]")
 		.forEach((button) => {
 			const wrapper = button.parentElement;
-			const hoverTip = wrapper?.querySelector<HTMLElement>("[data-copy-tip]");
 			const copiedTip =
 				wrapper?.querySelector<HTMLElement>("[data-copied-tip]");
 			const status = wrapper?.querySelector<HTMLElement>("[data-copy-status]");
@@ -38,17 +37,14 @@ export function setupCopyLinkButtons(): void {
 						? "リンクをコピーしました"
 						: "リンクをコピーできませんでした";
 				}
-				if (copied) button.classList.add("swap-active");
-				hoverTip?.classList.add("opacity-0!");
-				copiedTip?.classList.add("opacity-100!");
+				// 失敗時はアイコンをチェックに切り替えず、ツールチップだけで結果を出す
+				if (wrapper) wrapper.dataset.state = copied ? "copied" : "failed";
 
 				clearTimeout(timers.get(button));
 				timers.set(
 					button,
 					window.setTimeout(() => {
-						button.classList.remove("swap-active");
-						hoverTip?.classList.remove("opacity-0!");
-						copiedTip?.classList.remove("opacity-100!");
+						if (wrapper) delete wrapper.dataset.state;
 						if (status) status.textContent = "";
 					}, 1500),
 				);

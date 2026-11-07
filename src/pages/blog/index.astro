@@ -10,31 +10,25 @@ const entries = (await getCollection("blog")).toSorted(
 ---
 
 <Layout title="ブログ" description="Hayashi Naokiのブログ">
-	<section class="py-12 section-px">
-		<div class="max-w-3xl mx-auto">
-			<SectionHeading level={1} class="mb-8">ブログ</SectionHeading>
-			{/* 行の区切り線(list-rowの::after)はWorksと揃えて10%にする。
-			    hover背景が見出しの左端より外に出るよう、行の左右パディング分だけ-mx-4で広げる */}
-			<ul class="list -mx-4">
+	<section class="section-px">
+		<div class="content">
+			<div class="heading">
+				<SectionHeading level={1}>ブログ</SectionHeading>
+			</div>
+			<ul class="row-list">
 				{
 					entries.map((entry) => (
-						<li class="list-row after:border-base-content/10 transition-colors hover:bg-base-200 active:bg-base-200">
-							<span class="text-3xl self-center" aria-hidden="true">
+						<li>
+							<span class="emoji" aria-hidden="true">
 								{entry.data.emoji}
 							</span>
-							<div class="list-col-grow min-w-0 flex flex-col gap-1">
-								<time
-									datetime={formatDate(entry.data.date)}
-									class="text-small text-base-content/70 tabular-nums"
-								>
+							<div class="text">
+								<time datetime={formatDate(entry.data.date)} class="text-small">
 									{formatDate(entry.data.date)}
 								</time>
-								{/* aの::afterを行全体に広げてクリック領域にするstretched linkパターン(list-rowがrelativeで基準) */}
-								<a
-									href={`/blog/${entry.id}/`}
-									class="text-base font-semibold text-base-content after:absolute after:inset-0 after:rounded-box focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-primary focus-visible:after:-outline-offset-2"
-								>
-									<span class="line-clamp-2">{entry.data.title}</span>
+								{/* liをaにはできないため、リンクの::afterを行全体に広げてクリック領域にする */}
+								<a href={`/blog/${entry.id}/`} class="row-link">
+									<span class="title">{entry.data.title}</span>
 								</a>
 							</div>
 						</li>
@@ -44,3 +38,43 @@ const entries = (await getCollection("blog")).toSorted(
 		</div>
 	</section>
 </Layout>
+
+<style>
+	section {
+		padding-block: 3rem;
+	}
+
+	.heading {
+		margin-bottom: 2rem;
+	}
+
+	/* hover背景が見出しの左端より外に出るよう、行の左右パディング分だけ広げる */
+	ul {
+		margin-inline: -1rem;
+		font-size: 0.875rem;
+	}
+
+	.emoji {
+		align-self: center;
+		font-size: 1.875rem;
+		line-height: calc(2.25 / 1.875);
+	}
+
+	.text {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		min-width: 0;
+	}
+
+	time {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.title {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
+</style>

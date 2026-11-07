@@ -4,30 +4,52 @@ import MailIcon from "./mail.svg";
 import XIcon from "./x.svg";
 ---
 
-<div class="flex gap-6">
+<div class="social-links">
 	<a
 		href="https://github.com/naosuke884"
 		target="_blank"
 		rel="noopener noreferrer"
 		aria-label="GitHub"
-		class="p-2 -m-2 text-base-content/70 hover:text-base-content transition-colors"
 	>
-		<GitHubIcon class="size-6" fill="currentColor" aria-hidden="true" />
+		<GitHubIcon fill="currentColor" aria-hidden="true" />
 	</a>
 	<a
 		href="https://x.com/884naoki_dev"
 		target="_blank"
 		rel="noopener noreferrer"
 		aria-label="X"
-		class="p-2 -m-2 text-base-content/70 hover:text-base-content transition-colors"
 	>
-		<XIcon class="size-6" fill="currentColor" aria-hidden="true" />
+		<XIcon fill="currentColor" aria-hidden="true" />
 	</a>
 	<a
 		href="mailto:884naoki.dev@gmail.com"
 		aria-label="メール"
-		class="p-2 -m-2 text-base-content/70 hover:text-base-content transition-colors"
 	>
-		<MailIcon class="size-6" fill="currentColor" aria-hidden="true" />
+		<MailIcon fill="currentColor" aria-hidden="true" />
 	</a>
 </div>
+
+<style>
+	.social-links {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	a {
+		padding: 0.5rem;
+		margin: -0.5rem;
+		color: var(--color-muted);
+		transition: var(--transition-colors);
+
+		@media (hover: hover) {
+			&:hover {
+				color: var(--color-base-content);
+			}
+		}
+	}
+
+	a :global(svg) {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+</style>

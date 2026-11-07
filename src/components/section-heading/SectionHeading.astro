@@ -2,13 +2,12 @@
 // セクション見出し。ページタイトルはlevel=1、ページ内セクションはlevel=2
 interface Props {
 	level?: 1 | 2;
-	class?: string;
 }
 
-const { level = 2, class: className } = Astro.props;
+const { level = 2 } = Astro.props;
 const Heading = level === 1 ? "h1" : "h2";
 ---
 
-<Heading class:list={["text-heading", className]}>
+<Heading class="text-heading">
 	<slot />
 </Heading>

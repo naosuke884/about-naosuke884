@@ -9,12 +9,25 @@ interface Props {
 const { id, title } = Astro.props;
 ---
 
-<section id={id} class="py-8 section-px">
-	<div class="max-w-3xl mx-auto">
-		<div class="mb-6 flex items-center justify-between">
+<section id={id} class="section-px">
+	<div class="content">
+		<div class="heading-row">
 			<SectionHeading>{title}</SectionHeading>
 			<slot name="heading-extra" />
 		</div>
 		<slot />
 	</div>
 </section>
+
+<style>
+	section {
+		padding-block: 2rem;
+	}
+
+	.heading-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1.5rem;
+	}
+</style>

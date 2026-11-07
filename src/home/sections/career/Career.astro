@@ -4,24 +4,75 @@ import { careers } from "./data";
 ---
 
 <Section id="career" title="経歴">
-	{/* 期間・所属を左右に振り分けると狭い画面で窮屈になるため、timeline-compactで全項目を右側に寄せ、
-	    snap-iconで丸印を各項目の先頭行に揃える。
-	    ただしsnap-iconの--timeline-col-startがcompactの指定を上書きして左列が残るため、liで0に戻す */}
-	<ul class="timeline timeline-vertical timeline-compact timeline-snap-icon">
+	{/* 期間・所属を左右に振り分けると狭い画面で窮屈になるため、左端に丸印と線、右側に全項目を置く。
+	    丸印は各項目の先頭行に揃える */}
+	<ul class="timeline">
 		{careers.map((career, index) => (
-			<li class="[--timeline-col-start:0]">
-				{index > 0 && <hr class="bg-base-content/10" />}
-				<div class="timeline-middle">
-					<span class="block size-3 rounded-full bg-primary" aria-hidden="true" />
+			<li>
+				{index > 0 && <hr class="line-before" />}
+				<span class="dot" aria-hidden="true" />
+				<div class="body">
+					<p class="text-small">{career.period}</p>
+					<h3>{career.organization}</h3>
+					<p>{career.role}</p>
+					{career.description && <p class="text-body description">{career.description}</p>}
 				</div>
-				<div class="timeline-end ms-4 mb-8">
-					<p class="text-small text-base-content/70">{career.period}</p>
-					<h3 class="text-base font-semibold">{career.organization}</h3>
-					<p class="text-base-content/70">{career.role}</p>
-					{career.description && <p class="mt-2 text-body">{career.description}</p>}
-				</div>
-				{index < careers.length - 1 && <hr class="bg-base-content/10" />}
+				{index < careers.length - 1 && <hr class="line-after" />}
 			</li>
 		))}
 	</ul>
 </Section>
+
+<style>
+	/* 1列目に丸印と線、2列目に本文を置く。行は「丸印の上の余白・丸印・残り」の3段で、
+	   本文は3段すべてにまたがる。線は丸印の上下の段に置き、隣の項目の線とつなげる */
+	li {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-rows: 0.5rem auto minmax(0, 1fr);
+		justify-items: center;
+		align-items: center;
+	}
+
+	.dot {
+		grid-area: 2 / 1;
+		display: block;
+		width: 0.75rem;
+		height: 0.75rem;
+		border-radius: 9999px;
+		background-color: var(--color-primary);
+	}
+
+	hr {
+		width: 0.25rem;
+		height: 100%;
+		border: none;
+		background-color: var(--color-line);
+	}
+
+	.line-before {
+		grid-area: 1 / 1;
+		border-radius: 0 0 0.5rem 0.5rem;
+	}
+
+	.line-after {
+		grid-area: 3 / 1;
+		border-radius: 0.5rem 0.5rem 0 0;
+	}
+
+	.body {
+		grid-area: 1 / 2 / 4 / 3;
+		justify-self: start;
+		margin: 0.25rem 0.25rem 2rem 1rem;
+	}
+
+	h3 {
+		font-size: 1rem;
+		line-height: 1.5;
+		font-weight: 600;
+	}
+
+	.description {
+		margin-top: 0.5rem;
+	}
+</style>
