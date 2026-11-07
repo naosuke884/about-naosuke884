@@ -9,7 +9,8 @@ export const getStaticPaths = getBlogStaticPaths;
 
 const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
-const { title, description, date, emoji, externalUrl, toc } = entry.data;
+const { title, description, date, updated, emoji, externalUrl, toc } =
+	entry.data;
 
 // h3は直前のh2の下に入れ子にする。h2より前のh3は親がないので目次に出さない
 type TocItem = { slug: string; text: string; children: TocItem[] };
@@ -25,6 +26,11 @@ if (toc) {
 }
 
 const formattedDate = formatDate(date);
+// 公開日と同じ日の更新は出さない
+const formattedUpdated =
+	updated && formatDate(updated) !== formattedDate
+		? formatDate(updated)
+		: undefined;
 ---
 
 <Layout
@@ -41,6 +47,13 @@ const formattedDate = formatDate(date);
 					<time datetime={formattedDate} class="text-small">
 						{formattedDate}
 					</time>
+					{
+						formattedUpdated && (
+							<span class="text-small">
+								(更新 <time datetime={formattedUpdated}>{formattedUpdated}</time>)
+							</span>
+						)
+					}
 					<CopyLinkButton label="この記事へのリンクをコピー" />
 				</div>
 			</header>

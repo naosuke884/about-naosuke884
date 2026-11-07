@@ -7,6 +7,8 @@ const blog = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		date: z.coerce.date(),
+		// 公開後に内容を変えた日。dateとともにpre-commit(scripts/stamp-blog-dates.ts)が書き込む
+		updated: z.coerce.date().optional(),
 		// 記事ページのmeta description・og:description。記事ごとの説明文を必ず出すため必須にする
 		description: z.string(),
 		// OG画像に載せる絵文字(1グリフ)
