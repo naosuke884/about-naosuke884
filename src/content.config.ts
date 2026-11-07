@@ -13,6 +13,8 @@ const blog = defineCollection({
 		emoji: z.string().default("📝"),
 		// 外部記事を紹介する場合のリンク先。未指定なら自分の記事
 		externalUrl: z.url().optional(),
+		// 本文の前にh2・h3の目次を出す。短い記事では邪魔になるため記事ごとに選ぶ
+		toc: z.boolean().default(false),
 	}),
 });
 

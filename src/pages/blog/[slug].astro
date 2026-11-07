@@ -8,8 +8,21 @@ import Layout from "../../layouts/Layout.astro";
 export const getStaticPaths = getBlogStaticPaths;
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
-const { title, description, date, emoji, externalUrl } = entry.data;
+const { Content, headings } = await render(entry);
+const { title, description, date, emoji, externalUrl, toc } = entry.data;
+
+// h3は直前のh2の下に入れ子にする。h2より前のh3は親がないので目次に出さない
+type TocItem = { slug: string; text: string; children: TocItem[] };
+const tocItems: TocItem[] = [];
+if (toc) {
+	for (const { depth, slug, text } of headings) {
+		if (depth === 2) {
+			tocItems.push({ slug, text, children: [] });
+		} else if (depth === 3) {
+			tocItems.at(-1)?.children.push({ slug, text, children: [] });
+		}
+	}
+}
 
 const formattedDate = formatDate(date);
 ---
@@ -32,6 +45,31 @@ const formattedDate = formatDate(date);
 				</div>
 			</header>
 			{externalUrl && <LinkPreviewCard url={externalUrl} />}
+			{
+				tocItems.length > 0 && (
+					<nav class="toc" aria-labelledby="toc-title">
+						<p id="toc-title" class="toc-title">
+							目次
+						</p>
+						<ol>
+							{tocItems.map((item) => (
+								<li>
+									<a href={`#${item.slug}`}>{item.text}</a>
+									{item.children.length > 0 && (
+										<ol>
+											{item.children.map((child) => (
+												<li>
+													<a href={`#${child.slug}`}>{child.text}</a>
+												</li>
+											))}
+										</ol>
+									)}
+								</li>
+							))}
+						</ol>
+					</nav>
+				)
+			}
 			<div class="blog-body">
 				<Content />
 			</div>
@@ -81,6 +119,46 @@ const formattedDate = formatDate(date);
 	.back a {
 		display: inline-block;
 		margin-top: 3rem;
+	}
+
+	.toc {
+		margin-top: 2rem;
+		padding: 1rem 1.25rem;
+		border: 1px solid var(--color-base-300);
+		border-radius: var(--radius-field);
+		font-size: var(--text-small);
+		line-height: var(--text-small--line-height);
+	}
+
+	.toc-title {
+		font-weight: 600;
+		color: var(--color-base-content);
+	}
+
+	.toc ol {
+		list-style: decimal;
+		padding-inline-start: 1.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.toc li::marker {
+		color: var(--color-primary);
+	}
+
+	.toc a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: var(--color-base-300);
+		text-underline-offset: 0.2em;
+
+		&:hover {
+			color: var(--color-primary);
+		}
+
+		&:focus-visible {
+			outline: 2px solid;
+			outline-offset: 2px;
+		}
 	}
 
 	/* 長いURLや英単語がモバイルで横スクロールを生まないよう折り返す */
