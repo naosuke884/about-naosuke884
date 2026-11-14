@@ -15,11 +15,11 @@
 		"check:fix": "biome check --write ."
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.4.2",
-		"astro": "^7.3.6",
-		"budoux": "^0.10.0",
-		"linkedom": "^0.18.14",
-		"wrangler": "^4.156.0"
+		"@astrojs/cloudflare": "^14.4.6",
+		"astro": "^7.4.7",
+		"budoux": "^0.10.3",
+		"linkedom": "^0.18.15",
+		"wrangler": "^4.158.0"
 	},
 	"devDependencies": {
 		"@astrojs/check": "^0.9.12",
