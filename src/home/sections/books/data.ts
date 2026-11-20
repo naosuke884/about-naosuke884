@@ -3,6 +3,7 @@ import agileSamurai from "./covers/agile-samurai.jpg";
 import domainDrivenDesignIntro from "./covers/domain-driven-design-intro.jpg";
 import goodCodeBadCode from "./covers/good-code-bad-code.jpg";
 import practicalGo from "./covers/practical-go.jpg";
+import unitTesting from "./covers/unit-testing.jpg";
 
 export type Book = {
 	/** モーダルのDOM idとトリガーの対応付けに使う */
@@ -48,5 +49,14 @@ export const books: Book[] = [
 		memo:
 			"初めて読んだマネジメントの本。タスクの分け方や、スケジュールの立て方に疎かったので、かなり学びが多かった。" +
 			"『ドメイン駆動設計入門』と同じく視野を広げてくれた一冊。特にポイントでの見積もり、期待をマネジメントする考え方が印象に残っている。",
+	},
+	{
+		id: "unit-testing",
+		title: "単体テストの考え方/使い方",
+		cover: unitTesting,
+		url: "https://book.mynavi.jp/ec/products/detail/id=134252",
+		memo:
+			"テストコードに対する考え方がアップデートできた。" +
+			"この本を読む前は「ロンドン学派」寄りの価値観だった気がするが、読んだあとはすっかり「古典学派」になった。",
 	},
 ];
