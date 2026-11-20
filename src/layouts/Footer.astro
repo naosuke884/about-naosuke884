@@ -5,8 +5,6 @@ import SocialLinks from "../components/social-links/SocialLinks.astro";
 <footer class="section-px">
 	<div class="content">
 		<SocialLinks />
-		{/* 年を動的に出すとビルド時の年で固定されて古くなるため、公開年で固定する */}
-		<p>&copy; 2026 Hayashi Naoki</p>
 	</div>
 </footer>
 
@@ -20,6 +18,5 @@ import SocialLinks from "../components/social-links/SocialLinks.astro";
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		row-gap: 1rem;
 	}
 </style>
