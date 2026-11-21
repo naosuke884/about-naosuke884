@@ -14,7 +14,7 @@ import { careers } from "./data";
 				<div class="body">
 					<p class="text-small">{career.period}</p>
 					<h3>{career.organization}</h3>
-					<p>{career.role}</p>
+					{career.role && <p>{career.role}</p>}
 					{career.description && <p class="text-body description">{career.description}</p>}
 				</div>
 				{index < careers.length - 1 && <hr class="line-after" />}

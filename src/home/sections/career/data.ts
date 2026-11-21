@@ -2,7 +2,7 @@ export type Career = {
 	/** 表示用の期間。例: "2024.04 – 現在" */
 	period: string;
 	organization: string;
-	role: string;
+	role?: string;
 	description?: string;
 };
 
@@ -11,7 +11,6 @@ export const careers: Career[] = [
 	{
 		period: "2026.04 – 現在",
 		organization: "中規模SIer",
-		role: "ソフトウェアエンジニア",
 		description: "Webサイトの保守開発を担当。",
 	},
 	{
