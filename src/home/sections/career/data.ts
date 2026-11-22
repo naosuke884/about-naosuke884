@@ -11,7 +11,7 @@ export const careers: Career[] = [
 	{
 		period: "2026.04 – 現在",
 		organization: "中規模SIer",
-		description: "Webサイトの保守開発を担当。",
+		description: "Webサイトの保守開発を担当",
 	},
 	{
 		period: "2020.04 – 2026.03",
