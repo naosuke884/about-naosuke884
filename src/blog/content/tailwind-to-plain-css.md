@@ -5,7 +5,7 @@ description: AIに直してもらううちに、daisyUIの内部仕様に合わ�
 emoji: 🎨
 ---
 
-このサイトはTailwindとdaisyUIでスタイルを書いていたが、どちらも外して素のCSSに移行した。
+このサイトは[Tailwind](https://tailwindcss.com/)と[daisyUI](https://daisyui.com/)でスタイルを書いていたが、どちらも外して素のCSSに移行した。
 
 daisyUIのコンポーネントを少し違う見た目で使うための回避策が増えてきたのが理由だ。Tailwindでも、クラスを重ねて見た目を上書きしていけば同じことが起こりうる。そのため、まとめて外した。
 
