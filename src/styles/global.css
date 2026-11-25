@@ -27,12 +27,12 @@
 	:root {
 		color-scheme: dark;
 		--color-primary: #89aed0;
-		--color-primary-content: #151520;
-		--color-base-100: #151520;
-		--color-base-200: #1d1d2b;
-		--color-base-300: #252536;
-		--color-base-content: #ededf0;
-		--canvas: #0c0c14;
+		--color-primary-content: #141416;
+		--color-base-100: #141416;
+		--color-base-200: #1c1c1f;
+		--color-base-300: #26262a;
+		--color-base-content: #ececec;
+		--canvas: #0a0a0b;
 	}
 }
 
