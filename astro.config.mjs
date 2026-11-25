@@ -2,6 +2,7 @@
 
 import cloudflare from "@astrojs/cloudflare";
 import { satteri } from "@astrojs/markdown-satteri";
+import { transformerRenderIndentGuides } from "@shikijs/transformers";
 import { defineConfig, fontProviders } from "astro/config";
 import { defineHastPlugin } from "satteri";
 import { markdownTablesPlugin } from "./src/blog/markdown-tables.ts";
@@ -45,6 +46,8 @@ export default defineConfig({
 		// コードブロックをライト/ダーク両テーマに対応させる(切替CSSはblog/[slug].astro側)
 		shikiConfig: {
 			themes: { light: "github-light", dark: "github-dark" },
+			// 行頭の字下げを1段ずつspan.indentに包む(縦線のCSSはblog/[slug].astro側)
+			transformers: [transformerRenderIndentGuides()],
 		},
 		processor: satteri({ hastPlugins: [externalLinksPlugin, markdownTablesPlugin] }),
 	},
